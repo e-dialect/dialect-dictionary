@@ -1,0 +1,66 @@
+<template>
+  <div class="footer">
+    <a-row align="middle" justify="space-around" type="flex">
+      <!--      <a-col span="3">-->
+      <!--        <img src="@/assets/white.svg" alt="兴化语记" width="240">-->
+      <!--      </a-col>-->
+      <!--            <a-col span="3">-->
+      <!--                <a-popover>-->
+      <!--                <template v-slot:content>  <img width="400" src="@/assets/二维码2.jpg">  </template>-->
+      <!--                <img width="60" src="@/assets/二维码1.jpg">-->
+      <!--                </a-popover>-->
+      <!--            </a-col>-->
+      <a-col span="12">
+
+        <h4 style="color: white"> 相关网站：
+          <a href="https://www.ydict.net/" style="color: white" target="_blank">榕典</a> &#8194;|
+          <a href="https://www.moedict.tw/" style="color: white" target="_blank">萌典</a>&#8194;|
+          <a href="https://zhongguoyuyan.cn/" style="color: white" target="_blank">中国语言保护工程采录展示平台</a>
+        </h4>
+
+        <div>
+          {{ $site.name }} · {{ $site.dialect.name }}
+          <a v-if="$site.mobileUrl" :href="$site.mobileUrl" style="color: #C7C7C7">移动版</a>
+        </div>
+        <div>
+          内容来源：<a v-if="$site.contentSource.url" :href="$site.contentSource.url">{{ $site.contentSource.name }}</a>
+          <span v-else>{{ $site.contentSource.name }}</span>
+          <p>{{ $site.contentSource.notice }}</p>
+        </div>
+
+        <div>
+          版权所有 © {{ new Date().getFullYear() }}
+          <a href="https://edialect.top" target="_blank">E方言</a>
+          <a v-if="$featureEnabled('legacyLinks')" href="http://beian.miit.gov.cn" style="color:#C7C7C7" target="_blank">
+            闽ICP备2021006892号
+          </a>
+        </div>
+
+      </a-col>
+    </a-row>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'Footer'
+}
+</script>
+
+<style scoped>
+.footer {
+  background: rgb(46, 46, 46);
+  width: 100%;
+  color: white;
+}
+
+h4 {
+  color: rgb(199, 199, 199);
+}
+
+p {
+  font-size: 0.1rem;
+  margin: auto;
+  color: #8b8b8b;
+}
+</style>

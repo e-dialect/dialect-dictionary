@@ -1,0 +1,62 @@
+{
+  "sameHostIsolatedDirectory": true,
+  "secondHostTested": false,
+  "reusedRound2Images": {
+    "backend": "sha256:a3d7d8d41a8e79b2d86ca8e20c632e6de07634ed662f291b01b330709e0cb863",
+    "website": "sha256:3933d9fa1bc76dbf812897a1369a31bdd4d6214e1a20af48059dd250b289d67c"
+  },
+  "sourceArchiveSha256": "79d5ce020129e798ea3ca4c18322a390248a4135fff68dfa2f74e70f9a4e60d5",
+  "noProductionData": true,
+  "packageVerification": {
+    "status": "ok",
+    "version": "0.1.0-candidate.3",
+    "sourceCommit": "f7db558e0f3339c59cec6ca0ff050b2c78022c4a",
+    "filesVerified": 719
+  },
+  "sourceHealthyWebH5": true,
+  "backup": {
+    "backup": "snapshot.tar.gz",
+    "sha256": "eeffe63065e8a183069d5457f849990fda20857338c3af51817d0496a3223d54",
+    "files": 9
+  },
+  "restore": {
+    "restored": "runtime/recovery-check",
+    "files": 9,
+    "integrity": "ok",
+    "foreignKeys": "ok"
+  },
+  "completed": true,
+  "counts": {
+    "users": 1,
+    "words": 2,
+    "pronunciations": 1
+  },
+  "businessContentSourceRolesAndMediaRestored": true,
+  "mediaSha256": "c726d333dd159a31423f3480dbb1c5c4a9dfcd30efe1f7e12ade390dc92e8908",
+  "disabledWriteRejected": 403,
+  "sameVersionDataRollbackAfterSyntheticEdit": true,
+  "crossVersionSchemaRollbackTested": false,
+  "configPolicyReleaseByteIdentical": true,
+  "persistentCredentialsGenerated": false,
+  "sourceStopped": true,
+  "restoredStopped": true,
+  "applicationCodeBaseline": "4dc1ac032a3d312c1b6d04b0982bcf5e2ee9cd4f",
+  "testedDeliveryCommit": "f7db558e0f3339c59cec6ca0ff050b2c78022c4a",
+  "testedPackageWasClean": true,
+  "environment": {
+    "dockerEngine": "29.8.2",
+    "dockerCompose": "5.5.0",
+    "imagePlatform": "linux/amd64",
+    "hostPython": "3.13.16",
+    "resourcePolicy": "No rebuild, model downloads, stress test or concurrent compilers; sequential isolated services."
+  },
+  "localRegression": {
+    "offlineSnapshotAndPackageTests": 7,
+    "siteConfigTests": 4,
+    "frontendConfigGroups": 9,
+    "uniPlatformScriptsPerTarget": 13,
+    "capabilitiesFailClosed": "passed"
+  },
+  "upstreamHeavyValidation": "Round 2 clean frozen image installation/build, 28 backend regressions and MP static build reused; application sources unchanged in this delivery commit.",
+  "harnessHistory": "Earlier dirty draft passed recovery but used a wrong capability assertion shape. Corrected; the entire clean-package run above passed without that correction step."
+}

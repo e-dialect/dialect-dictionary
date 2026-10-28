@@ -1,0 +1,28 @@
+{
+  "name": "山城语库",
+  "shortName": "山城",
+  "dialect": {
+    "name": "客家话",
+    "code": "hak"
+  },
+  "logo": "/site-logo.svg",
+  "apiBase": "/api",
+  "webUrl": "http://localhost:18081",
+  "mobileUrl": "http://localhost:18081/mobile",
+  "contentSource": {
+    "name": "山城独立内容源",
+    "url": "",
+    "notice": "空白客家话站点示例；不将莆仙音系、地区或词典当作客家话资料。内容授权由实例运营者核验。"
+  },
+  "features": {
+    "pinyin": false,
+    "kinship": false,
+    "geography": false,
+    "quiz": false,
+    "music": false,
+    "dailyExpressions": false,
+    "translation": false,
+    "wechat": false
+  },
+  "phonologyAudioBase": ""
+}

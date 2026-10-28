@@ -1,0 +1,56 @@
+{
+  "baseline": "a08071947cc1c63db7f4d8ff34c7e37d3644f89d",
+  "closedAt": "2026-10-25T07:35:13.143203+00:00",
+  "cleanDockerBuild": {
+    "exit": 0,
+    "seconds": 684.9,
+    "hostNodeModulesCopied": false,
+    "command": "docker compose build --no-cache website",
+    "dockerfile": "deploy/website.Dockerfile"
+  },
+  "finalSourceImageBuild": 0,
+  "backendTests": 28,
+  "quickStartSyntheticTests": 8,
+  "platformPreprocessorScriptsPerTarget": 13,
+  "clientCapabilityTests": "passed",
+  "mpStaticBuild": 0,
+  "recovery": {
+    "syntheticOnly": true,
+    "sqliteBackupApi": true,
+    "archiveSha256": "3e2df1599d6625c93db8ad78a2a99c4fb275801c06829c925a9956d87281d4e2",
+    "allFileHashesPreserved": true,
+    "sourceConfigPreserved": true,
+    "policyAndVersionMetadataPreserved": true,
+    "counts": {
+      "auth_user": 1,
+      "word_word": 2,
+      "word_pronunciation": 1
+    },
+    "realMigratedSchemaImport": true,
+    "unpublishedImportPreserved": true,
+    "restoredBackendProbe": {
+      "health": 200,
+      "importedWordId": 7,
+      "source": "http://localhost:18085/api/media/quick-start/0007synthetic.mp3"
+    },
+    "freshRestoredComposeHealth": 200,
+    "mediaOriginalUrlBytesMatch": true,
+    "h5HttpStatus": 200,
+    "atomicPolicyReplacementObserved": true,
+    "policyVisibilitySynchronizedBeforeAssertions": true,
+    "staffOnlyDeniesOrdinaryUser": true,
+    "enabledPolicyStillRequiresAuthentication": true,
+    "allowedSyntheticApplication": 200,
+    "revokedPolicyDeniesOldAuthenticatedClient": true,
+    "noReviewIdentityOrPrivilegeChange": true
+  },
+  "limitations": [
+    "WeChat official product/API original pages inaccessible via current source reader; no assertion of current platform review approval.",
+    "No real device, WeChat account/AppID, permissions, registration or publication verified.",
+    "quick-start fixed upstream has no LICENSE; local review adaptation is not relicensed by root AGPL.",
+    "Synthetic SQLite/media/public-config/policy/version restoration only; no production data, secret/session migration, full semantic model or production deployment.",
+    "Host-to-container file propagation can conservatively close policy briefly; runtime assertions synchronized to container-visible policy hash."
+  ],
+  "allTaskAgentsCompleted": true,
+  "taskSourceAndRestoredContainersStopped": true
+}

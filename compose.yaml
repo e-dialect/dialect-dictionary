@@ -1,0 +1,55 @@
+name: dialect-dictionary-candidate
+services:
+  backend:
+    image: ${BACKEND_IMAGE:-dialect-dictionary-candidate-backend:latest}
+    build:
+      context: .
+      dockerfile: deploy/backend.Dockerfile
+    environment:
+      DJANGO_SETTINGS_MODULE: HinghwaDict.standalone
+      DICTIONARY_CONFIG: /config/site.json
+      FEATURE_POLICY_PATH: /policy/${FEATURE_POLICY_FILE:-feature-policy.example.json}
+      DICTIONARY_DATA_DIR: /data
+      DICTIONARY_SEED_DEMO: ${SEED_DEMO:-1}
+      SECRET_KEY: ${SECRET_KEY:-}
+      JWT_KEY: ${JWT_KEY:-}
+      DEBUG: "false"
+      SEMANTIC_SEARCH_ENABLED: "false"
+      HF_HUB_OFFLINE: "1"
+    volumes:
+      - dictionary-data:/data
+      - ${FEATURE_POLICY_DIRECTORY:-./config}:/policy:ro
+      - ${SITE_CONFIG:-./config/examples/coast.json}:/config/site.json:ro
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 8
+      start_period: 30s
+    restart: "no"
+    cpus: 1.0
+    mem_limit: 768m
+  website:
+    image: ${WEBSITE_IMAGE:-dialect-dictionary-candidate-website:latest}
+    build:
+      context: .
+      dockerfile: deploy/website.Dockerfile
+    ports:
+      - "127.0.0.1:${HTTP_PORT:-18080}:8080"
+    environment:
+      DICTIONARY_CONFIG: /config/site.json
+    volumes:
+      - ${SITE_CONFIG:-./config/examples/coast.json}:/config/site.json:ro
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, wget, -q, -O, /dev/null, http://127.0.0.1:8080/healthz]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    restart: "no"
+    cpus: 1.0
+    mem_limit: 256m
+volumes:
+  dictionary-data:

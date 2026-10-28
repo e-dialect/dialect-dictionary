@@ -1,0 +1,17 @@
+{
+  "name": "兴化语记",
+  "shortName": "兴化语记",
+  "dialect": { "name": "莆仙方言", "code": "cpx" },
+  "logo": "/site-logo.svg",
+  "apiBase": "/api",
+  "webUrl": "http://localhost:18082",
+  "mobileUrl": "http://localhost:18082/mobile",
+  "contentSource": {
+    "name": "兴化语记既有内容源（待运营者授权导入）",
+    "url": "https://hinghwa.cn",
+    "notice": "此配置保留莆仙专属工具，不携带生产词典、录音或用户数据。原资料与标识继续遵守各自授权；迁移前核验真实线上版本及备份。"
+  },
+  "features": { "pinyin": true, "kinship": true, "geography": true, "quiz": true, "music": true, "dailyExpressions": true, "translation": false, "wechat": false, "legacyLinks": true },
+  "phonologyAudioBase": "https://cos.edialect.top/pinyin/example",
+  "feedback": { "webUrl": "https://support.qq.com/product/420021", "miniProgramAppId": "wx8abaf00ee8c3202e", "productId": "420021" }
+}

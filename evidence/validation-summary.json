@@ -1,0 +1,124 @@
+{
+  "lockSha256": {
+    "web/yarn.lock": "e3a85542c62f6f30168a07010e52b3f8b400ee0951c0d0f83f4d0e2acbcc6455",
+    "uni-app/yarn.lock": "135a1305b01b15577d1fc5a06888133f7d2ac17fe4c4c68f23780f1b6d077f7c",
+    "deploy/requirements.dictionary.lock": "44a05abfd14b323d360680778b898bf1033d72f062d2623953c7625689464e36"
+  },
+  "frontendVersions": {
+    "vue (Web)": "2.7.16",
+    "@vue/cli-service (Web)": "5.0.9",
+    "vue (Uni-App)": "3.5.27",
+    "vite (Uni-App)": "5.4.21",
+    "@dcloudio/uni-app (Uni-App)": "3.0.0-4080720251210001"
+  },
+  "date": "2026-10-25",
+  "sourceVerification": "GitHub connector and exact-commit fetch",
+  "pythonConfigTests": 4,
+  "frontendRuntimeGroups": 9,
+  "backendIntegrationTests": 7,
+  "backendMigrationConsistency": "No changes detected",
+  "wordApplicationPayloadTests": "passed",
+  "frontendBuilds": [
+    {
+      "check": "web-integrity-final",
+      "exit": 0,
+      "seconds": 0.55
+    },
+    {
+      "check": "uni-app-integrity-final",
+      "exit": 0,
+      "seconds": 0.48
+    },
+    {
+      "check": "web-build-final",
+      "exit": 0,
+      "seconds": 16.41
+    },
+    {
+      "check": "uni-app-h5-build-final",
+      "exit": 0,
+      "seconds": 11.61
+    },
+    {
+      "check": "uni-app-weixin-build",
+      "exit": 0,
+      "seconds": 9.12
+    }
+  ],
+  "compose": [
+    {
+      "project": "dictionary-coast",
+      "port": 18080,
+      "name": "海岚词典",
+      "dialect": {
+        "name": "闽南语",
+        "code": "nan"
+      },
+      "configMatches": true,
+      "wordCount": 1,
+      "h5Status": 200,
+      "legacyH5Redirect": "http://localhost:18080/mobile/pages/index",
+      "containers": [
+        {
+          "service": "backend",
+          "imageId": "sha256:2087a7c942bb00acb8636c7f815fbf0771becb7251dfb14c5b51bce383e53200",
+          "status": "healthy"
+        },
+        {
+          "service": "website",
+          "imageId": "sha256:998882810c6133a9a34c0940bf1869c2ee57bc764b686522f7c61c0e4e4bb247",
+          "status": "healthy"
+        }
+      ],
+      "stoppedAfterValidation": true,
+      "volumesPreserved": true
+    },
+    {
+      "project": "dictionary-mountain",
+      "port": 18081,
+      "name": "山城语库",
+      "dialect": {
+        "name": "客家话",
+        "code": "hak"
+      },
+      "configMatches": true,
+      "wordCount": 1,
+      "h5Status": 200,
+      "legacyH5Redirect": "http://localhost:18081/mobile/pages/index",
+      "containers": [
+        {
+          "service": "backend",
+          "imageId": "sha256:2087a7c942bb00acb8636c7f815fbf0771becb7251dfb14c5b51bce383e53200",
+          "status": "healthy"
+        },
+        {
+          "service": "website",
+          "imageId": "sha256:998882810c6133a9a34c0940bf1869c2ee57bc764b686522f7c61c0e4e4bb247",
+          "status": "healthy"
+        }
+      ],
+      "stoppedAfterValidation": true,
+      "volumesPreserved": true
+    }
+  ],
+  "browser": {
+    "coastWebSearch": "synthetic entry visibly rendered",
+    "mountainWeb": "name and Hakka source notice visibly verified",
+    "h5": "390x844 desktop browser viewport; synthetic entry -> correction -> login protection",
+    "synthesisDisabled": "sentence section absent under generic config; header logo 40px",
+    "actualMobileDevice": false
+  },
+  "remaining": [
+    "Fresh frontend dependency install/build inside default Dockerfile was not run; runtime image uses validated local builds.",
+    "Full semantic/model/worker deployment not exercised.",
+    "WeChat static target build passed with empty own AppID; no real device, registration, or publication.",
+    "No production migration or deployment; old H5-root redirect needs real-domain/client acceptance."
+  ],
+  "packaging": {
+    "sourceOnly": true,
+    "legacyHttpCapturesExcluded": true,
+    "productionDataImported": false,
+    "credentialsImported": false
+  },
+  "backgroundState": "Both task Compose instances stopped; volumes preserved; no model/index/scheduler task started."
+}

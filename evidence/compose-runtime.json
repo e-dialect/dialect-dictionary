@@ -1,0 +1,56 @@
+[
+  {
+    "project": "dictionary-coast",
+    "port": 18080,
+    "name": "海岚词典",
+    "dialect": {
+      "name": "闽南语",
+      "code": "nan"
+    },
+    "configMatches": true,
+    "wordCount": 1,
+    "h5Status": 200,
+    "legacyH5Redirect": "http://localhost:18080/mobile/pages/index",
+    "containers": [
+      {
+        "service": "backend",
+        "imageId": "sha256:2087a7c942bb00acb8636c7f815fbf0771becb7251dfb14c5b51bce383e53200",
+        "status": "healthy"
+      },
+      {
+        "service": "website",
+        "imageId": "sha256:998882810c6133a9a34c0940bf1869c2ee57bc764b686522f7c61c0e4e4bb247",
+        "status": "healthy"
+      }
+    ],
+    "stoppedAfterValidation": true,
+    "volumesPreserved": true
+  },
+  {
+    "project": "dictionary-mountain",
+    "port": 18081,
+    "name": "山城语库",
+    "dialect": {
+      "name": "客家话",
+      "code": "hak"
+    },
+    "configMatches": true,
+    "wordCount": 1,
+    "h5Status": 200,
+    "legacyH5Redirect": "http://localhost:18081/mobile/pages/index",
+    "containers": [
+      {
+        "service": "backend",
+        "imageId": "sha256:2087a7c942bb00acb8636c7f815fbf0771becb7251dfb14c5b51bce383e53200",
+        "status": "healthy"
+      },
+      {
+        "service": "website",
+        "imageId": "sha256:998882810c6133a9a34c0940bf1869c2ee57bc764b686522f7c61c0e4e4bb247",
+        "status": "healthy"
+      }
+    ],
+    "stoppedAfterValidation": true,
+    "volumesPreserved": true
+  }
+]

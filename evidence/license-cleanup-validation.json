@@ -1,0 +1,65 @@
+{
+  "candidateVersion": "0.1.0-candidate.4",
+  "testedSourceCommit": "d0e320307de7add5fc658564e9c658370ff02ca6",
+  "testedArchiveSha256": "711dc5531a20778c008367633cfee8de5103bfa8e01c8b35033e4ccf320e958a",
+  "sameHostIsolated": true,
+  "secondHostTested": false,
+  "backendImage": "sha256:a3d7d8d41a8e79b2d86ca8e20c632e6de07634ed662f291b01b330709e0cb863",
+  "websiteImage": "sha256:ea2ff64b2620a9feeb6f4587a789ea82f4349b47ab71cea248f1e2c5514ed311",
+  "completed": true,
+  "package": {
+    "status": "ok",
+    "version": "0.1.0-candidate.4",
+    "sourceCommit": "d0e320307de7add5fc658564e9c658370ff02ca6",
+    "filesVerified": 722
+  },
+  "boundary": {
+    "identifiedRestrictedPathsAbsent": 5,
+    "runtimeFilesChecked": 122,
+    "archiveFilesChecked": 723
+  },
+  "freshInstallationWebH5AndSearch": true,
+  "restore": {
+    "restored": "runtime/recovery-check",
+    "files": 9,
+    "integrity": "ok",
+    "foreignKeys": "ok"
+  },
+  "compatiblePriorSyntheticSnapshotRestored": true,
+  "backendSchemaUnchanged": true,
+  "sourceAndMediaPreserved": true,
+  "disabledWriteStatus": 403,
+  "mediaSha256": "c726d333dd159a31423f3480dbb1c5c4a9dfcd30efe1f7e12ade390dc92e8908",
+  "noPersistentCredentialsGenerated": true,
+  "stopped": true,
+  "stopErrors": [],
+  "imageContentInspection": {
+    "webBuiltFilesMatch": 87,
+    "allWebH5FilesScanned": 232,
+    "restrictedBytesAndVendorReferencesAbsent": true
+  },
+  "targetedWebBuild": {
+    "passed": true,
+    "durationSeconds": 15.12,
+    "dependencyInstallRepeated": false,
+    "unchangedH5Reused": true,
+    "runtimeImageMode": "compose.prebuilt.yaml"
+  },
+  "tests": {
+    "manualTextLookup": "passed",
+    "learningRecordCanvasApiDownloadPrintMocks": "passed",
+    "targetedEslint": "passed",
+    "guideBuildBranchExportsTags": "passed",
+    "offlineSnapshotRegression": 7
+  },
+  "removedCapabilities": [
+    "Mandarin microphone recognition from vendor demo",
+    "Purchased certificate appearance, background and QR code",
+    "Purchased rewards and microphone illustrations"
+  ],
+  "scopeLimits": [
+    "No new browser print or screenshot acceptance",
+    "No new clean dependency installation, H5/MP compilation or second host",
+    "Prior candidate3 licensing assertion superseded; source/data/third-party boundaries retained"
+  ]
+}

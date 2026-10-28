@@ -1,0 +1,7 @@
+# Optional workaround for a host whose automatic Docker network pools are full.
+# The caller must inspect existing host/Docker routes and choose an unused subnet.
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: ${DICTIONARY_SUBNET:?Set an inspected unused private IPv4 subnet}

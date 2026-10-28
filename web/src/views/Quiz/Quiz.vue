@@ -1,0 +1,47 @@
+<template>
+  <div class="body">
+    <a-card title="聪明花开">
+      <p>{{ $site.dialect.name }}的学习不仅仅在语言与文字上，更在于方言背后所蕴含的文化</p>
+      <p>让我们通过一些小测试，来看看你对地方文化的了解，并在测试中加深对地方文化的学习吧</p>
+      <a-button type="dashed" style="margin: 5px" @click="jumpToRandomQuiz()">
+        开始答题
+      </a-button>
+      <a-button type="dashed" style="margin: 5px">
+        <router-link :to="{name:'QuizCreate'}">贡献新题库</router-link>
+      </a-button>
+      <a-button type="dashed" style="margin: 5px">
+        <router-link :to="{name:'QuizResearch'}">搜索测试题</router-link>
+      </a-button>
+    </a-card>
+  </div>
+</template>
+
+<script>
+import { getRandomQuiz } from '@/services/quiz'
+export default {
+  name: 'Quiz',
+  data () {
+    return {
+      quiz: {
+        id: 0
+      }
+    }
+  },
+  methods: {
+    async jumpToRandomQuiz () {
+      this.quiz = (await getRandomQuiz()).quiz
+      await this.$router.push({ name: 'QuizDetails', params: { id: this.quiz.id } })
+    }
+  }
+}
+</script>
+
+<style scoped>
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+  padding: 40px;
+}
+</style>

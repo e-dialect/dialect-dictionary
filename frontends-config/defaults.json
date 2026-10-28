@@ -1,0 +1,30 @@
+{
+  "name": "通用方言词典",
+  "shortName": "方言词典",
+  "dialect": {
+    "name": "待配置方言",
+    "code": "und"
+  },
+  "logo": "/site-logo.svg",
+  "apiBase": "/api",
+  "webUrl": "",
+  "mobileUrl": "",
+  "contentSource": {
+    "name": "独立部署数据",
+    "url": "",
+    "notice": "请配置本部署内容来源及使用授权。软件开源许可不代表原站数据授权。"
+  },
+  "features": {
+    "pinyin": false,
+    "kinship": false,
+    "geography": false,
+    "music": false,
+    "quiz": false,
+    "dailyExpressions": false,
+    "translation": false,
+    "legacyLinks": false,
+    "wechat": false
+  },
+  "phonologyAudioBase": "",
+  "feedback": null
+}

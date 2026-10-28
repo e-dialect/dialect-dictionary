@@ -1,0 +1,4 @@
+services:
+  website:
+    build:
+      dockerfile: deploy/website.prebuilt.Dockerfile

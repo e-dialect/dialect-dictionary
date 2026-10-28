@@ -1,0 +1,515 @@
+b08f367ede7d7e2eca90b2e02828b76b784ba2f0 2026-10-20T23:50:18+08:00 sheeplin ci(backend): publish immutable packages after verified develop checks (#409)
+f2d05e2cd2cb1ac128076765bbe28c9ba3cc5450 2026-10-20T23:39:48+08:00 sheeplin fix(backend): reconcile semantic snapshots and share SQLite sidecars (#410)
+3a42c2656640330b84d8cb3d8666457f7276b4fa 2026-09-16T16:30:53+08:00 sheeplin docs(license): map third-party and asset boundaries (#406)
+1e0826db95a995cd33b683adb4cccf66e2cac39c 2026-09-16T15:49:39+08:00 sheeplin security: require explicit Django secret in production (#407)
+c9170715da2e50909028f56abbca051592c96f84 2026-09-03T11:30:16+08:00 littlexiang feat(word): integrate semantic retrieval into Django (#396)
+97f3cbd09561b89463b071cb562939d8c5c68853 2026-08-12T04:02:40+08:00 sheeplin test(user): lock avatar deduplication contract (#403)
+52c5253cdd71839493e8b9da11f0e870dec53254 2026-08-12T03:56:29+08:00 sheeplin fix(storage): enforce upload size limits (#404)
+e1578f543f7dddad90f870d7b38d32fb48b9f473 2026-08-12T03:50:09+08:00 sheeplin test(pronunciation): validate ranking numbers (#402)
+4aa5528dcdd85ec62333f17d4f143b1bcaea54cc 2026-08-12T03:43:15+08:00 Copilot  refactor(website): extract utils from website/views.py into dedicated modules  (#389)
+26e9f46840d16193e111f0e8270c02ae27922460 2026-08-12T03:35:28+08:00 CapooL refactor(article): highlight "me" field (#363)
+7ffcfa5ab4a30c43bef6efb9cc485638f0bcd391 2026-08-12T03:28:48+08:00 sheeplin ci: cache Python dependencies (#401)
+91b841f1dc39725cc93a2ad92b7024018c3ccec4 2026-08-12T03:19:15+08:00 小蝶 【社区运营】管理员界面审核失败无效 (#393)
+68f920dbe725ae823f8298589b56ff2adf31126e 2026-08-12T03:09:02+08:00 sheeplin ci: run Django tests and migration checks (#400)
+0982b0cab38b57c7b7f03b5a13f539b7b4c97d67 2026-08-12T02:56:47+08:00 sheeplin ci: pin Black to project version (#399)
+f0aff9d29d4d81f5cb3f45cfcdc3cfe3afb951c8 2026-08-12T02:30:43+08:00 sheeplin refactor: remove unused token assignments (#397)
+6c2742e1bcd90b66dac7d913b1ee1b6d34972cb9 2026-08-12T02:24:15+08:00 sheeplin build: fix Python dependency installation (#398)
+fe82098c862d223c53aad27519f3022507f3e069 2026-05-14T10:21:51+08:00 小蝶 feat: improve comments info (#395)
+8ee1f505e3d71029157bb210757f8aba7648e9a9 2026-03-25T14:42:38+08:00 sheeplin docs: add badge for DeepWiki to README
+b4c4d0eeea009d94974274180bb9eabcda5d48ea 2026-03-19T16:04:14+08:00 sheeplin docs: change LICENSE to AGPL-3.0
+95c2f79ced06acabee5805134aa7c8274c2a0b23 2026-01-27T14:35:41+08:00 sheeplin fix(website): implement user-based filtering for notifications (#384)
+7d0a1b5fcfff40be9d61deee3a43f7da613ff675 2026-01-19T21:53:06+08:00 Copilot fix(user): fix WeChat registration ValueError and add Web OAuth support (#382)
+8f249e65e54a6801123ca9603c9b04b0fe3cb6f2 2026-01-07T01:31:46+08:00 Copilot feat(admin): add IPA keyboard widget for phonetic input in admin interface (#380)
+fca673e2d9982836d3b0c2f786c97550bccd4375 2026-01-07T00:30:26+08:00 Copilot feat(admin): add Django Admin custom widgets (#378)
+f478523a16661b1d459653af7459cd53b3760b96 2025-12-12T11:02:16+08:00 Copilot fix(word): handle malformed tags field in Application and Word DTO serialization (#377)
+7a0a0e57e23f180f1a59d8a7052c94d24da50dd4 2025-05-26T15:04:04+08:00 CapooL fix(website): fix the issue of word_of_the_day not updating (#374)
+6b90a0b2e7d0192edc6893dc973dedf37e4aa7e8 2025-05-26T14:58:14+08:00 sheeplin ci: bump runners (#375)
+5027c31f9dd617ae029906f96d3d334489bf6694 2024-10-28T21:36:52+08:00 PYthok refactor: remove unnecessary print statements (#371)
+ed612c11f515c1c1b8b06c69a36457193b3c1fd5 2024-10-13T22:59:27+08:00 CapooL fix(pronunciation): init var `transaction` (#369)
+e11c9b60395f201e993bbf707783b00bf6b887a0 2024-10-13T22:54:37+08:00 sheeplin feat(article): add article ranking (#370)
+88735f751782adfaaec39aebdb79b451be5eda59 2024-05-20T22:48:41+08:00 CapooL build(docker): bump python version in Dockerfile (#366)
+c0870e31712352e5988b856f1f53bded91004b6c 2024-05-15T15:46:35+08:00 CapooL  build(docker): bump python version in Dockerfile (#364)
+ae322e1110ff0e5fee8b720309fb6548ec4d54f7 2024-04-15T10:09:30+08:00 CapooL feat(word): creag tags filed (#362)
+cca3b1ce0d529d9c8a3e0aecde8eef249b329acb 2024-03-26T10:09:50+08:00 CapooL fix(word): add new migrations due to version bumped (#361)
+1ac0bf4a7cf0b48db97ce9b5db418433fc365cfd 2024-03-18T23:26:28+08:00 CapooL chore: bump django version to 5.0.3 (#359)
+7dfccd7602c2e1e8ae7bafdad5c2a4bd418256ab 2024-03-08T15:31:21+08:00 CapooL feat(character): add type to Character (#358)
+1f3258311490b15db16834fde408c972dad4efa3 2024-03-06T23:03:53+08:00 CapooL feat(characters): use pinyin in keywords to look up characters (#356)
+c16525c71179b628f5d7545ad4bc00a78f36b64f 2024-01-27T00:57:23+08:00 CapooL feat(quiz): add cert system (#354)
+5af482cd841518bc989ddc78cb5abac6e4cf62e1 2023-12-23T00:49:54+08:00 CapooL feat(quiz): create QuizRecord (#352)
+cffbab50ac16a9604268b8ae97b188f2961c6737 2023-12-20T14:27:52+08:00 Norton_Lin feat(user): reset password by wechat (#351)
+b909e0e791ab560f5cea3af646b96d86af2fa41a 2023-12-07T16:36:08+08:00 CapooL feat(quiz): create PaperRecord (#347)
+226c7c390576d38d0195b5434efea4c3a1857b3b 2023-12-06T23:26:59+08:00 CapooL fix(words): fix the missing self (#350)
+3bb7f2d0c64ab1317cdfadef607a07f59881b8dd 2023-11-27T01:39:17+08:00 CapooL fix(notifications): associate the corresponding action (#346)
+80bd4ff35b4040473b9085f55ac5514de33c8434 2023-11-23T21:39:19+08:00 CapooL fix(words): remove duplicated characters on CH0204 (#345)
+c0e71a674a7fd3542b36f0f17679108b02fbfb4a 2023-11-20T15:17:44+08:00 Topology2333 feat(comment): add me.like in comment (#336)
+7683d2f19fe97b803c4cf27387eb731eb02dd57b 2023-11-16T17:46:23+08:00 Lin Yiying fix(list): address an issue where word lists are created out of order (#341)
+8189186185ecc6800c317be25dbc6048967daeac 2023-11-13T16:24:33+08:00 CapooL feat(quiz): create quiz paper (#334)
+6dfcbb8111b63cdb2117bfe56544524b2ee59f07 2023-11-05T19:30:39+08:00 CapooL fix(word): validate word id in WD0601 (#335)
+7a455146102e1fd800f73b417f7397b1f5569092 2023-10-27T19:56:58+08:00 Lin Yiying feat: change admin ui (#339)
+9575dbbb5f7c017e03ef4e3ac096cb72d0208ffc 2023-09-17T00:59:09+08:00 sheeplin refactor: format notification content  (#328)
+7b5d47049284e36cef38f58fbc41a0330e08fee6 2023-09-16T17:39:04+08:00 CapooL fix(list): remove authorization from APIs and add admin pages (#327)
+71304ded900e583029501fdd45046a593f72315d 2023-09-11T19:48:03+08:00 CapooL fix(word): fix the bug about .add() (#325)
+93b0a1c9ada4957d07dca11dfbf11286ab701bda 2023-09-03T22:49:38+08:00 CapooL feat(word): create word lists (#322)
+533b21465a04975a302b40e066e9b74b68270c29 2023-09-03T22:26:25+08:00 sheeplin reafactor(pronunciation): adjust notifications (#323)
+531be2ee85dd1ca0f0788d8ec4e929a2c0dabc74 2023-09-03T16:45:10+08:00 CapooL fix(points): fix missing paginators (#320)
+8899ffc8264af32e7bf164e0cf4b38cd3c61eb66 2023-08-06T01:14:05+08:00 CapooL fix(rewards): use optional args in filters (#318)
+24be705710fce54c60ad36ff20f81b39f6c6ba94 2023-08-05T22:44:08+08:00 CapooL feat(rewards): init rewards module (#307)
+cadf3ca9930abf298da3de04fc4d7e976de8a3c4 2023-07-31T23:57:30-04:00 Topology2333 docs(test): update test README for CI  (#310)
+4ea79401a1efe72f6ab6cadf1b941861a11b98a8 2023-07-31T16:40:57+08:00 Norton_Lin feat(tools)：add tools and introductions (#303)
+bf1daf4b6d9cc34a0be2d234e7359a368dbb4794 2023-05-25T19:28:49+08:00 CapooL feat(pronunciation): add paginators to MC0205 (#305)
+069fde998222de42376e0e552197ee050f8000d7 2023-05-18T01:15:18+08:00 CapooL feat(music): improve response after modifing music (#299)
+baaeeaaf9fb3479af098fe2aa4bfa879268d920f 2023-04-19T10:40:56+08:00 林子川 feat(article): improve article comments (#293)
+94ba042e2ed1e7e3d0caeb253b24f99530b2fc9b 2023-04-18T16:36:05+08:00 Norton_Lin refactor(word): refactor word management  (#295)
+fbd3c9f74b987b584a3a825e8163924eee0cc4c3 2023-03-23T00:06:35+08:00 Norton_Lin feat: add uploading tools for  quiz voice  (#291)
+29fdbdc475d668b95564cd53715dccc4f5d580a6 2023-01-21T00:01:25+08:00 Norton_Lin fix(time): fix the time zone display (#280)
+46f579316f737645c3e2909e1287329f1d87f988 2023-01-20T13:00:52+08:00 sheeplin fix(user): fix modify user's information (#277)
+431b225709ea6141b448c8e9c2531c8cebed1845 2023-01-19T02:01:48+08:00 sheeplin fix(user): fix check_request_user
+16e56e1cf41345eb1c049262523a2c60908e1d6b 2023-01-19T01:56:58+08:00 sheeplin refactor(user): remove cleaned_data (#275)
+349cd84407a0184e3409ab10cbf84f44fe206499 2023-01-19T01:45:46+08:00 sheeplin fix: remove request.POST (#274)
+9f1bd56a09393a944d4c0d68eb8b0bf10f55aa59 2023-01-19T01:04:16+08:00 sheeplin build: update dockerfile
+cd14c26a6884d2592df16173a611172d8fd27d78 2023-01-19T00:57:02+08:00 sheeplin fix(user): fix reset password (#273)
+f6bc34f79a615877cff4e228501a65fc9c955bb6 2023-01-19T00:27:54+08:00 sheeplin refactor(user): refacter wechat operations (#272)
+fa57171ba79e6c3912e720ed161158a8c0a87ed6 2023-01-18T22:09:08+08:00 sheeplin refactor(user): refactor Manage class (#271)
+b7eaf61da5d368d80fb8d79db92420358f671a98 2023-01-17T12:04:59+08:00 Norton_Lin fix(word): add auth checking in WD0101 (#267)
+6c7047cd284ffe663a3c95f25ad015744908c74a 2023-01-16T23:18:46+08:00 林子川 feat(pronunciation): add "visibility" to filter when searching (#264)
+9c2fd8f6629d99364fb56fa5f98d6705e1757b4b 2023-01-16T21:16:38+08:00 林子川 feat(pronunciation): add 'me' in ranking (#262)
+bc0db28c4479d0136258cd00f93412a5d7711ea8 2023-01-15T23:08:29+08:00 sheeplin chore: add migrations (#256)
+33ed8055ff50315a4931cec79c87864cc1a59aac 2023-01-15T12:27:19+08:00 Norton_Lin refactor(user): return user information in reverse order (#254)
+917f5231de85c08c6b9f3117cf0cf0be75855f6b 2023-01-15T04:19:39+08:00 林子川 fix(pronunciation): PN0205 count pronunciation uploading which is visible (#252)
+41ae54236eb6dbf36a901ba77ed8a01c41ced29e 2023-01-15T01:09:07+08:00 Norton_Lin fix(pronunciation): remove auth checking in PN0205 (#250)
+a33809d79932731bde3287b9e125e51df461241a 2023-01-14T19:44:59+08:00 林子川 refactor(pronunciation): refactor PN0102 (#247)
+34c9d611c5d4dbd178c9ba376b6099402d658e0f 2023-01-14T15:59:34+08:00 Norton_Lin Merge pull request #246 from FrogDar/fix-245
+aef168931e829644f425d5ba1097499abdc2d775 2023-01-14T03:27:28+08:00 sheeplin feat: add test bucket while uploading
+0a7aa30f594d84f1a1417108aa7fb69e306f0a80 2023-01-14T03:06:10+08:00 林子川 feat(pronunciation): add pronunciation ranking API (#238)
+a2140831141d580012708ef0d1c6a12c904203a2 2023-01-14T01:40:06+08:00 Norton_Lin fix(user): fix avatar in US0102 (#243)
+f0f1f097f08f86c33be82c61c6c6f28af8d57a82 2023-01-13T21:31:17+08:00 Norton_Lin fix(word): add automatic update for WD0502 (#239)
+f7fa6364a5d720ca3cac7f9990971e68bdd14de6 2023-01-13T20:54:09+08:00 Norton_Lin Merge pull request #242 from e-dialect/ci-cache
+55865ddcac5906473332313c5b5054ffcd6dab16 2023-01-13T20:45:50+08:00 sheeplin Update .github/workflows/e2e.yml
+3d8f377e4351796474ec20a741a1d91631e870ee 2023-01-13T20:38:43+08:00 sheeplin ci: add caches for npm
+cbd563dadbfc964a2b83450408dcce09aa5f3b2b 2023-01-13T20:31:56+08:00 sheeplin ci: add cache for ffmpeg
+77ad9e2ed0ab397086bbac23c8b640d254638ef4 2023-01-13T01:54:03+08:00 Norton_Lin fix(quiz): remove auth checking in QZ0203 (#236)
+e3b9b80e04f91682aa3363dce3cc0f069af71a78 2023-01-13T00:48:29+08:00 Norton_Lin fix: add default value for quiz model (#234)
+7eee38a84ef3c6127c5e0a6dc63aed5bdda9d943 2023-01-12T22:54:24+08:00 Norton_Lin fix: fix the visibility problem of WD0501 (#232)
+ceb5a941e5bf4f4db3c783978151d5bd389ff742 2023-01-12T21:48:00+08:00 Norton_Lin fix: fix the response of WD0502 (#230)
+1c0cbe1ec09027baa571a37c40a2a2596914bd8e 2023-01-12T21:26:18+08:00 Norton_Lin fix：change method of WD0502 (#229)
+2288c73adc8159b55e30800f3f299613e7c877a8 2023-01-12T19:55:14+08:00 Norton_Lin refactor: refacter WD0502 (#228)
+e1af33f28ec460aeb463fd5c151620d678a314c0 2023-01-12T17:31:29+08:00 Norton_Lin fix : fix the response of unbound email (#227)
+323917cbde98babb5384e73add31e97cf146d74b 2023-01-12T17:08:13+08:00 Norton_Lin fix: revise phonetic_order (#226)
+dd5b06fad6d6679a28f34acd1b0d599fe147aaa5 2023-01-12T16:58:10+08:00 Norton_Lin Merge pull request #225 from Norton-Lin/wechat
+dfdc43e64dc66054f1236ab9078a10331e7cbddc 2023-01-12T16:54:00+08:00 Norton-Lin fix: fix the problem of wechat register
+2730d9dc845153148e156ffb5be1095d012d38ce 2023-01-11T21:33:02+08:00 Norton_Lin feat: resolve wechat binding (#222)
+f24e6ec6db3cef09911f6ca8767d3b98634d0cef 2023-01-11T15:35:02+08:00 Norton_Lin feat: add get quiz paper (#220)
+7135782bae1085633fe7ed9c59ea85b26b45311c 2023-01-10T16:06:31+08:00 Norton_Lin feat(word): add dictionary lookup (#217)
+048f4d8e7f54b2582c2cbb99f0afc261720b98ef 2023-01-07T01:00:08+08:00 林子川 test: update the test of quiz in normal situation (#216)
+88a101805caff24bb1f3b15b02239fd756be6134 2023-01-06T22:08:44+08:00 Norton_Lin test: fix the error test of article module (#215)
+6e137db4780ce8ed1b7b5368aeab68efc163ff94 2023-01-06T16:55:37+08:00 林子川 fix: make voice_source not required when uploading a quiz (#214)
+516a3e23ee8176d6657bd64c0ae233e9e76ca286 2023-01-05T23:16:03+08:00 Norton-Lin fix(quiz): fix the problem of quiz visibility (#212)
+e786bbbe208a355434d31ca53e252c315e4e6a84 2023-01-04T00:52:28+08:00 Norton-Lin feat: register via wechat (#211)
+0d1c4326f1802f1f4a4c595bd747a3a286744531 2022-11-18T21:06:53+08:00 Charlie Chiang Merge pull request #204 from FrogDar/extend-exp-time
+6dbd0e8dd8651d0998a0afe55c073c7f4913443c 2022-11-18T21:03:30+08:00 sheeplin style: format with black
+e3028e9444250f9b9cb3f23eb34cce94cf0be35a 2022-11-18T21:00:04+08:00 sheeplin fix: fix token generation
+f6cff82ff9eba1c7b825a17cc743ea32a5a35310 2022-11-18T20:56:03+08:00 sheeplin feat: change token exp time
+3a4430b4ec0980abddcd1ea7ca9237c22b7b196c 2022-11-18T20:52:18+08:00 sheeplin refactor: rename token util
+2868c2afc9643e0ebc315f14b394e1870b35a989 2022-11-17T15:34:22+08:00 sheeplin fix: fix WD0401 (#200)
+4b6ee0a9f3c4a90c55b6e966791680d8570c07a0 2022-11-16T18:07:50+08:00 sheeplin fix: fix admin page (#199)
+88fa93848bf5d187ddcb5162a6f6d8dada262097 2022-11-16T13:47:52+08:00 Norton-Lin fix: fix AT0404 (#196)
+f051becef717f6be1cddaffa320e2efc690090ed 2022-11-12T11:08:34+08:00 Norton-Lin fix: fix permission controlling in article module  (#192)
+b1f909d14798d92abd7dcdbe56fadc71eeb94e3d 2022-11-08T21:29:48+08:00 Norton-Lin feat : add message to AT0404 (#187)
+98f24b52081f3c427470cb2fdd8c562d397d8ead 2022-11-07T20:45:06+08:00 Charlie Chiang ci: add ci to lint test json (#191)
+82b611f8f8d065121c06109c9e3432c6f0d4025d 2022-11-06T16:05:59+08:00 Norton-Lin feat: add admin feature of quiz module (#185)
+4c714e8583d26c587be03b01e0d45030224703d1 2022-10-02T21:55:45+08:00 Norton-Lin refactor: refactor article module (#181)
+78458ceafa77b0063139d940878444ea4f3aba3c 2022-08-26T19:58:25+08:00 林子川 feat: check the password valid or not (#173)
+44adf8994013612b556caac08ef6f1eb4304b003 2022-08-17T16:13:25+08:00 Norton-Lin refactor: refactor music module (#177)
+f5cbec977f9c8c5568f0896e8464007eebfb23de 2022-08-11T23:30:58+08:00 Norton-Lin test: add enhancement tests for module quiz (#172)
+cc94c657ca7c64e82d105ad6213619c6eb394935 2022-07-31T17:04:49+08:00 Norton-Lin feat: add quiz module (#160)
+60109d7eb157bee18815851e63658abc6680a268 2022-07-25T13:08:33+08:00 sheeplin test: add new testing for word-creation (#169)
+2face991c996232e90f25c793bc14a8e5f9eeaf6 2022-07-25T01:40:14+08:00 sheeplin refactor: organize utils (#168)
+938e02fd0960050a95c5fe158fe7eaa6de8a2482 2022-07-25T01:30:25+08:00 sheeplin refactor: refactor MultiApplication (#167)
+9e5db14e45c100b57d461812f202b823cce3e880 2022-07-24T21:27:06+08:00 sheeplin refactor: refactor directories in module word  (#166)
+e4cf9053ba4a3b68148a9149d2cfd16011a2556a 2022-07-24T19:22:32+08:00 sheeplin docs: update TESTING.md (#164)
+193b97b89e3049148ed957a75a705458b4dc5911 2022-07-24T17:26:04+08:00 sheeplin docs: rename TESTING.md
+bb9bbbce62c40ce6a5e51e7c5357e8eaddd3c957 2022-07-24T17:23:52+08:00 sheeplin docs: add TESTING.md (#162)
+c614ed93177095c6ad2cbcf3fb7d7551592ee9f4 2022-07-23T20:27:11+08:00 sheeplin ci: add test word-creation (#161)
+b6058470b6afeb6ad8e7b576ee0cb25fbeeb12f1 2022-07-17T18:05:38+08:00 sheeplin Merge pull request #153 from lll123github/develop
+3bb7366871044f9dea8df7a43c2efab047fbaef7 2022-07-17T11:41:32+08:00 lll123github fix: return response in application_all.py
+ae147a5a662a7f1dfb0a3b76f8e3e347ad4aa024 2022-07-17T11:32:09+08:00 lll123github refactor: make a dto named application_all
+a768b3ed2eb7184553d7391bde7c96b80e661176 2022-07-17T11:14:23+08:00 lll123github refactor: delete word_quick and make a dto named application_simple
+4b69da1c9b89beb8df9af1b8090789d93ddee607 2022-07-17T10:40:05+08:00 lll123github style: note in models.py
+0a42bb2aff2288a3d84913229d67a9207e750f03 2022-07-16T22:06:28+08:00 lll123github build: change dto used in WD0201 from word_quick to word_all
+6ce61394aa772024eab0331c8fbec80f5bdd3929 2022-07-16T20:15:34+08:00 sheeplin Merge pull request #152 from Norton-Lin/develop
+6c513640e2871829572f6f9108f07365f7eb37a4 2022-07-15T20:53:31+08:00 Norton-Lin refactor： create dto
+293e82a47b2b0700ba3d7046e9dcb3edc66fa7b7 2022-07-15T18:12:10+08:00 sheeplin Merge pull request #150 from lll123github/develop
+e3e3cadf83a5d9c3b4278278ec8fe6040007559d 2022-07-15T18:08:21+08:00 lll123github fix: delete import Pronunciation from .models
+fdc267d0a0e301db6afed87d11e085dd2b570c39 2022-07-15T18:05:48+08:00 lll123github refactor: use word_simple in WD0202
+70a9cadef550ce5ade09d787d344746ef6190fdc 2022-07-15T18:02:03+08:00 lll123github fix: delete import User in word_simple.py
+514bd922050ead92c694097351af6704d71fe3b3 2022-07-15T17:46:42+08:00 lll123github fix: return response in word_normal and word_simple
+27a1445659391e5197d6c7490a0fdc21b38bfb29 2022-07-15T17:35:05+08:00 lll123github fix: delete import response and Docs (blacked)
+593277efea784d676936cdaaee70a65766e56db9 2022-07-15T17:19:46+08:00 lll123github fix: delete "import imp" in views.py
+08180b19e733c460942caeea8c7855f3031ace1e 2022-07-15T17:10:11+08:00 lll123github style: style urls.py in HinghwaDict
+b9ba02e6b8e68f798ab86d23fd64fb9463e48017 2022-07-15T16:46:30+08:00 lll123github refactor: create dto word_simple
+c1a52a60edb54fa922157a7cbdcaf7ffd6048f18 2022-07-15T16:19:22+08:00 lll123github refactor: create dto word_quick
+42727f5b8f67fa8cbbcffd1d65fc62ebcbfa6659 2022-07-15T16:07:23+08:00 lll123github rafactor: create dto word_normal
+81314366057f35428e8042b59e83339b42b49cc9 2022-07-15T14:53:02+08:00 lll123github refactor: create dto word_all
+f6ec733e7893243c51d276a8d29b21433138813b 2022-07-15T14:28:38+08:00 lll123github refactor: build word2pronunciation.py
+620624eb976f8c4604d9728037c9500551282909 2022-07-15T02:46:20+08:00 lll123github Merge branch 'develop' of https://github.com/lll123github/hinghwa-dict-backend into develop
+75787e865659f86afe9781200b1577287c605bb7 2022-07-15T02:46:12+08:00 lll123github style: make some notes in HinghwaDict/urls.py and word/word.py
+acdab123431d729a86ba979d91e4408ca1bce8d0 2022-07-15T00:08:21+08:00 sheeplin Merge pull request #149 from Norton-Lin/develop
+c7b624c27f9c543b3a026e89c5cf4be6d33136ec 2022-07-14T22:21:19+08:00 Norton-Lin refactor：create dto
+234c17bb8d29171a8a86acefe5cf2ab1948c1a84 2022-07-14T01:20:16+08:00 sheeplin fix: update default avatar
+1c0d79dc4deae37c72251cf550acb1be5af079bd 2022-07-14T00:53:45+08:00 林子川 refactor: add dto music_normal (#141)
+805bc9b53ff1bc6b5bf52ecc9ed7eeeb231104d0 2022-07-14T00:47:36+08:00 lll123github fix: delete "import imp" in views.py
+62776bc3662a48089e0db6c540ebf7fff8f0c021 2022-07-14T00:10:52+08:00 lll123github refactor: make music_normal dto model
+1f9f0b9a9bc0e384ea1c8872a8fc82b7017b60d6 2022-07-13T23:34:32+08:00 lll123github style: make some notes in views.py and urls.py
+c375ed7faf21a6f1044f830bf507f9080d6fa681 2022-07-13T21:47:56+08:00 sheeplin Merge pull request #136 from Norton-Lin/develop
+6317f40c15e54b1f0c00ceb99a58e21a615742a3 2022-07-13T21:39:16+08:00 Norton-Lin refactor： create dto character_all
+206725156110be080f7406b80e1ff27eaa8192ca 2022-07-13T21:03:44+08:00 Norton-Lin refactor: create dto character_normal
+ccc8c1b4a43d7064c44e20c18d92afb0dcfa4d68 2022-07-13T17:18:11+08:00 sheeplin docs: add LICENSE
+2531a796edc83918c8a79c82d8081b25f5c63e08 2022-07-13T17:02:37+08:00 sheeplin Merge pull request #133 from FrogDar/develop
+41ee7b7fe9b9d43bb77861b46735db79569745fa 2022-07-13T16:46:24+08:00 sheeplin chore: update .gitignore
+8994549dce6763d49bc16362bdcc01eb715c8d26 2022-07-13T16:41:51+08:00 sheeplin style: reformat with black
+bca06839e48c7967e9894c4e2705de5a13434d81 2022-07-13T16:28:36+08:00 sheeplin ci: use black instead of pylint
+e8c2bcef77f2f5c47de4e848fc554ff1d8374f06 2022-07-13T15:49:49+08:00 sheeplin feat: add MC0105
+c76eecd66524b0cfcf80bf119be918bbaabd0cc2 2022-07-13T15:46:54+08:00 sheeplin test: fix test music
+4f21c0a130dc8084a4ef0c937b67ec7fff3fa6d0 2022-07-13T15:45:35+08:00 sheeplin test: beautify test config
+d65516b1dbfa9a891078241cfd0ea1db5ffa621b 2022-07-13T15:13:34+08:00 sheeplin test: add test for one music
+72a7e4b450b60f7a4e82d0677031de330db0b518 2022-07-13T15:13:16+08:00 sheeplin ci: fix lint
+b2a134de0f83445ab2716cb327622d9f1a6371ef 2022-07-13T15:05:40+08:00 Norton-Lin refactor:create dto music_all (#132)
+2f69d10e8b7d52dea5e8165d07b7565c7e06c090 2022-07-11T19:38:06+08:00 sheeplin ci: add lint-changed-files
+a6a443d838138314eba8de3534c4a361afd60828 2022-07-11T18:45:24+08:00 sheeplin ci: fix for removing db.sqlite3
+414abaeac9cea418982ed61cf0e00c90acf7cd97 2022-07-11T18:42:29+08:00 sheeplin chore: remove db.sqlite3
+0573266fe0bc25851e1f6f2454ad1e0aec81245d 2022-07-11T15:23:45+08:00 sheeplin Merge pull request #129 from e-dialect/Specify-SetupTools
+4e74f8bd6799394ea6388154ff8c9db1356e5393 2022-07-11T15:22:01+08:00 sheeplin build: specify setuptools version
+3db0f0fe4fb0eea76b2f7f12ad16d16c7bdea1b8 2022-07-08T01:37:45+08:00 sheeplin ci: fix ci
+085e129cde13f344576993e19bea48b6bddcac73 2022-07-08T01:34:26+08:00 sheeplin ci: add default userInfo for admin
+e25776d2d036c46a30073bcfce16174bc4db801d 2022-07-08T01:26:07+08:00 sheeplin ci: fix error path
+3da4cc07380dc4b3920982e04a7f5ec9b5716789 2022-07-08T01:22:54+08:00 sheeplin ci: remove error ";"
+a5d176f54cb9c4dfa84a9e10676fe856dbe81a0c 2022-07-08T01:19:41+08:00 sheeplin ci: find test automatically
+95507090dee9a2a45b52572c7504c7293faa4052 2022-07-08T01:12:05+08:00 sheeplin ci: use apifox-cli.json
+165142b640ed3cf6e9484ee8123fba9aae59420a 2022-07-08T01:03:38+08:00 sheeplin ci: add sudo for apt-get
+d443a23a11c865fc35791d2bbfbe64c7033d87f9 2022-07-08T01:01:34+08:00 sheeplin ci: fix ci path
+2b00362554640b71cc0db37a89d48bfa67bf6750 2022-07-08T00:59:20+08:00 sheeplin ci: add test ci
+6e717c23bb2480ae18ca4feab7a23c4e55f5fa21 2022-07-08T00:38:04+08:00 sheeplin fix: add default userinfo for superuser
+70625b3809cbf26361320a89784c768b9b1f1d66 2022-07-06T21:15:56+08:00 sheeplin chore: upgrade numpy
+e00c4853bff621745c22c1514c69391323ede39d 2022-07-06T21:15:23+08:00 sheeplin fix: fix environment variables
+3d4cbb2a28badad5de6c47f94e3c83a78e8cdacf 2022-07-06T20:00:59+08:00 sheeplin chore: update docker-compose.yml
+de2f227a251238357ecdaaa0d388a9f84ac024b2 2022-07-06T19:12:22+08:00 sheeplin chore: update .gitignore
+8cbd5c1e68259b8e0f85f6ce8d5173fd77ab9e32 2022-07-06T17:37:59+08:00 sheeplin refactor: specify type
+cd43b9cd43fa1e048d7af6556dbaeaab841d4d52 2022-07-06T17:32:59+08:00 sheeplin refactor: refactor with pronuncitaion_simple
+89697122f82ec2b382906a581b3ece946eb3c064 2022-07-06T17:32:28+08:00 sheeplin feat: create dto pronunciation_simple
+160cae55d7bb48b0488fa03c1eae39b3c8bfbd08 2022-07-06T17:28:09+08:00 sheeplin feat: add dto user_simple
+6080e207d0687dc59eeaf4dbd0d9e0002133b980 2022-07-06T17:12:46+08:00 sheeplin refactor: refactor use dto use_all
+92fb527069e29bd0529e0224072752e631209c59 2022-07-06T16:46:24+08:00 sheeplin refactor: create dto user_all
+0016fa701d5c64a3671616d45cbfc44287090faf 2022-07-06T00:59:43+08:00 sheeplin refactor: get env vars with default value
+cbed17647bbf252bdca75971237a27b3a3a17294 2022-07-05T17:12:24+08:00 sheeplin docs: add CONTRIBUTING.md
+3afad3bc3fc8c8654f25efc965e5235d15b8dd59 2022-07-05T16:48:47+08:00 sheeplin docs: update README.md
+f3c05f28814aa079b136abc37e1e7ab1ff31bd43 2022-07-05T16:34:57+08:00 sheeplin chore: refactor directory
+5a78c09ad860b5a550c35dfe6e32c1a7e275c056 2022-05-14T14:37:25+08:00 danceinthedark 语音识别（乞丐版）
+21bacb1d31ecf157ffa033de41839b722a2942d2 2022-05-07T21:24:06+08:00 danceinthedark build clear_buffer
+21c07ccf29d50146bb02158c3ec1521dca76562d 2022-05-07T20:39:07+08:00 danceinthedark update searchApplication
+8034744a3f11097b700ebb9f08cd1d16903b5b33 2022-05-07T20:03:27+08:00 danceinthedark bug application
+88fdc8eb6576d848c850dc0e7d4f07546c50611e 2022-05-07T19:57:44+08:00 danceinthedark Update translate.py
+25aef092d24c6064362feff5a8f29bbfbb75ce34 2022-05-06T20:35:36+08:00 danceinthedark update 审核申请
+0a76da202c7b9dcf11bca75c1816ce204c566004 2022-05-06T20:19:04+08:00 danceinthedark update 替换ipa2Pinyin
+5dacd8ebb9b6462392e37145a03be9812ca29a72 2022-05-06T19:09:03+08:00 danceinthedark enhance combinePronun
+f13b2a298073e7097afb48b2e52572cd4a32524f 2022-05-06T08:16:09+08:00 danceinthedark 整理words.views+语音合成
+1753ac1f028d4de3ae46ae6a1ba74c77998ccda2 2022-04-10T22:02:42+08:00 danceinthedark build user login refreshtoken
+deb452d3ed5c1710e901133c3e29b93627adbb9b 2022-04-10T19:36:09+08:00 danceinthedark bug application
+5ccd6539b3c20aeccb3fdab2a591d23dbe2a60dc 2022-04-10T19:27:55+08:00 danceinthedark bug jwt
+ecef11de391cb1bc6e628c6f0344455484f28ae0 2022-04-10T19:10:07+08:00 danceinthedark bug upload_files
+1c29edbbeb17f01f6c93e33d29da058c2fef520f 2022-04-10T11:22:27+08:00 danceinthedark bug env
+83fdcb9ad391fad1a7fc6f0b1ab5eecd33d096e2 2022-04-08T22:56:18+08:00 danceinthedark bug requirement
+3da4c32b0fd2757bc12b827dc90154a91ffc1552 2022-04-08T22:55:16+08:00 danceinthedark bug requirement.txt
+1ccf4cffa1547458b82c734d48bfc8d91269b630 2022-04-08T22:42:43+08:00 danceinthedark bug
+4f6b086f8c888f982fde41cd85eaab0140e80ed4 2022-04-08T22:41:27+08:00 danceinthedark env 处理setting敏感信息
+e0631538c5d673ada1dc79584a1dedeb18a0a498 2022-04-03T23:34:08+08:00 FrogDar 自动签发 TLS
+6427666f6c4eca1f3827e2342afb729f03dfb440 2022-04-02T15:22:00+08:00 danceinthedark enhance word word2pronunciation
+1222ff1357b1a0348c5207fc9bbe18473a1dec33 2022-04-02T14:38:36+08:00 danceinthedark bug user avatar
+cc24408e82febb018dc5de3a727b22059ffed419 2022-04-02T14:13:06+08:00 danceinthedark bug user avatar
+057e29d625183558d10a60937e0e27867cffd56d 2022-04-02T12:08:30+08:00 danceinthedark bug file
+4b11c589d39d622db215e1eeaa00f194ab97aed9 2022-04-02T11:56:12+08:00 danceinthedark bug website file delete
+16165ce5f01e55cbdab455d0fdbf734ffb10b733 2022-04-02T08:26:25+08:00 danceinthedark bug website files
+89b0a820f7a7f5529f647bc63be3e51f290d0432 2022-04-01T00:26:23+08:00 danceinthedark enhance notification admin
+790ace809bed8a5b2f294289339fd39f5c073a33 2022-04-01T00:05:03+08:00 danceinthedark bug pronunciation 发信错误
+3bf75dbd7819425beffcecad854a8911177b60c6 2022-03-31T23:39:38+08:00 danceinthedark enhance pronunciation admin
+0803d0efa4ac973e55790fba82043afa49d4ff87 2022-03-31T23:35:04+08:00 danceinthedark Update admin.py
+5f1f4eff7ec27018f808b4417529bd6a61fb2a5f 2022-03-31T23:33:59+08:00 danceinthedark Merge branch 'develop' of https://github.com/FrogDar/HinghwaDict-backend into develop
+7ecf0397e01ab5d8f5ef3c6506017f7966e694a4 2022-03-31T23:33:27+08:00 danceinthedark build pronunciation verifier&granted
+3c7e09bfb30f212599bc417cd61809b86fd035f6 2022-03-31T20:10:26+08:00 FrogDar 便于部署
+962d9708a821624144a8526223f4fad579c570a9 2022-03-31T20:10:07+08:00 FrogDar 修复音频转化的错误
+b1229049caeb991850358f2add6e394f8f8eddd0 2022-03-31T19:38:32+08:00 danceinthedark bug file mp3
+00ce31a0e6ec1f4e42ce4f843be5185f8fdd898b 2022-03-31T18:34:24+08:00 danceinthedark Merge branch 'develop' of https://github.com/FrogDar/HinghwaDict-backend into develop
+171496982ee1d73bf564c77c941e71c3011d202a 2022-03-31T18:33:14+08:00 sheeplin Merge pull request #105 from FrogDar/try-to-fix-docker-compose
+4cbe1b4fefbc507d48e741de47a7077ef95b06a0 2022-03-31T18:33:08+08:00 danceinthedark bug ffprobe
+9460281a930a12ec02548aef675e5c06321f60b4 2022-03-31T18:32:59+08:00 sheeplin Update docker-compose.yml
+486f3d19dfd2e1603a4bbc2213c5811c031237c4 2022-03-31T18:28:35+08:00 sheeplin Merge branch 'main' into develop
+98af3cf3f44597667b880800b9b37c230091c47d 2022-03-31T18:25:09+08:00 sheeplin Update docker-compose.yml
+1831f8b525330352017916742df2590c1b50a419 2022-03-31T18:09:57+08:00 sheeplin Merge pull request #103 from FrogDar/develop
+981220f84160f429d756a413a9c855602189bcdc 2022-03-31T18:02:43+08:00 danceinthedark audio format
+3814d5b4f943cc28917c8907e4def3f88096b042 2022-03-31T17:31:25+08:00 FrogDar fix
+91b060cb2ef5ecc6cfd92f83dfe4f9035438ee1c 2022-03-28T10:39:05+08:00 sheeplin Merge pull request #102 from FrogDar/develop
+91d5a8483a0e7ebcfd5dfdd38a0abc3bcc51b1f0 2022-03-28T10:33:47+08:00 danceinthedark enhance word search
+8675e16ff12a123a3880e77103a4a06e51bb2db3 2022-03-28T10:25:55+08:00 danceinthedark enhance word search
+07c7d9a11ec50c9d8be9e14ba38232563f0fe3d6 2022-03-27T19:52:55+08:00 danceinthedark Merge branch 'develop' of https://github.com/FrogDar/HinghwaDict-backend into develop
+d3c6a80b1972a33b497fbd1cc50d8ba2a410031f 2022-03-27T19:50:55+08:00 danceinthedark bug character searchEach
+eaac1d355eb16f6ae7761cf4d97820a196c6030f 2022-03-27T19:28:33+08:00 FrogDar Update
+e55643ce6ced45c391e1afbd0d1eb176cbac792d 2022-03-27T19:17:33+08:00 sheeplin Merge pull request #101 from FrogDar/develop
+93edd1581d44f84d23ef6debcf63b600071aa2e3 2022-03-27T19:07:31+08:00 danceinthedark bug character searchEach
+97d290dd7a7adea925d303080f0320738b493ae8 2022-03-27T18:48:14+08:00 sheeplin Merge pull request #100 from FrogDar/develop
+c96f98e00cd844e6c0ce1df3a117446fd61a6d78 2022-03-27T18:35:01+08:00 danceinthedark bug word search
+77a7bc44364dc116571517497426a119639bf094 2022-03-27T18:32:52+08:00 danceinthedark enhance word search
+d9f189288b7acb4cbf4e240dd31ef53a8e774ca4 2022-03-27T18:03:50+08:00 danceinthedark enhance word admin
+4bdc29559cfea1bc42bd535f45677fe656717dc8 2022-03-27T16:51:33+08:00 sheeplin Merge pull request #98 from FrogDar/develop
+daf3974fec341cc3cf908155a057ae10413eec08 2022-03-27T16:50:33+08:00 danceinthedark bug word split
+9d366fdd3e0fa3f655ed47fce9d0678b915fcfab 2022-03-27T16:01:08+08:00 danceinthedark enhance pronunciation ipa
+c0adfed5fafb903391acc66b914a5c6e138c237e 2022-03-27T15:52:13+08:00 sheeplin Merge pull request #97 from FrogDar/develop
+5535d575376d27c543e1b1f52fc4ba441c387856 2022-03-27T15:42:51+08:00 danceinthedark bug word split
+4429d739a7c784fb11b0773d635d7b3867804509 2022-03-27T15:37:13+08:00 danceinthedark bug word split
+d6629d630280c01407fa4f3ea311cc5cc7701bae 2022-03-27T15:20:44+08:00 sheeplin Merge pull request #96 from FrogDar/develop
+164d40e16907f58858f5c738748070adaa7b5dcb 2022-03-27T14:49:07+08:00 danceinthedark bug word split
+8cda9e3b449a6fd4b5d49692344a49a3b9f331d9 2022-03-25T16:55:24+08:00 FrogDar Merge branch 'main' of https://github.com/FrogDar/HinghwaDict-backend into main
+4a0655e97d1d516faebba06c49ea94a1acbcd1f4 2022-03-25T16:55:13+08:00 sheeplin Merge pull request #95 from FrogDar/develop
+b6a3935d2e82e1bac08c2b000ba888873430c538 2022-03-25T16:34:24+08:00 danceinthedark bug searchWord长度为0bug
+97d05e32843e911951154bfe98f16727c163f2df 2022-03-21T00:25:37+08:00 FrogDar update
+278ac9126f4cdc24ea4259154682e07f4394e581 2022-03-21T00:15:16+08:00 sheeplin Merge pull request #93 from FrogDar/develop
+a6c6c14c8c9193d36afeac4d84464906db3df219 2022-03-21T00:13:23+08:00 danceinthedark update scheduler
+d0919adc7b161a10376b3e99a17ea4bce6a5e861 2022-03-20T23:11:55+08:00 sheeplin Merge pull request #92 from FrogDar/develop
+d1b17522555083095a9c8b1a1fba61eac07574a9 2022-03-20T22:58:49+08:00 danceinthedark bug Character searchpinyin
+c2f6ae80c464e17050fd0ddb94cd29b17798f2d9 2022-03-20T22:28:45+08:00 sheeplin Merge pull request #91 from FrogDar/develop
+ac3b33963b75357398726c4b61faa170d1909a39 2022-03-20T22:22:11+08:00 danceinthedark bug character searchEachV2
+e20b8f7d3b92fa3013ee5e803067d7d98f2c0ee1 2022-03-20T17:30:56+08:00 sheeplin Merge pull request #89 from FrogDar/develop
+eafc740a1a555bc23bf9866688218db67851b770 2022-03-20T16:43:35+08:00 danceinthedark update scheduler
+a0796d5422fac7ad05dc17274c8100c33be4409d 2022-03-20T15:37:56+08:00 sheeplin Merge pull request #88 from FrogDar/develop
+39438dd39d60eb8d21de149b8ff87d6e8864734d 2022-03-20T12:32:51+08:00 danceinthedark enhance character searchEachV2
+85c233f9a0a7c26bdfe22b8171c3eafeb929fb73 2022-03-20T10:27:05+08:00 danceinthedark bug word record
+c1fd7f3b7d365b7925fb7291a6d31b91287a4015 2022-03-20T10:09:00+08:00 danceinthedark update notification 人性化标题
+ea9df46dfc60b7e38167f8a452e943c283955e36 2022-03-20T10:06:09+08:00 danceinthedark update word create
+e46c560b6c2141adffeed4765835d3e2ee9e84d6 2022-03-20T09:59:10+08:00 danceinthedark bug word,application related_articles&words
+06a19c2691a24b3be23a5701b870f9743a6a7c3a 2022-03-20T09:49:15+08:00 danceinthedark build article visibility
+f5d32e32d4b0b73bc69fafd06c2b2b4c1d719c45 2022-03-20T09:12:26+08:00 danceinthedark 修改审核时通知标题&词条直接修改改为管理员专有
+7731a64a68cc39d3d3487550b10465b8ea011d00 2022-03-20T08:48:47+08:00 danceinthedark enhance related_articles & related_words
+a1ee261ddc7fbb5ddc1141ddc578f454b86df88c 2022-03-20T08:19:48+08:00 danceinthedark bug word update
+d389013715aee6389ab9cc3e29465296aca0581f 2022-03-20T02:14:15+08:00 sheeplin Merge pull request #86 from FrogDar/develop
+d536efbf050c547ebd546db125e142d2020e118c 2022-03-20T00:56:42+08:00 danceinthedark enhance application
+43726910aee20398fab10e6bbd500145101aadd2 2022-03-20T00:12:14+08:00 danceinthedark bug application
+15fe21a838786e836a2fb6d2c4646a49fa39c629 2022-03-18T22:02:34+08:00 danceinthedark bug Word searchWord
+ecf469c4e8ed07b890802c0d61a97244666a0d4f 2022-03-18T21:47:31+08:00 danceinthedark enhance record 响应速度
+9277afd8d04c416c257b1a052454bb3b99567caa 2022-03-14T13:36:01+08:00 sheeplin Merge pull request #80 from FrogDar/develop
+c54801e5bf3470d3c336167dc5d0e13256d33365 2022-03-13T12:19:25+08:00 danceinthedark enhance article
+b20388da45f945d99c2bfe8c21e2e09c565e95fa 2022-03-13T11:10:02+08:00 danceinthedark bug 将'null'字符串返回变为null
+18fecc3153eef14fbdae445a41dfb71d7cff13b4 2022-03-13T10:54:32+08:00 danceinthedark enhance searchEachCharacter
+78f00ec44d9ea29af38682aba41ac15fe0ca1875 2022-03-13T10:23:11+08:00 danceinthedark build 词语修改申请
+f1e444c486949dc445e3f9040a080b6dad50ca76 2022-03-12T15:30:18+08:00 danceinthedark enhance searchWord
+7d485e791f94ba9fef2815cfcdb668eaf90277c0 2022-03-12T09:59:33+08:00 danceinthedark build character searchpinyin
+cc288a1fa94f33db12ac7918077a5d4c359afbf2 2022-03-12T08:48:34+08:00 danceinthedark model小变动
+3dd57686486a87c5e065e2d9518a675ab683f023 2022-03-11T23:35:58+08:00 danceinthedark bug 前一个忘记删了
+4840c05b4193127f31bdd414fcd49c73dab7ef83 2022-03-11T23:33:25+08:00 danceinthedark update upload_file
+e0dfc30214d0f8bebbb03b872180b4cc227b371d 2022-03-10T18:41:46+08:00 danceinthedark bug word/websitre/article/musics 批量获取
+6ebda8b75d8295558bb27460b30d3a853cde37ac 2022-03-08T19:11:43+08:00 danceinthedark bug load_character
+e3eeaa057f1d1d9c5141b3f03032641e19cb951a 2022-03-07T23:11:16+08:00 sheeplin Merge pull request #73 from FrogDar/develop
+b05329bb12b33f528ed5b5413cabaa77670f2eb4 2022-03-07T22:55:19+08:00 danceinthedark enhance searchwordV2
+bddc45c0b51b4bef4827c3de748e91f95b0cfc0a 2022-03-07T21:25:10+08:00 danceinthedark bug  admin
+f41992af66479e4f75df540722bb0b6fef9f3285 2022-03-07T20:13:05+08:00 danceinthedark bug word 上传和更新
+09a9f4ebd0e642ad5ca038d1c717ccf70fa4be02 2022-03-06T23:03:18+08:00 sheeplin Merge pull request #72 from FrogDar/develop
+50e4a9cc1228f8b0b5be15884bdffb3ef41f5b2a 2022-03-06T16:29:35+08:00 danceinthedark searchWordV2
+bd7dfcd103e99846cd740c24e7ebe8da3eafca61 2022-03-06T10:21:09+08:00 danceinthedark enhance notification
+0c396d3705d76200f7fc0cd98cc0027656744db4 2022-02-15T22:10:50+08:00 danceinthedark bug searchword
+c444406b0abcb9759f4aca5175bbf80f5ee619dd 2022-02-14T19:09:17+08:00 danceinthedark Merge branch 'develop' of https://github.com/FrogDar/HinghwaDict-backend into develop
+d081cf76bdf25d17b57bb0f1eb9024f055a77620 2022-02-14T19:08:56+08:00 danceinthedark bug admin userinfo 微信
+49e1ab496e1cf4c24ceb2e28dda0883f2312c236 2022-02-14T17:08:37+08:00 sheeplin Merge pull request #69 from FrogDar/develop
+b59b9c9a823f26f35e042ef8039b3ccb34c9928c 2022-02-14T17:07:41+08:00 sheeplin Update requirements.txt
+1f9a7be48866d5509a6c76588c0fd4f51ca694e9 2022-02-14T16:54:47+08:00 sheeplin Merge pull request #68 from FrogDar/develop
+531882b0faa34102f047a3986f899f3e1794584a 2022-02-14T16:51:32+08:00 danceinthedark bug 上载requirement版本
+e1a4362b2b51d1cd165d948e57d7a6305387b3c8 2022-02-14T16:48:23+08:00 sheeplin Update docker-compose.yml
+7ca7b4d0097250f45e9838a8e00ea4c352aad50a 2022-02-12T21:31:43+08:00 danceinthedark bug 明确django-notifications-hq版本
+2f080a88f56b2e212463d54bb1e8139acf20bb5f 2022-02-12T13:56:58+08:00 sheeplin Merge pull request #67 from FrogDar/develop
+b46c86ad7fd6db06c189e802c6207e521806812c 2022-02-10T22:36:11+08:00 danceinthedark enhance sendNotification admin
+32e1eed1885aadf3e272e160ceb0d9d2b7054324 2022-02-10T17:34:33+08:00 danceinthedark build notification
+57e449624b0543a0d9c386f1f8261f09734f0a1e 2022-02-10T11:19:24+08:00 danceinthedark enhance user manageInfo
+2a7f5f85868be84e75b6d40350c41212717af755 2022-02-10T10:09:44+08:00 danceinthedark enhance admin
+952913d5e6f6276d79f8312db1bf5e19fa2dffae 2022-02-10T09:50:54+08:00 danceinthedark enhance pronunciation delete
+682befc046f25b4574a9cf7499f87d0cf2b0572e 2022-02-10T00:18:14+08:00 danceinthedark enhance pronunciation visibility
+2815153e7823f776928daa8e27400b0212bace9e 2022-01-27T04:02:21+08:00 sheeplin Merge pull request #66 from FrogDar/develop
+87510ea568772ea6cb2708c95f5c1c8be2ecb599 2022-01-27T01:19:46+08:00 danceinthedark enhance article search
+1c371792644449b5745b6edba332eed95aaa8312 2022-01-27T00:30:12+08:00 danceinthedark enhance word searchPronunciations
+999bd63c5c28806d3b1cb0170b94d19f557132c6 2022-01-27T00:15:58+08:00 danceinthedark enhance word combinePronunciation
+bacd0429791b87cb5e164a7e9248de1d01fd6652 2022-01-27T00:11:35+08:00 danceinthedark bug word combinePronunciation
+7ee213b91c361ba3391c081f40d0650490cce4b6 2022-01-26T18:11:47+08:00 sheeplin Merge pull request #65 from FrogDar/develop
+0506b7f3539ad73f93db8646cb09f28dc11ca350 2022-01-26T15:13:14+08:00 danceinthedark update user manageInfo
+5cc223cc380a203c9b8217b4025c088fc613c184 2022-01-26T15:07:58+08:00 danceinthedark user wechat delete接口
+7cc4b85a29c0dd36da5c4fc9aba2c7867f59a71c 2022-01-25T22:34:42+08:00 sheeplin Merge pull request #64 from FrogDar/develop
+58f6ef09661e52d65dab1542dd971727cf09d60d 2022-01-25T22:32:47+08:00 danceinthedark bug user jwt.decode
+cf0ecf39e55fb3b66ea63c43c867da565147e4da 2022-01-25T22:32:45+08:00 sheeplin Merge pull request #63 from FrogDar/develop
+a8ce3016c1be2ad20f777c3b94a1fecf0f0d8137 2022-01-25T21:25:03+08:00 danceinthedark bug user jwt.decode
+b9f55f9c4ca0ecc9df2915af3d7f34033cc91e28 2022-01-25T20:56:31+08:00 sheeplin Merge pull request #62 from FrogDar/develop
+d69e1f92c38748ab45aa50a9c7627f9e8f8cc3d4 2022-01-25T20:56:23+08:00 sheeplin Merge branch 'main' into develop
+2b00ee2c2bc3804fe18c14251da938d6dd092e71 2022-01-21T22:19:44+08:00 danceinthedark migrate合并 migrations文件夹内合并为initial
+0b9af62d2a49282ae3872ec72d6953466f375a80 2022-01-21T18:31:43+08:00 danceinthedark 日志 build
+ddd97fc86c5350bd18e8e2597bbae9be50381335 2022-01-21T17:27:53+08:00 danceinthedark enhance article 批量返回
+1fe3151f0f8dcb8c287b10e2c34749e2b2e2e48f 2022-01-21T16:10:43+08:00 danceinthedark bug article/music like_user
+8d9232de55671cceee867116b46afaa26e813715 2022-01-21T01:11:38+08:00 sheeplin Merge pull request #61 from FrogDar/develop
+554c8922804d9123b61170e0afc973c217c73663 2022-01-21T00:47:20+08:00 danceinthedark user updateWechat build
+9391fe5495b8e61077699fa50d20161ef4f05056 2022-01-21T00:25:19+08:00 danceinthedark words /words put enhance
+e6f32d0d4d39970819c2adfc9f4d557863bea272 2022-01-20T23:53:40+08:00 danceinthedark user /login/wechat  build && token_check
+1c6acb3309dd704f02872a0ffe520c6bffd4025e 2022-01-19T23:49:40+08:00 danceinthedark user model defaultavatar
+fd6b78546f31f9277e1a9e06763376e9bc799d59 2022-01-19T23:25:20+08:00 danceinthedark /user post avatar
+aee19402ae45aa5f19a5f0076d95b505ae75c18d 2022-01-18T21:34:45+08:00 sheeplin Merge pull request #60 from FrogDar/develop
+28849f91cb649fef3e3d1a15c433a9d137ecdbb6 2022-01-18T20:35:48+08:00 danceinthedark token-check enhance
+c3bc6e506dfcf3b88e3dfb0925c47f6327d1b9c5 2022-01-18T19:58:41+08:00 sheeplin Merge pull request #59 from FrogDar/develop
+67ae3b9157fa01775d45ab9ef24c4618e9bdac64 2022-01-17T20:56:54+08:00 danceinthedark managePronunciationVisibility put new
+4e58f3c926a2fd5774926b64f63113c34d98b0d4 2021-12-12T09:05:43+08:00 danceinthedark pronunciation get enhance
+6d4f3a2e81429d09ea3d8e0217ab59b498c91969 2021-12-12T00:44:28+08:00 sheeplin Merge pull request #57 from FrogDar/develop
+01ca95e3f2d3e8fe37659ba92d843216988227d3 2021-12-11T18:21:22+08:00 danceinthedark dailyExpression enhance
+5cddd2c8a5cb61b5d4b9446662b1a5212d350991 2021-12-11T17:41:17+08:00 danceinthedark dailyexpression admin order
+0cbdebf439b7558c3f2477bf287b3b53d6ffa244 2021-12-11T16:37:42+08:00 sheeplin Merge pull request #56 from FrogDar/develop
+3af68249c4674a3052038f73c05d7f9f293bca41 2021-12-11T16:31:59+08:00 danceinthedark dailyExpression admin
+83b7760fe1c2f9c73eafec076dab4059001eb608 2021-12-11T16:30:24+08:00 FrogDar fix: music migrations
+fed55b5655bc1f9b1d277a554b596f952fe50ab1 2021-12-11T15:59:45+08:00 sheeplin Merge pull request #55 from FrogDar/develop
+68bf594ba01facb7b8a1b3f7abff7b53c27b10a9 2021-12-11T14:04:27+08:00 danceinthedark daily_expression
+b6d8d81397b736b2f7a755ade8eb61c32851bef9 2021-11-14T19:24:20+08:00 danceinthedark record bug 参数不存在则选择默认值
+618bfd2facda636f7eb338e274e285982bbbd5ce 2021-11-14T19:13:44+08:00 danceinthedark record enhance 增加pageSize和page参数
+b4d74c5268d0a97a8561f9b0871af70b7da5e089 2021-11-07T23:46:45+08:00 sheeplin Merge pull request #53 from FrogDar/develop
+39db40950e732d5feef03c64f2f5db078d19cca6 2021-11-07T15:01:17+08:00 danceinthedark pronunciation combine
+85ae2e9938487dc5e49224a2e159d5bd7fc053ed 2021-11-07T14:36:45+08:00 danceinthedark word get 返回
+d0090345dd8a1d4573bcccb6dbb618b05acb4966 2021-10-27T19:22:56+08:00 sheeplin Merge pull request #52 from FrogDar/develop
+da199cdad1a60663ef2671858cb71398cae8623c 2021-10-27T19:21:50+08:00 danceinthedark bug upload_standard IPA和pinyin弄反了
+06a233b9bf41d168d13e620dae163a7139aab28b 2021-10-27T18:52:56+08:00 FrogDar Merge branch 'main' of https://github.com/FrogDar/HinghwaDict-backend into main
+cafe4e002ae5bac4531ecc99ff1073354fe20bc1 2021-10-27T18:52:32+08:00 FrogDar delete conflicting files
+dff6570197032edaf8f0c05cc4756ed850a5dab6 2021-10-27T18:50:38+08:00 sheeplin Merge pull request #51 from FrogDar/develop
+93e9903af3fc97539c5a22ed3a95bb0ad5fd7488 2021-10-27T18:33:39+08:00 danceinthedark word record & upload_standard接口完善
+feff537626ffa713ed9fe5f27926b02df7e6554f 2021-10-27T18:18:43+08:00 danceinthedark word record & load_standard
+b80320a5fca7e225001b32c28e30bb7e6001713d 2021-10-10T01:16:59+08:00 sheeplin Merge pull request #50 from FrogDar/develop
+9842a3062b720ace14248850fea9fae154963f1c 2021-10-09T17:08:20+08:00 danceinthedark 优化 article,music like
+a9159d69237c348b4a514d4c7292412531d7af94 2021-10-09T16:59:02+08:00 danceinthedark bug music likes参数返回
+41820867732a3e8f9f519acbf904e0dc0d2c11f4 2021-10-09T14:57:18+08:00 sheeplin Merge pull request #49 from FrogDar/develop
+e1f1a04b1f473e9f88246eb2bb0ea7286e32b8d4 2021-10-08T18:46:27+08:00 danceinthedark Revert "Revert "增加music like接口及其对应数据库""
+9101806a09cf629ff83775580e5424a5828d2681 2021-10-08T18:45:25+08:00 danceinthedark Revert "增加music like接口及其对应数据库"
+b7c3e03437bc2dddd3c52957ca82c14e077ccb5b 2021-10-08T18:43:17+08:00 danceinthedark 增加music like接口及其对应数据库
+bf4abea4d0cee5b93555af7c58852827c81b9615 2021-10-08T17:39:34+08:00 danceinthedark article增加visibility字段及其功能&admin批量处理
+fd7bcba4a713cd4496f979616a0f9ba5686c77e6 2021-10-08T10:02:25+08:00 sheeplin Merge pull request #48 from FrogDar/develop
+88848d9cecf4ee5965f1f480cbfad9136bfc9a71 2021-10-07T08:54:30+08:00 danceinthedark bug music admin添加
+c422d548dfb99c7e5095c0792284b93227c774a0 2021-09-14T22:43:08+08:00 sheeplin Merge pull request #47 from FrogDar/develop
+791d435b82a23417ca6d7c7c18df601ec0c94d31 2021-09-14T22:38:31+08:00 danceinthedark bug 改为文件不改后缀名
+d17aaefb8c11bd2536c4582cbbace01c4fe90c16 2021-09-14T14:21:08+08:00 sheeplin Merge pull request #46 from FrogDar/develop
+12d85c11e93f8db0faa43f9c141c4523aac754f7 2021-09-14T14:17:02+08:00 danceinthedark test 配合前端取消mp3限制
+1b3fb97fc0d167f70d3d61ef8a7e9ce925e28c9f 2021-09-14T08:01:51+08:00 sheeplin Merge pull request #45 from FrogDar/develop
+d2f1df19c127a138297445ba07d86b90463c17e8 2021-09-12T23:43:08+08:00 danceinthedark bug 非mp3状态码错误
+08a5ce0858b1463a9c903cda84c31ae1149c6713 2021-09-12T23:22:05+08:00 sheeplin Merge pull request #44 from FrogDar/develop
+a5a4269f75b7c65b673f5f1f1dd4cdb838b7d44e 2021-09-12T23:18:56+08:00 danceinthedark 音频格式规定
+bb101306467a40dd1f737419ada023f9d611483a 2021-09-12T23:01:25+08:00 danceinthedark 去掉pyaudio
+11649355b10475fedc99cf6e8702af8704457c96 2021-09-12T22:52:33+08:00 sheeplin Merge pull request #43 from FrogDar/develop
+9230e331c2fb7421efa1ba84bd35ea8c3e0a4028 2021-09-12T22:29:41+08:00 danceinthedark 依赖更新
+a4cb996761124b77a071389f9f73365f14dcb9db 2021-09-11T23:47:32+08:00 sheeplin Merge pull request #42 from FrogDar/develop
+5f34439fd9ec45569071e393cfa3cfc3ba77eca3 2021-09-11T16:37:45+08:00 danceinthedark bug ios播放的依赖更新
+22ed106d1437658528a63db5eeb9602f9540621e 2021-09-11T16:36:48+08:00 danceinthedark Revert "Revert "bug ios无法播放mpeg文件解决""
+cfdccae45a349d4d314204e8561ec674f3f4fe44 2021-09-11T16:35:27+08:00 danceinthedark Revert "bug ios无法播放mpeg文件解决"
+5ace8288c315814e95e10841c0ed62ed954864aa 2021-09-11T16:31:25+08:00 danceinthedark bug ios无法播放mpeg文件解决
+9afb28d8918dcad5a8ebfead80284f30f216dd3f 2021-09-10T22:42:31+08:00 danceinthedark bug 修改密码
+1545614d64e811191fe45f6441aaac8375984904 2021-09-10T18:43:52+08:00 sheeplin Merge pull request #41 from FrogDar/develop
+0ff4d63d4ef8cd08abf549b29c05151fca1eedd9 2021-09-08T17:15:08+08:00 danceinthedark bug 音频mpeg文件不能在手机播放
+43534249148de40d6e539ef70e93c27017b8580c 2021-08-26T21:43:12+08:00 danceinthedark 更新或重置密码需非空
+c36c067444a907ef2f2939d512f500803ac18abd 2021-08-26T21:42:44+08:00 danceinthedark 邮箱验证码简化为6位数字
+2beb2fed0d9bfdcb8381478a5c5eee90a17e9845 2021-08-24T23:28:03+08:00 sheeplin Merge pull request #39 from FrogDar/develop
+ec29b446f031ae3cb10a64b291be1ce6fbd47568 2021-08-24T23:19:39+08:00 danceinthedark pronunciation 接口更改
+304a2a10028394da82d22b0fb1de3a02201886d9 2021-08-24T16:49:36+08:00 danceinthedark pronunciation search bug
+627a47ca3b6b15d2bc1d7593ff940512a352bc15 2021-08-24T16:21:08+08:00 danceinthedark character put bug
+17f949b0428bb505aa67ec541fddcf7f296bc41c 2021-08-23T19:00:38+08:00 danceinthedark comment批量搜索
+a183207be6bddcf523842965d2b3587f3ad1db8d 2021-08-22T23:54:37+08:00 danceinthedark article admin bug
+5bc1bb1f8c8f786915b973c4bd6957cf958ff0e4 2021-08-22T23:20:42+08:00 sheeplin Merge pull request #37 from FrogDar/develop
+6f1be2eed2d2d7a646a53662903ab2ca17023f92 2021-08-22T23:13:45+08:00 danceinthedark website bug
+ae3ae5d965fba22337b35e3d088d9e4931b6616e 2021-08-22T22:38:52+08:00 sheeplin Merge pull request #36 from FrogDar/develop
+59ae8125178109ed2bc3788f0f05763af6c95967 2021-08-22T22:14:39+08:00 danceinthedark pronunciation get检索批量返回
+77014a6027e7f0dc4c7080c940530193460c9a49 2021-08-22T21:35:44+08:00 danceinthedark music get
+a39e180362ccbadc5ef7d3a2152932e2502ae96d 2021-08-22T21:18:51+08:00 danceinthedark PUT批量返回修复bug
+dd38a000668e2569c2594d67984dc932230f78e4 2021-08-22T11:33:45+08:00 danceinthedark 定时写得稍微漂亮些
+75e4cbde290a2c70ba314c7a56db1fdfea197cec 2021-08-22T11:28:00+08:00 danceinthedark 定时操作bug
+8cdd860c8cdb452d28d21fb7159d7a30525b811e 2021-08-21T23:50:52+08:00 sheeplin Merge pull request #33 from FrogDar/develop
+1462c7438621ae7afac95e0c791b3562616a3165 2021-08-21T23:42:53+08:00 danceinthedark 定时更新word_of_the_day
+d42280fd434181367fc587c67af0303b5d5ba129 2021-08-21T23:01:40+08:00 danceinthedark article comment post接口修改
+eafef5f880e8f45be1a14b5f534068ffa709c352 2021-08-20T19:56:51+08:00 danceinthedark /characters/words以及一些小bug
+654fe72deaaa8e4bd0c494aa2cf2fe9a46f98fe2 2021-08-20T16:30:58+08:00 danceinthedark admin bug
+bfe03213aa237620a3b34b876d77808b87b0fd49 2021-08-20T14:10:21+08:00 danceinthedark word上传和更新增加visibility字段
+1c75a84175b84421386842eb9c37f6a7e6c51695 2021-08-20T14:06:41+08:00 danceinthedark 批量返回优化
+23a592824b5f9584b11a00e8945e183fd0c26eba 2021-08-20T00:01:36+08:00 danceinthedark word admin
+c8e3440c8ba38c089250405802c6202cea2a0d98 2021-08-19T22:37:30+08:00 sheeplin Merge pull request #31 from FrogDar/develop
+e59e1fa939c75ebd73cd41195d306cbb14cf2082 2021-08-19T22:03:45+08:00 danceinthedark bug修补
+461e92ead73e9ddbd9ec412866d7f349c4ac2802 2021-08-19T16:54:04+08:00 danceinthedark article search按照update_time排序
+95db983567907e95809c66d6789b33ac88e5f31d 2021-08-19T16:53:19+08:00 danceinthedark article admin分页
+04e7114898755806602e84748de7e7acec858b82 2021-08-19T16:17:49+08:00 sheeplin Merge pull request #30 from FrogDar/develop
+92bd37ff4654732f1777ac57e28a07ef8928b081 2021-08-19T16:16:31+08:00 danceinthedark requirements更新
+8ff9c97533c152e2d970e0f85e49712154711b58 2021-08-19T15:53:59+08:00 danceinthedark 腾讯cos
+b496baeff63b70205aa45d310f527a36c3e87664 2021-08-18T21:23:36+08:00 sheeplin Merge pull request #28 from FrogDar/develop
+c84945c93ab23f4df7b82a3ed60ee79f6aac274a 2021-08-18T21:15:17+08:00 danceinthedark file模块更新
+e8c8859a13e698fc5b6228b103f79d285f850945 2021-08-17T10:45:12+08:00 danceinthedark admin分页显示
+d157a3cde735f282de706198c853fc35d001400d 2021-08-17T10:35:49+08:00 danceinthedark 改进
+019b9de2d19914e794daaa3d469a4788d98095b1 2021-08-16T23:46:59+08:00 sheeplin Merge pull request #25 from FrogDar/develop
+9fde9e1c4ab1543ff6128b3ebc0b74c536e116aa 2021-08-16T23:43:37+08:00 danceinthedark article数据库更新
+f3d8ab1a1d4f48adbe6b22bf2f03de2214890822 2021-08-14T21:51:04+08:00 danceinthedark last_login返回bug修复
+fc873702f3563aa4b9b78648d55bfe2714e971df 2021-08-14T17:08:45+08:00 sheeplin Merge pull request #24 from FrogDar/develop
+188b89e2052b689d738e2af2d9c27782230b9ce8 2021-08-14T16:51:15+08:00 danceinthedark search中math运算bug
+9eb095aeaa1c84167f15e086a34c6dfa994f78ae 2021-08-14T14:04:14+08:00 danceinthedark 上传文件404设置
+bd66e53176f175ebb3450c6675c0946647e9fcf4 2021-08-14T09:46:35+08:00 danceinthedark Merge branch 'develop' of https://github.com/FrogDar/HinghwaDict-backend into develop
+2c6dddeb61b6a8cdc01b5efd17b2e1cc5a714bf8 2021-08-14T09:46:25+08:00 danceinthedark 增加仔细查询的404返回
+2dc2e17ab4c2d5a619c201e91c095aa25303d945 2021-08-13T01:26:27+08:00 Frog Dar Update requirements.txt
+54b3d4f36ee608f54e092cecca79ffc5febf765e 2021-08-12T21:21:30+08:00 Frog Dar 删除无用信息
+72510e2108bffa59ac0ab9413f259c3218952170 2021-08-12T17:24:33+08:00 danceinthedark 批量添加数据visibility设置
+bbbfe4e7df6cd7645f95fe614615c4a9c4af786f 2021-08-12T16:27:13+08:00 danceinthedark 将批量添加设置成接口
+d394ddbdcc715c9ddd514a22517fd47a4361ecd6 2021-08-12T15:48:44+08:00 sheeplin Merge pull request #22 from FrogDar/develop
+a79f4b1fe839f79b95aaa7e16c1f6132009ef96f 2021-08-12T10:39:29+08:00 danceinthedark word,character导入数据库
+e78dd670a36016f694e42ca5fa5cad6fd183e4ff 2021-08-11T21:59:49+08:00 danceinthedark character search
+553339b97df7eada92c92b2607f12722b15458af 2021-08-11T18:10:20+08:00 danceinthedark 更新1.1
+3f0e860ea90db6fe4926a71512397f66cb758756 2021-08-11T10:28:53+08:00 danceinthedark user极简变为返回nickname&login返回id
+3e8f24747bc3dbb7d210f0de1ed419ecd47dec9e 2021-08-09T11:16:47+08:00 sheeplin Merge pull request #18 from FrogDar/develop
+627de585519dcbf55ea4a31b7f51b1c0b028001b 2021-08-08T21:38:32+08:00 danceinthedark Merge branch 'develop' of https://github.com/FrogDar/HinghwaDict-backend into develop
+a1bdbf402d2aa4213ac74b44f4290063e654d33d 2021-08-08T21:38:15+08:00 danceinthedark website模块get返回
+ac97ca4f471ab23974af6ff67e398bdf6a4719db 2021-08-08T20:20:40+08:00 FrogDar fix: 跨域配置错误
+994b2382c573de9c0bb8d62d852f038ec7cea787 2021-08-08T13:48:28+08:00 FrogDar admin路由&&部署微调
+93cb39631244b34ee56012272081b1d931064a14 2021-08-08T13:32:31+08:00 sheeplin Merge pull request #17 from FrogDar/develop
+c5442eeae9eaa0fd48b90231b6eddeaca3095787 2021-08-08T13:32:15+08:00 sheeplin Merge branch 'main' into develop
+a86ccec1585bce902d7a0a337fab44613210a1ca 2021-08-07T22:32:33+08:00 danceinthedark 邮箱更新
+f33e7dc186e7533ce0877b037ae48552e7c175e5 2021-08-07T18:09:50+08:00 Frog Dar delete static/main
+48933124fd0571e695b572a48385605e9f45b242 2021-08-07T17:58:54+08:00 danceinthedark 后台管理界面更新
+f37a6f44be19590958826a0d642c4c186152d326 2021-08-06T23:01:26+08:00 danceinthedark word测试完毕
+fc6afd5e470fc2e78fddbe07f29f4ab1e88eed9a 2021-08-06T16:49:16+08:00 danceinthedark music测试完毕
+a08f79e34b5ef055f8e044264cb2a982a9225df3 2021-08-06T12:00:18+08:00 danceinthedark article测试完成
+75c3c6370571f459fc17a45e22341d42a5f3e354 2021-08-05T23:13:48+08:00 danceinthedark user,login基本测试完毕
+6fe3c6f0bebf4437f02b58040c5bb60e6731d824 2021-08-05T16:54:56+08:00 danceinthedark website测试完成
+7951b02f4ec1ad7a4e64cfacb1eae77fe99bc101 2021-08-05T13:20:41+08:00 FrogDar 合并GitHub上的main与云主机上的main
+da95ae24deb058af2238d15f792f8f54d48e8bf1 2021-08-05T13:18:47+08:00 FrogDar change docker configuration
+9c6d6cca55f5aa70257c3cb80bcb6661b9083e3a 2021-08-05T13:06:44+08:00 sheeplin Merge pull request #16 from FrogDar/develop
+006ed88cb7a8388711921261473117b5d607a143 2021-08-04T23:37:00+08:00 danceinthedark Merge pull request #15 from FrogDar/word
+9174589db9bf7b3cc726c9ca29fd162d762f4558 2021-08-04T23:34:47+08:00 danceinthedark 还没测试
+b0e19aef1efc26ef0170c0d5b26313b78f5bdc77 2021-08-01T18:30:27+08:00 danceinthedark 小bug&改进
+835596cd508230a3eb78d264193cac6a958b8d5e 2021-08-01T11:39:50+08:00 danceinthedark 全部接口基本完成
+4cde1e5bcdc0e9fe6b6f57fd8b4dc80383741557 2021-07-31T23:04:36+08:00 danceinthedark word基本写完
+7fd732231315da63d904ed1bca2745d8d7df476d 2021-07-30T13:34:45+08:00 danceinthedark 文件重定向完成
+83a85fc033beb70872b05974bda8be2a61054065 2021-07-30T11:59:10+08:00 danceinthedark Website完成
+b4ffa4723f7aa1fb98d04cd0763663fc8517e52e 2021-07-28T22:32:29+08:00 FrogDar build for docker!!!!
+00b49196c68cf868d92b4e628a05d2d0e94937e1 2021-07-28T22:20:36+08:00 FrogDar fix: requirements.txt
+40a7e2bc97bebb0a994ea4f396a91ff9d9f12423 2021-07-28T13:57:32+08:00 sheeplin Merge pull request #12 from FrogDar/develop
+0f164eee1dfefe33ff18d7392e677330053ae3bc 2021-07-28T13:54:23+08:00 Frog Dar delete pycache&&.idea
+2629a36f2b9b378a02b7e6722bdcdde7cdbb77a5 2021-07-28T11:52:57+08:00 danceinthedark Merge pull request #11 from FrogDar/deal_bug
+dd8f85e0da76f702c70199da0ea36ab3682f6c33 2021-07-28T11:50:12+08:00 danceinthedark music批处理更新
+2aa5755936917583f3bed8b53e8f0432a301ee5a 2021-07-28T11:33:59+08:00 danceinthedark 用户获取个人信息
+ba8c37a64ca3b07159bb0f4f6c525e1abbbbf231 2021-07-28T11:18:20+08:00 danceinthedark 根据需求修改接口
+64525415582942ebfd53333b7344fa0b12c843f5 2021-07-28T10:11:05+08:00 danceinthedark Merge pull request #10 from FrogDar/music
+86b33126ebea2ebef14245722bf48be68699c806 2021-07-28T10:09:33+08:00 danceinthedark 跨域设置
+fbb99e97e7771c5045fcad8471f6480487b4bb8d 2021-07-28T10:01:30+08:00 danceinthedark music完成
+6fabd66d5a5293e3fa48b3677393656ce3bb3a59 2021-07-28T01:21:14+08:00 sheeplin Merge pull request #9 from FrogDar/develop
+509a1cf29b65f8d36e0ce6959e07f4a5b0ce4ef4 2021-07-28T01:20:26+08:00 sheeplin Merge branch 'main' into develop
+b1101ccbea4fab52eb9044affcc51f5a8fff507a 2021-07-28T01:14:46+08:00 FrogDar build: address an isssue that prevent the database from being motified
+55f32d1d03c3be71d8e57e05fa9b4c31139312da 2021-07-27T22:31:09+08:00 Frog Dar Merge branch 'article' into develop
+a53a855c396d328132d223620395c7e19f694d92 2021-07-27T02:27:28+08:00 FrogDar build: configure traefik
+552f193fbdaab48188f6d98cd7aa40dc7ed91fb1 2021-07-27T02:00:54+08:00 FrogDar fix: static
+4a0ef581651ba06c2c232dfc97f612995796557a 2021-07-27T01:07:11+08:00 FrogDar build: dockerize
+1dc7d5305982dec2502756d0430966bcc0ab81fd 2021-07-25T12:03:35+08:00 danceinthedark article基本完成
+9859a34aa181f375c54ba6a4e491f3d2f9e491f6 2021-07-25T02:59:23+08:00 Frog Dar 删除.idea与__pycache__
+e18abb3525dfaaf2f567dc61f76a498a7b7de636 2021-07-25T02:55:27+08:00 Frog Dar Revert "Update .gitignore"
+6aaf91f70f8f0dc314f67f586c5b7b955a12917f 2021-07-25T02:53:51+08:00 sheeplin Update .gitignore
+3a55fe43b5b476c98ee6521420acefd7f412c498 2021-07-24T19:11:31+08:00 danceinthedark Merge branch 'user' into develop
+2e5634616a126fb8ac24e9ae497594850418f543 2021-07-24T19:08:07+08:00 danceinthedark 忘记密码取消token验证
+cf59968d3ebab8a85d743d4e9ee17b89b4e92382 2021-07-24T18:56:31+08:00 danceinthedark users模块完成
+8f8be2baafe7391901f075203e55569ec59b2cf4 2021-07-23T16:48:39+08:00 Frog Dar 接口文档转化为在线文档
+f27a028520a036b3f3a44fd33b5644dda07558bc 2021-07-23T16:40:08+08:00 Frog Dar UPDATE: .gitignore
+1fe904d1a3b14903c510a70a9bb76fdcbe12aa22 2021-07-23T16:14:55+08:00 danceinthedark 数据库建立
+1a45c9642e26d54c52f2d04527a2c4e2e00b9d33 2021-07-22T16:06:31+08:00 Frog Dar Create 数据库与接口设计.xlsx
+0138c6f11021ef438f364f4d72bbf8415c7041f1 2021-07-22T00:15:32+08:00 sheeplin Initial commit

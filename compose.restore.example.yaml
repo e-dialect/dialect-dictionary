@@ -1,0 +1,5 @@
+# Restore only into a NEW isolated instance. Merge replaces the /data mount.
+services:
+  backend:
+    volumes:
+      - ${RESTORED_DATA:?Set RESTORED_DATA to the recovered data directory}:/data

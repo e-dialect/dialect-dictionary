@@ -1,0 +1,27 @@
+[
+  {
+    "check": "web-integrity-final",
+    "exit": 0,
+    "seconds": 0.55
+  },
+  {
+    "check": "uni-app-integrity-final",
+    "exit": 0,
+    "seconds": 0.48
+  },
+  {
+    "check": "web-build-final",
+    "exit": 0,
+    "seconds": 16.41
+  },
+  {
+    "check": "uni-app-h5-build-final",
+    "exit": 0,
+    "seconds": 11.61
+  },
+  {
+    "check": "uni-app-weixin-build",
+    "exit": 0,
+    "seconds": 9.12
+  }
+]

@@ -1,0 +1,202 @@
+468aa59091af33f95a2a5112039fca0427f7fb09 2026-10-20T23:40:41+08:00 sheeplin ci: publish verified immutable production images (#248)
+330aa04df0b0423fedf513a683854c3415e96080 2026-09-16T11:48:17+08:00 sheeplin docs(license): map vendored UI and data boundaries (#244)
+71c72e938e8795b844a03f9cdc1a95a68f132d25 2026-03-25T14:42:00+08:00 sheeplin docs: add badge for DeepWiki to README
+6992861486b176cf31e57b3ffdf50fc9ac160609 2026-03-19T16:03:28+08:00 sheeplin docs: change LICENSE to AGPL-3.0
+381e94a3744c36e163ba67dc624d7ddaee6b858f 2026-01-23T16:21:59+08:00 sheeplin fix: remove simple password encryption from login service
+99d2f37aea6101ffd0ffea56497d01ee03f344e3 2026-01-23T14:43:12+08:00 sheeplin fix(home): remove duplicated tap event from search input
+f14a0e4c34ad05d5550917dc6d1678f2d241f738 2026-01-23T01:37:04+08:00 sheeplin feat: add WeChat One-Click Registration (#234)
+3cc3ed7c8e9a9b641ad3c064a7838b09dc9a96f8 2026-01-21T01:43:05+08:00 sheeplin ci: fix SHA256 generation and file listing paths
+4721c43d6d6df6c12a3ff011d6af468aced3ca17 2026-01-21T01:36:53+08:00 Copilot fix: initialize globalData properties and move async login outside callback (#223)
+2226fd6147f7a2473a847167f769b2731689ecba 2026-01-21T01:25:08+08:00 dependabot[bot] chore(deps-dev): bump vite from 5.2.8 to 5.4.21 (#233)
+45c0d3265b3a6f1bb345622ddc9659a11304ae19 2026-01-21T01:21:45+08:00 sheeplin ci: modify PR preview cleanup command for auto-confirmation
+2e4f3701946f21fa454ccf83a0988c00be014b15 2026-01-21T01:18:40+08:00 sheeplin build: bump @dcloudio/uni-app (#232)
+2100c679117d17c72d361350e393682cf3fba56f 2026-01-20T23:28:28+08:00 sheeplin ci: fix PREVIEW_BASE for master deployment
+f6cefd1977940cd82293d8ccee4818d6700f2193 2026-01-20T23:20:29+08:00 sheeplin ci: use tencentcloud cos instead of azure  (#231)
+ce22228e61a5809f135456e45e5252491ac43fe8 2026-01-06T21:14:54+08:00 Copilot refactor(mob2pc): refactor router with complete mappings and bidirectional support (#230)
+b545b294cef327a3613cdd707215a6071042fee8 2026-01-06T21:08:44+08:00 Copilot fix: fix root path redirect to home page on web platform (#229)
+9a67ddfd3b9dbbc4895dd25927b18c3e1f291308 2026-01-06T17:02:22+08:00 Copilot fix: fix search history items triggering empty search error (#225)
+5d7312448914cf6a3710d3e191d66c091426e8f4 2026-01-06T16:56:44+08:00 Copilot refactor(mob2pc.js): fix route mapping and parameter handling (#227)
+25de3aebe3a5ab0e2418f1f579545d7cd1386ecf 2025-12-12T17:59:21+08:00 Copilot fix: play first available pronunciation when default IPA has no exact match (#222)
+385c877fafb0ccdc34eb5e2cf492316699a4ca63 2025-05-27T23:39:33+08:00 赵梦婷 chore: convert line endings from CRLF to LF (#220)
+6751eb2cfdf9d5966878f7a22e29456d8d39c2f5 2025-05-27T21:26:52+08:00 赵梦婷 feat: add 404 page as not found fallback (#219)
+fd356447aae730424617ace3ddd7bf1abebe48ce 2025-03-19T10:21:11+08:00 sheeplin build: add dockerfile (#216)
+fd45dc9c5370ea985b0fbfa2035bda22f75294ef 2025-03-19T10:08:20+08:00 sheeplin ci: fix outdated versions (#217)
+fffb0af31f9ea93add20a308913aa3277541207e 2024-07-15T16:46:05+08:00 daonan feat(quizset): add quiz set (#202)
+7ab2abae74b67d836a5baa29c8165890c79c2b00 2024-07-08T16:06:38+08:00 daonan fix(pronunciation): fix mistaking JSON parsing (#214)
+9d3f9c1b11d8d13a8393ccd51857bfe529d2215f 2024-03-22T14:55:48+08:00 daonan feat(word): add word lists (#193)
+f00c31418fbac141c941281d32b3e1761a372e20 2024-03-21T19:45:09+08:00 lw2333 fix(article): use button in article edit page (#209)
+b4e102f0371aec0fc6f9b772e6078754c8b9d553 2024-03-21T19:41:20+08:00 lw2333 chore: set binary git attributes (#211)
+4ed9da41eaa18676d7d495daf766452852df9c03 2024-03-09T23:30:29+08:00 sheeplin style: update eslint (#207)
+bacf0288224da980029ef3405362be73d4edde46 2024-03-09T19:50:03+08:00 sheeplin chore: remove package-lock.json (#208)
+3456d709e2e7b7d18b65809aafb45cc497735b61 2024-03-09T19:49:12+08:00 sheeplin fix: remove spaces before rpx (#206)
+22fa82680f38f9bf5b54aacf4d136c7d8da8b2d7 2024-03-09T14:21:48+08:00 Shxuuer feat: add code style in MarkDown (#192)
+00371895b5f27439e07f36b7c499ec02e850a984 2024-03-08T15:57:56+08:00 lw2333 feat: show unread mails in user page (#204)
+58cc1c05e3327581647e34d31888c7a71a8ba821 2024-02-04T23:11:17+08:00 sheeplin fix: search when h5 (#199)
+4d51d840dd5e764bb7f02f15b0ca6ad175056b04 2024-02-04T23:04:28+08:00 sheeplin fix: disable buttons when not logged in (#198)
+1bc64ff1e752f77d96c78a9f6ecf5fde0c5dc0ab 2024-02-04T22:04:20+08:00 sheeplin chore: remove test items (#197)
+b2833e09f3a625135fcb39441fe90a434f24c7b0 2024-02-04T22:03:53+08:00 sheeplin refactor: adjust for mp-qq (#196)
+54692294e478f56661b7b330607f1c48d2705d37 2023-12-12T23:10:33+08:00 sheeplin fix: redirect by UA (#194)
+df629a879987c0bc8225fab8faeda2dc638974fc 2023-11-27T19:15:35+08:00 daonan feat(point): add points system (#182)
+9656a440212aed7872e515943e7e760489f4270e 2023-11-25T19:44:14+08:00 Shxuuer feat: add jumper from mobile to pc (#190)
+e76c1983b6a229628e9ab9247e0f66d6ceacbd00 2023-11-25T19:36:31+08:00 daonan feat(mail): add mail system (#181)
+04d1283110bb0d577ffa99b90b51e0769f03d17d 2023-10-31T14:53:31+08:00 sheeplin ci: skip build (#189)
+e6e98e13c72aa13d1cb9e5b71f1a7d1886b14ba6 2023-10-27T20:34:18+08:00 Shxuuer refactor(markdown): simplify markdown template reviewer (#188)
+1175ffbc81916b9e13434db21f1352b905e43ad0 2023-10-02T19:42:41+08:00 sheeplin refactor(login): remove normal register in mp-weixin (#186)
+5838c51c7dc37fef9913a14d0f6c434f96960470 2023-09-04T18:00:03+08:00 sheeplin refactor(me): remove other information in wechat (#185)
+dcb460c30ef0c55057bae01fa0eb40ad4ae82b3f 2023-09-04T02:03:05+08:00 sheeplin fix(login): fix wechat register (#184)
+e873a93193163217bc4f6e3bfe0d94607f212466 2023-05-15T01:17:58+08:00 zzzYmq feat: show userinfo on poster (#170)
+197533d2659102a4af6d459269ce0233c302ab1c 2023-05-15T01:14:43+08:00 zzy2695s fix(tools): fix scroll-view in tools page (#175)
+1bf8ba3d193d4cb65761331dc44c63d08b2410da 2023-05-13T16:03:44+08:00 zzy2695s feat(tool): add relative calculation function (#174)
+52504d768f845292ed5b2d646ee2cf12185a6569 2023-04-07T15:55:02+08:00 zzy2695s feat(words): add my rank and amount of voice (#173)
+9430553346f2c11841ff2d07e05d844da3a2e392 2023-03-22T12:37:43+08:00 zzzYmq fix: clear the email timer (#171)
+87f3574af26a017fa6d572446213b8ff8fddb5b3 2023-03-21T20:58:23+08:00 zzzYmq feat: prevent consecutive sending of codes (#169)
+c8c2d376b00a2026721b686b3e372a6a018816b0 2023-02-09T15:55:43+08:00 sheeplin fix(word): adjust margin
+44c58e0f52c3da0510441c2bd39db9ab67768db4 2023-02-09T15:47:42+08:00 sheeplin fix(file): fix file uploading
+a58de596b7e6a0902e08d809a1646a8067c754f2 2023-01-29T18:01:36+08:00 Charlie Chiang docs: limit picture width in readme (#166)
+acbc7f4444d812005a2c879505cef03448bdc132 2023-01-28T23:32:03+08:00 sheeplin refactor(tools): refactor condition filter (#165)
+aafa4adaff5e3468dd95bf192284454049bda887 2023-01-28T21:16:57+08:00 sheeplin refactor(word): scroll to top when loading word details
+14ed250a476973b4f4c53754eab684752fa7f4d2 2023-01-28T20:56:54+08:00 sheeplin fix: fix mode env loading  (#164)
+1e357dbd542006300bf8c794e697172382b4aacf 2023-01-28T20:14:24+08:00 sheeplin fix: fix for build version updating (#163)
+fe871e12cc2fdc4c7690ac955f8f741567a04827 2023-01-24T00:26:28+08:00 sheeplin ci: fix build output path
+0942344d1532b0ff63c94ab20313d3c1780605a9 2023-01-24T00:22:20+08:00 sheeplin feat: update vue version from 2 to 3 (#162)
+97596820eff4d4ab2ad0a555a391f34c523a142d 2023-01-23T21:06:18+08:00 sheeplin fix: fix redirect entrypoint
+d191c421e28d9ea68990bf1e77a96fdd5cc837fd 2023-01-23T20:52:31+08:00 sheeplin refactor(word): refactor word details (#161)
+71e7fdb443afd352dee20965a53930437267ff45 2023-01-22T18:21:22+08:00 sheeplin fix: fix register response
+37801ac95f4aa5982e90c46b1a4e16b771544a49 2023-01-22T18:01:36+08:00 sheeplin fix(wechat): fix choosing yunmu in mp-weixin
+61a80b8e47ea5cc5b916c30f8e166ad5dcac365c 2023-01-21T01:19:43+08:00 sheeplin feat(word): add tips in word details (#158)
+3c461157a4a484aada8a8e2552f88bd3c4819d6e 2023-01-21T00:02:09+08:00 sheeplin fix(tools): fix picker selection in condition (#157)
+e7c729fc1357583ea619fbb644500b4e385eb412 2023-01-20T13:29:14+08:00 sheeplin fix(wechat): remove article edit entry in wechat
+5b8965d6604fd5435ce1c5336eb9aef98f7902fc 2023-01-20T13:25:05+08:00 sheeplin fix(user): fix redirect of user settings (#151)
+30fe27096f10629450f3730c79bedd75538d3f09 2023-01-20T12:42:30+08:00 sheeplin refactor(login): improve login logic (#150)
+8f644bf8205fbc6cb53e0124a43ebe03d239708e 2023-01-20T04:28:45+08:00 sheeplin fix(wechat): close publish modules in mp-weixin (#149)
+c665662aa195615ed8e4a381bb928c6235f8c67d 2023-01-20T03:26:54+08:00 sheeplin fix(wechat): fix onShareAppMessage (#147)
+659c5302c29da5481cf0423701eb8d107b622a60 2023-01-20T01:18:59+08:00 sheeplin refactor: refactor page routes (#146)
+b022a5569ce53a2a6fb35a9d5add151dc0e78722 2023-01-19T12:44:21+08:00 sheeplin fix(user): add tips in H5
+0852849670db64461333616e71867fd4ae9f00d1 2023-01-19T02:10:27+08:00 sheeplin fix(user): fix binding wechat logic
+dc43fdeea3c3f06c172acc14ce9e590833bfe3e6 2023-01-18T23:31:41+08:00 sheeplin fix(login): fix login interaction (#145)
+21eac49efe7d771bad957626dbe1cd290fb9cf31 2023-01-18T22:10:39+08:00 sheeplin fix(article): add min-height (#143)
+e480d08e032551ae07f6cb53293ccb776346cfe5 2023-01-18T22:08:30+08:00 sheeplin refactor(user): reorganize user's routers (#144)
+cd4901d106cd2e3285f2069412cd7b7ef79074cc 2023-01-17T18:20:21+08:00 zzy2695s fix(user): fix userInfo avatar (#137)
+154efe21cb80677dd50fb9df9794873ffc496f36 2023-01-17T15:45:57+08:00 zzy2695s feat(search): add search history (#134)
+1683d56f13b3caa5c7202194e236d5902589dc6a 2023-01-17T12:03:01+08:00 zzy2695s refactor(user): refactor user detail page and fix avatar showing (#133)
+71f69b89a6db0d24d88dda5fe2105b6d5cce5087 2023-01-16T16:40:13+08:00 zzy2695s fix: fix navigation to other platforms (#131)
+e658ad243cd54709220f017fee6db8730e3dccc6 2023-01-16T15:40:08+08:00 zzy2695s fix: fix delete login stauts function (#130)
+251a3219a6a6b81f249c2c82a5cfec20abc0282a 2023-01-16T15:30:41+08:00 zzy2695s fix(test): fix key bindings (#129)
+bee792abad98d82d814879a5803ba7a08950af64 2023-01-16T13:51:08+08:00 zzy2695s fix(voice): fix voice showing (#125)
+3dacfc100d65dfc5a949d25b2bc8214e652175c3 2023-01-16T11:22:34+08:00 sheeplin refactor(search): improve search page
+b9a32883da41c84d434c5c3e3ef7b8fb18b25070 2023-01-15T23:36:38+08:00 sheeplin feat(article): add ArticleEditing (#116)
+227bad5297ea0aded6eaf68533fac08d9ffca6c9 2023-01-15T23:26:25+08:00 zzy2695s feat(voice): add VoiceRankList (#119)
+3e09667b73c263435771e598e58b2bf964a758ec 2023-01-15T21:55:24+08:00 zzy2695s feat(dictionary): add dictionary page (#117)
+50e5abc98b7b517716d5090b091f7de8c9faa8ab 2023-01-14T20:56:03+08:00 sheeplin fix(quiz): fix modal card and warnings
+4bd2b7b1c128534ddf0341cb8aa41f8144ae08e8 2023-01-13T21:50:15+08:00 sheeplin refactor: adjust for new eslint rule (#115)
+803430f69cfc5ba9d3c154239684c1cf1916816b 2023-01-13T12:31:27+08:00 zzy2695s feat: add quiz voice (#111)
+09526235bde8d3e19f73d72255695c04004a8b8b 2023-01-13T11:24:52+08:00 sheeplin fix: add redirect tips (#113)
+a0519867e9b0fcb9084522ca54eb41f77847ab4b 2023-01-12T23:55:36+08:00 zzy2695s feat: add WechatRegister Page (#109)
+baab9d466545fee220519b7e227b1cd80ff873a1 2023-01-12T17:11:22+08:00 sheeplin refactor: refactor globalData (#110)
+da7cb87d25334a5a8abf6f34a366f99b06657cbb 2023-01-12T12:15:32+08:00 sheeplin feat: add tuxiaochao and refactor wechat binding (#107)
+e29ea8c022903dc20ec9461440ccfe729e32d4c7 2023-01-12T12:14:19+08:00 sheeplin refactor: refactor home page (#108)
+5673db2c25378d9dc50b819c3715a2189a054a4a 2023-01-10T23:12:14+08:00 sheeplin ci: fix workflows (#105)
+12ae66be49a423c423d6c71917c1866763ec895f 2023-01-10T22:48:21+08:00 sheeplin ci: add Azure Static Web Apps workflow file on-behalf-of: @Azure opensource@microsoft.com
+ddf328128633e6428ec8081af0e3d07d3f5c2a4c 2023-01-09T22:56:51+08:00 zzy2695s feat(quiz): add test function (#102)
+3c3e7e6358da3ea845d1e59af6beb41ea07cc3da 2023-01-05T23:26:18+08:00 zzy2695s refactor: refactor userInfo pages (#95)
+c311ab2694be0e902c59d9c165206c0589e6cd86 2022-11-28T20:18:52+08:00 sheeplin fix: fix article searching service (#91)
+6564c4cc2d6eff68afb95da105f44733897da2f3 2022-11-28T18:42:01+08:00 zzy2695s fix: fix search pages (#89)
+2c7df33ffb7d1999b6910195d4a893ee9dc90486 2022-11-20T21:45:38+08:00 zzy2695s fix: fix errors in SearchQuiz pages (#87)
+50bdeb8918d709c42d020eaa1d28ba3455cc6d86 2022-11-18T19:58:22+08:00 dependabot[bot] chore(deps): bump socket.io-parser from 3.3.2 to 3.3.3 (#86)
+c3bef5f1a4fbf69f191cc7e053c87e90c85e0ab8 2022-11-17T18:37:47+08:00 sheeplin feat: adapt for wechat (#84)
+a37d68e8afd2be940aff53a974438aa6d9a2688d 2022-11-17T18:36:16+08:00 zzy2695s fix: fix the style in ArticleList (#85)
+a3d4c4d62719998b7480e5bd8a7ff17f169a1eac 2022-11-17T15:30:39+08:00 zzy2695s feat: change quiz‘s options marks (#78)
+cbfe68bde4b4847d164fdc266141d8f2e78b68f8 2022-11-16T12:52:56+08:00 zzy2695s refactor: adjust logic in quiz page (#76)
+a5ca9ff19bd373767c04b52cbe913cbc83023c63 2022-11-13T17:59:53+08:00 sheeplin fix: fix display issues (#75)
+5c12ba2a2f614cbd41c7e316a68d7c34e6b07ded 2022-11-12T12:05:05+08:00 zzy2695s refactor: refactor via ArticlesList component (#72)
+ad2895fd86cf9deff2b51179b4eb8be012802fd9 2022-11-09T18:07:18+08:00 zzy2695s fix: fix articlesliked and mycomment pages (#71)
+5d3fe644de6daf405f28782e5d179cedf30b1c11 2022-11-06T15:57:37+08:00 zzy2695s fix: fix the url of quiz module (#69)
+a280f75dcc3f9b624c599957c436004bbe292111 2022-10-20T02:32:19+08:00 zzy2695s feat: add share function (#67)
+8130201362e7310abd7cf9863f557cd434a9f50c 2022-10-11T14:17:08+08:00 zzy2695s refactor: refactor plugin home page (#65)
+ba744bdd0719a63dfe455c76d1aefa47b4aee76a 2022-09-15T15:17:52+08:00 zzy2695s feat: add new quiz function (#64)
+f6ba05b1a2dceaead7eabe66989b22835dbe92e9 2022-09-14T22:17:28+08:00 zzy2695s fix: fix the style of login page (#63)
+982179a8b103ce3cdcee0e1dad97c4a635be443a 2022-08-16T17:19:54+08:00 zzy2695s fix: fix the bottom divider of comment (#61)
+d487f280f9b145bc8756408e26d1752898f792f1 2022-08-16T15:46:23+08:00 zzy2695s refactor: refactor comment page (#58)
+5193dc6f534ad555abd80e0ecd788163d16396ac 2022-08-08T16:21:34+08:00 zzy2695s fix: fix the format of pinyin (#57)
+26a9a319f3be36e38320630eb557939c51c61dbb 2022-08-07T01:17:20+08:00 sheeplin chore: use eslint plugin "vue/recommended" (#55)
+2ae1a5e2f8a8df639d629bc3b8d8196b775de1e6 2022-08-06T23:57:30+08:00 zzy2695s feat: add words in blank screen (#52)
+aec7138766e25c1421a8660eaf05fe54c423d778 2022-08-04T22:28:39+08:00 zzy2695s fix: fix scroll-view in comment section (#51)
+640d441dc75c1fc230f2e46665ca70d6e27ecf38 2022-08-03T21:12:43+08:00 zzy2695s fix: fix the background in visitor page (#48)
+8477845a1daf2dcfc39b49ecbf51fe03a9a6df6f 2022-07-27T00:19:57+08:00 zzy2695s fix: fix words' position in navigation (#45)
+268fa9371551db971939ef75ab77fc211b71ea13 2022-07-26T16:49:28+08:00 sheeplin fix: fix procedure of logging in and out (#42)
+e6cadc3944612036002a4ab8a61fb1cf6a29ae05 2022-07-26T16:30:01+08:00 sheeplin ci: remove check-pr-title.yml (#44)
+4ed787cbf46f6fa6f83a7cb68f439da4f2755d43 2022-07-26T00:35:07+08:00 sheeplin ci: fix for fork's repo (#43)
+e87b5f60aa046bc3b677493ab14b98ac6e62cbd0 2022-07-25T22:03:26+08:00 sheeplin ci: create check-pr-title.yml (#41)
+1d10dc245277d3b7945b2ec620dffde3489424a9 2022-07-25T18:20:13+08:00 sheeplin feat: add voice synthesizer button (#40)
+3a5464752d88e3caf838481c104187049828d406 2022-07-25T16:10:58+08:00 sheeplin fix: fix error navigating (#39)
+8dda847e855e6d09df53c3ab3dd3d9e2ce68b68e 2022-07-24T00:05:23+08:00 zzy2695s feat: change style in plugin/home.Vue (#38)
+98d14510f40b5957feb846069c5275d1e7f20f9d 2022-07-23T19:54:52+08:00 zzy2695s feat: add navigation (#36)
+78897d6564c851e0ee466a483e22d1a89b8148ae 2022-07-23T00:04:03+08:00 sheeplin fix: make icon blue after liking (#34)
+3c6806b0fd8738b1160d4884424105c2ebcaaba9 2022-07-23T00:03:25+08:00 sheeplin chore: improve BASE_URL (#33)
+7e390b8311bb2f3d017d34de2261f22b6f3a8bbe 2022-07-22T23:47:07+08:00 sheeplin refactor: refactor article page (#32)
+cc4dc5ed0e66c38e2da628cf7aeb72ae5dd02c26 2022-07-22T23:16:27+08:00 zzy2695s fix: fix style in PronunciationUpload.Vue (#31)
+f5618b7bbd927f3778eec8e8ea7ac58ace393b43 2022-07-22T21:50:27+08:00 sheeplin fix: address image showing error (#30)
+f0207f47fbcefb9a6c6e5ec54db682f9bea8dea6 2022-07-22T17:29:05+08:00 sheeplin ci: add build for weixin miniporgram (#29)
+4032958a5133d3f778dd619185d48b3b4b23add7 2022-07-22T17:15:32+08:00 sheeplin feat: change password length (#28)
+9ecbee0387aa7d0005bc7ba7c579754eb168c093 2022-07-22T16:57:24+08:00 zzy2695s fix: fix pinyin style in search.vue (#27)
+f3825b745df1e17862d9786ffa0bc86773f1f0f3 2022-07-22T00:13:28+08:00 zzy2695s refactor: delete console.log (#26)
+5298eab828793bd82aa32f057b6eb3a0c8eacdcd 2022-07-19T01:19:00+08:00 Charlie Chiang Merge pull request #21 from FrogDar/master
+995bc4c8c04a5f2b254c4c4c1b72b2c9f790c859 2022-07-19T01:13:45+08:00 sheeplin fix: fix for compiling mp-weixin
+47f9121e23d24298f8d2a20f2ec888a02c70fc41 2022-07-19T00:47:18+08:00 sheeplin refactor: organize files (#20)
+c785a944b70fd0d076da7d0adbdbc99cc3716e91 2022-07-18T23:35:37+08:00 Charlie Chiang refactor: use another markdown parser
+38ddfc9c2b711b596684dd6c8977c4727d710456 2022-07-18T23:25:55+08:00 sheeplin fix: fix for eslint
+d63aab9a8fecf6355ceb2b869157f1c841e9aae3 2022-07-18T23:11:59+08:00 sheeplin refactor: fix auto conversion
+b750c4f7475b04b4d99d3d3c41c71b25c67bdca8 2022-07-18T22:28:57+08:00 sheeplin chore: remove unused components
+74707d530efb529d1bb4598c98ac56267819ce0d 2022-07-18T22:27:13+08:00 sheeplin refactor: address some warning
+b9f9794ed8c643d7ac9cf775ae8b40f160ac10e6 2022-07-18T22:23:55+08:00 sheeplin fix: fix open URL
+1b65bb34aef1ac2550bfe12aaa317db44e64eaad 2022-07-18T22:00:14+08:00 sheeplin style: rename directory name
+6b3f242cb0e8bd1e6056059b39657b03c413c73f 2022-07-18T21:57:30+08:00 sheeplin fix: fix missing styles
+807dabfaf002cc5af3b54b79ef8b445f42058703 2022-07-18T20:43:57+08:00 sheeplin refactor: use u-parse to convert Markdown
+d131497f1bc301f1a659a3d81cf3af38946eb2a7 2022-07-18T17:08:17+08:00 sheeplin refactor: customize cu-custom (#16)
+d750e205ce1999b7f8b57c214c9eb5d865ef9782 2022-07-18T15:40:59+08:00 zzy2695s fix: fix the likes button and some style modifications (#14)
+14894a3d661fc67ec270ecdb340dd4a663c3888d 2022-07-18T14:57:54+08:00 sheeplin docs: update feature-request.md
+8f51327dcc203c2b1de5f450eb15fafeace64626 2022-07-18T14:37:46+08:00 sheeplin docs: rename issue templates (#15)
+7e9563bb9a73559b44ed99b9185deda874099e23 2022-07-18T13:28:56+08:00 sheeplin refactor: refactor page WordDetails (#13)
+006ac4be979da5cbebd31629b10cba3170877957 2022-07-17T20:47:58+08:00 zzy2695s refactor: reference mpLogin() in services/login.js (#11)
+ddf5a8f8b3f535fcdbc3e45eecc2bde09c7636a2 2022-07-13T17:43:31+08:00 sheeplin docs: add issues template
+1a52cc13ec47aa01e17c4ea0c4530cbd6520c997 2022-07-13T17:34:17+08:00 sheeplin docs: add bug report template
+c338c0345ca7c8f9f4451aee004a65009edd154e 2022-07-13T17:24:04+08:00 sheeplin docs: create LICENSE
+9193949d7e25791d0debcd039215b0f950f0e483 2022-07-08T17:15:27+08:00 123daxian fix: center conditional search button (#10)
+447da404a47d5749c1831a8cea5bd64ee10e9e82 2022-07-07T22:56:21+08:00 sheeplin fix: fix uploadFile
+0a8a371a894474016b60204437cb91190b6bcb3f 2022-07-07T21:55:37+08:00 sheeplin Merge pull request #8 from e-dialect/recorder
+a69e4dcec08e54f960ee1d12f5025f54b8528e30 2022-07-07T21:49:48+08:00 sheeplin fix: fix missing arguments of function PlayAudio
+3165d27429874adaac52923925e0122fbc206764 2022-07-07T21:32:18+08:00 sheeplin fix: fix conditional compile
+c89761bd35c2682a1c7b861c490510fd36b98999 2022-07-07T21:19:37+08:00 sheeplin chore: add directory .history
+e29611a5cf3dd2742b61f6c58fc7cbf2bdebf58b 2022-07-07T21:18:50+08:00 sheeplin refactor: move PronunciationUpload router
+b92ce2117d9e88aefcfe47d3f1b8a3421fd2093f 2022-07-07T21:03:35+08:00 sheeplin refactor: rename variables and add comments
+6db89f5465c516cb8dc9e07fe74ed838515afaf9 2022-07-07T20:52:32+08:00 sheeplin feat(h5): add MediaRecorder
+462376b5de8bca14a5b643821207648d9fd40a27 2022-07-07T20:30:44+08:00 sheeplin style: refactor template
+23fcc29c8d5c581ac29fe7653c63abe417ca779e 2022-07-07T19:04:37+08:00 sheeplin refactor: move constants into location.js
+26612b2e9cd8c0ef57e1c66151a43db533bf20a9 2022-07-07T18:46:27+08:00 sheeplin refactor: refactor with service uploadFile
+c467b492794477d3b6af7718a31f6b6ad08bab38 2022-07-07T18:22:36+08:00 sheeplin refactor: use const BASE_URL
+aa9595da96dbf8021a622b6b3d5cabee33e96bc8 2022-07-07T18:07:53+08:00 sheeplin refactor: refactor multiArray
+144db4187c08971e340793a379f1b0f411e6295f 2022-07-06T00:25:52+08:00 Charlie Chiang docs: update instructions
+611ba354acb7270bc9e2c9e57121b5742c93806f 2022-07-06T00:25:42+08:00 Charlie Chiang ci: use yarn
+1492e78ec8669e4ee7a0102d942df285233e74f4 2022-07-06T00:24:34+08:00 sheeplin fix: fix according to eslint
+d1c4172670a43f59c04358649698bf42da05b320 2022-07-06T00:23:08+08:00 sheeplin chore: add eslint
+b1096932cfdefa5527b5efeed83aaf3930b8a074 2022-07-05T23:49:00+08:00 Charlie Chiang ci: rename workflow
+aa9875513973b75eab182840560bffede0da031d 2022-07-05T23:48:05+08:00 Charlie Chiang ci: add test build workflow
+cafa59d5075145e3226ea4ea094372ccd9836455 2022-07-05T23:36:48+08:00 Charlie Chiang docs: add instructions on contributing process
+3d4ab71713a12080c8f6bd89b43a845b05f726ea 2022-07-05T23:17:58+08:00 sheeplin chore: update manifest.json
+1e813c8f42af17d61c59347802ea925c5f43288a 2022-07-05T23:17:25+08:00 sheeplin docs: update README.md
+6d99abc8b9c1a60c39336b6ec376eeb2a6cb7332 2022-07-05T22:50:43+08:00 sheeplin refactor: rename login to mpLogin
+cc7f4d02515eb0a1d57208f78fcf3db87502830e 2022-07-05T22:38:29+08:00 sheeplin refactor: refactor login page
+7fa137d6738d258222795739d18fa3b598e267f8 2022-07-05T21:54:57+08:00 sheeplin fix(h5): adjust function login for H5
+5595f84abe885a5d76a492a55c0acbe1339edd34 2022-07-05T21:23:21+08:00 sheeplin refactor: move index
+a76e9c4f1e5d1b3541947e32224e02db159ae3ff 2022-07-05T20:59:00+08:00 sheeplin feat: add default error message
+751a9b3182a09dc3f3a57330e7b6e845ac82afe9 2022-07-01T12:05:05+08:00 Charlie Chiang docs: fix another incorrect link
+924019083d5930a4de025a0d4d225d54eaf95e0d 2022-07-01T12:03:59+08:00 Charlie Chiang docs: fix incorrect link
+a0840065aed360b00a98c2a0fc4f572af17c6ec6 2022-07-01T01:56:12+08:00 sheeplin docs: update README.md
+36a94ab99de343a2e58a2416cb118bc12c851ac0 2022-07-01T01:55:57+08:00 sheeplin docs: update IDE name
+d1188b32d9ec848a46771fcbb6fc51c86b56eb29 2022-07-01T01:34:00+08:00 sheeplin docs: move files
+24580b4eb2d56c1c2e3b780d718f571d561970e5 2022-07-01T01:18:51+08:00 sheeplin docs: add contributing
+7f167e18f390a3d3dabe2eac818ba1ee595bebe3 2022-06-30T23:30:41+08:00 sheeplin fix: fix unsupported grammar
+41f81480a682423622831f6918faec375c12a800 2022-06-30T22:51:26+08:00 sheeplin chore: refactor directories
+4541451ae9b99faabcf73587af3ace36d06ffc74 2022-06-24T03:09:58+08:00 sheeplin refactor: refactor index page
+4db3225d82d80ac6f09e87cc1d33ab9e6be7c58d 2022-06-24T02:41:13+08:00 sheeplin feat: add request.js
+01d6a7d2dabed16f5c588eec89402938c38acd11 2022-06-24T00:17:37+08:00 sheeplin Initialize

@@ -1,0 +1,95 @@
+name: e2e
+on:
+  push:
+    branches:
+      - main
+      - develop
+  workflow_dispatch: { }
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install ffmpeg
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: ffmpeg
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.10"
+          cache: pip
+          cache-dependency-path: hinghwa-dict-backend/requirements.txt
+      - name: Install dependencies
+        run: |
+          cd hinghwa-dict-backend
+          if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
+      - name: Run Django unit tests
+        run: |
+          cd hinghwa-dict-backend
+          python3 manage.py makemigrations --check --dry-run
+          python3 manage.py test
+      - name: Start django service
+        run: |
+          cd hinghwa-dict-backend
+          python3 manage.py makemigrations --merge --no-input
+          python3 manage.py migrate
+          DJANGO_SUPERUSER_PASSWORD=testtest123 python manage.py createsuperuser --username admin --email test@test.com --no-input
+          DJANGO_SUPERUSER_PASSWORD=testtest222 python manage.py createsuperuser --username admin2 --email test@test.com --no-input
+          echo -e "from django.contrib.auth.models import User\nuser=User.objects.create_user('user_test','user_test@user_test.com','123456')\nuser.set_password('123456')\nuser.save()\nexit()" | python manage.py shell
+          echo -e "from django.contrib.auth.models import User\nuser=User.objects.create_user('user_test_old_password','user_test_old_password@user_test_old_password.com','12')\nuser.set_password('12')\nuser.save()\nexit()"| python manage.py shell
+          python3 manage.py runserver &
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "16.x"
+      - name: Install apifox cli
+        run: |
+          npm install -g apifox-cli
+      - name: Run tests
+        run: |
+          curl 127.0.0.1:8000/users/1
+          curl 127.0.0.1:8000/users/2
+          curl 127.0.0.1:8000/users/3
+          curl 127.0.0.1:8000/users/4
+          cd tests
+          for test in `ls .`
+          do
+            apifox run ${test} -r html,cli 
+          done          
+      - name: Kill django service
+        run: |
+          pkill -9 -f manage.py
+
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build production image with pinned semantic model
+        run: docker build --tag hinghwa-dict-backend:pr ./hinghwa-dict-backend
+      - name: Smoke test semantic model loads in the built image
+        run: |
+          docker run --rm --workdir /usr/src/HinghwaDict-backend \
+            --entrypoint python hinghwa-dict-backend:pr \
+            -c "import os; os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'HinghwaDict.settings'); import django; django.setup(); from word.search.encoder import BGEEncoder; vec = BGEEncoder().encode_query('hello'); print(vec.shape)"
+      - name: Test canonical SQLite directory and worker reconciliation in the built image
+        timeout-minutes: 5
+        run: |
+          probe_name="semantic-worker-test-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          trap 'docker rm --force "$probe_name" >/dev/null 2>&1 || true' EXIT
+          timeout 240s docker run --rm --name "$probe_name" --network none --read-only \
+            --cap-drop ALL --security-opt no-new-privileges:true \
+            --memory 512m --memory-swap 512m --cpus 1 --pids-limit 64 \
+            --tmpfs /tmp:rw,nosuid,size=64m \
+            --tmpfs /usr/src/HinghwaDict-backend/logs:rw,nosuid,size=16m \
+            --env DEBUG=false --env SECRET_KEY=synthetic-worker-tests-only-not-production \
+            --env SQLITE_DATABASE_PATH=/tmp/worker-tests.sqlite3 \
+            --env PYTHONDONTWRITEBYTECODE=1 --env OMP_NUM_THREADS=1 \
+            --env OPENBLAS_NUM_THREADS=1 --env MKL_NUM_THREADS=1 --env NUMEXPR_NUM_THREADS=1 \
+            --workdir /usr/src/HinghwaDict-backend \
+            --entrypoint python hinghwa-dict-backend:pr \
+            manage.py test word.test_semantic_search word.test_worker_readiness --verbosity 1

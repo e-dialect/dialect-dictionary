@@ -1,0 +1,250 @@
+8be2e372db5df31e80cd9320ddb72754f40f766d 2026-10-20T23:40:35+08:00 sheeplin ci: publish verified immutable production images (#192)
+8f4a6b67fac6fc171744cdc1c874c689b45b883d 2026-09-16T16:32:54+08:00 sheeplin docs(license): preserve speech feature and isolate unresolved provenance (#186)
+b5b589195d680c11aac49669a0372149b8608244 2026-05-14T10:22:50+08:00 sheeplin ci: update pr-preview-deploy.yml (#185)
+39a5499737b545ef609f2d7d2567ffa3e87e2920 2026-04-02T17:09:18+08:00 sheeplin ci: fix .cos.conf (#183)
+ac7bca78df15baaeaa54cd4e59c160a667f21a89 2026-03-25T14:41:04+08:00 sheeplin docs: add badge for DeepWiki to README
+562c07b5b46957ebf63fbe6fdf7eca089c6a2c3e 2026-03-19T16:05:03+08:00 sheeplin docs: change LICENSE to AGPL-3.0
+9857e52718d17b32b3d7554c03261488026b5b91 2026-01-25T01:36:16+08:00 sheeplin refactor(word): improve stringToRGB for tags (#180)
+0d2636bb471f789d2b79c92b2004af410d64b67f 2026-01-25T00:13:02+08:00 sheeplin fix: split PlayWordSoundButton (#179)
+9fd5475063d3b8693b448ecda3d2d91e684aa44c 2026-01-20T23:27:44+08:00 sheeplin ci: fix PREVIEW_BASE for master branch deployment
+3887f5b58cbd16ddbff89821b9b2eeab55ec0031 2026-01-20T21:00:13+08:00 dependabot[bot] build(deps): bump axios from 0.21.4 to 0.30.2 (#178)
+3468f5037f35db4ce8725d839ea0a17679d19da8 2026-01-20T15:36:06+08:00 sheeplin ci: add auto-confirmation for PR preview deletion
+987a96ce53f266bb70b64d65dfa1d66dbdf9bde3 2026-01-20T15:28:47+08:00 sheeplin build(deps): bump vue cli eslint and router from 4 to 5 (#177)
+007fc5fcc983a4d06def42df275b0c275969824d 2026-01-20T02:40:54+08:00 sheeplin build(deps): bump node from 14 to 22 (#176)
+e4d72b89904ab48088c8c73d82c272580574f2b9 2026-01-20T02:25:51+08:00 sheeplin ci: fix master-deploy-cos.yml
+8a93d14c578c133f56e6b7b04624f737eabe7de9 2026-01-20T02:21:59+08:00 sheeplin ci: use tencent cloud cos service (#171)
+e1f8688c8503ee70f290da3aee6e3ec08cc1b79b 2026-01-20T02:21:17+08:00 dependabot[bot] build(deps): bump sha.js from 2.4.11 to 2.4.12 (#172)
+c6f04a98c12b03b5ef56216c3097bfdf1d1b865a 2026-01-19T22:13:56+08:00 sheeplin refactor: update alert message in Home.vue
+ec79b6aa1d2b4383c319ac279bb3e6c4174d9cee 2026-01-06T21:24:42+08:00 Copilot refactor: fix infinite redirect loop in mobile detection with Desktop Mode (#169)
+772fb4ec2f68b84eb5ad44c837f2911096d1ef94 2026-01-06T17:30:42+08:00 Copilot refactor(pc2mob): fix route mappings and add parameter name transformation (#168)
+cd1488eed1f8fbe9a142b6728a37c7e180af9c30 2025-12-12T18:08:28+08:00 Copilot fix(word) : implement two-button design of PlaySoundButton with smart fallback (#166)
+e31f1cc37469220ccefb97d45f137a3e1deeff9b 2025-12-12T16:45:36+08:00 Copilot feat: add fallback pronunciation playback when exact IPA match unavailable (#165)
+4a3258576d6979e8863a61a2b8101a0a3eba5234 2025-12-12T11:11:13+08:00 Copilot fix(login): address login state loss on admin page refresh due to race condition (#163)
+108c4f957d355aaa2cc231a69c363910cf27492c 2025-05-19T18:37:49+08:00 赵梦婷 ci: fix azure upload (#160)
+aa00f8f1e028da616ddf23528bfc94002fc869fb 2025-05-19T17:45:00+08:00 赵梦婷 fix(home): address affix component overlapping content below (#159)
+1c15cf6c54845401b2cd9107ba28e56eb21efa94 2025-05-19T16:37:36+08:00 赵梦婷 build: bump @achrinza/node-ipc (#158)
+85d2adfd3df9706178f1d4d5892e0083895be5fb 2025-03-19T10:03:07+08:00 sheeplin build: add dockerfile (#154)
+3305477abe69f1b0c1cc361282ab4eb2ed9c70a0 2025-03-19T09:45:03+08:00 sheeplin ci: fix download actions
+c893708c15ccd4e2a175382f711419ff7415ab51 2025-03-18T17:28:54+08:00 sheeplin ci: fix outdated versions (#155)
+47dd2e806af3169321159612fdd4cdfc00d5dce0 2024-04-15T17:52:57+08:00 Shxuuer feat(word): add word tags (#151)
+357bee7fcb56f855902d513684c30ca1fe0b919c 2024-04-15T17:48:43+08:00 Shxuuer feat(conditions): search by input (#150)
+89ea838a07663c3a9313d611e0cf067b0508362c 2024-04-02T15:54:03+08:00 Shxuuer fix(record): fix HTTP method of the pronunciation verification (#149)
+38369607811931042210f2fd66b64eb2c896020c 2024-03-08T15:47:03+08:00 Shxuuer fix(certificate): add certificate system (#142)
+034afb69a980bda974080a26cb150bf82e3ba79f 2023-12-12T12:19:52+08:00 sheeplin feat(notification): support TypeLinks (#144)
+7e09b27513d04aaf60b82626313e3c9325099929 2023-12-12T12:19:43+08:00 sheeplin feat(tool): add location modify in recordConfirming (#145)
+7cf50dade4e7e45d6291d6dc237537395033df09 2023-10-27T20:39:30+08:00 Shxuuer fix(confirming): remove 'undefined' result when confirming (#140)
+e4a1deda37b2ea7051e0ae6a09812b5e4ffd7e90 2023-10-27T20:38:40+08:00 Shxuuer fix(comment): remove unexpected space at comment region (#139)
+433a361352991368b258c5e36b8b82a43ede6932 2023-10-18T16:35:05+08:00 Shxuuer feat: add jumper from pc to mobile (#136)
+66dd0b2980d6163639ffd0d6d6715ec3ef16b1fe 2023-10-18T16:26:43+08:00 Shxuuer refactor(wordlist): format date (#137)
+185498888ff8b972d9ca0a63ea54009c15ddc721 2023-10-18T16:24:58+08:00 Shxuuer fix(word): remove shadow of MarkdownViewer (#138)
+45c6eb0bacacb2d5a1ea368fa05fb9ba07ae6cad 2023-10-17T21:52:56+08:00 Shxuuer fix: optimize SingleWordMode.vue (#134)
+0f8ad33718f27f5e4db7c40893fcebe94df4a15c 2023-09-16T16:18:27+08:00 Shxuuer feat(WordList): add WordList search (#127)
+b233ff76495425778ff4f8d3d50a2554653380bc 2023-08-15T23:18:32+08:00 Xu Shen feat(WordList): add word list function (#126)
+d4ac1392b5693e1081cca2906ebb773ca6946019 2023-08-11T01:26:24+08:00 Xu Shen feat: add points mall, level system and mail system (#121)
+628a493733e14e9d4c30363b41696f2112504ec9 2023-05-19T08:41:45+08:00 123daxian feat(tools): add translation (#120)
+b1ad4ad72deb5e929f1997b845510c27ddeabb10 2023-05-09T23:01:30+08:00 123daxian fix(word): fix reading country and town from user info  (#117)
+b9410f18ed610d6ab5be9b79655a37059253869b 2023-05-01T01:10:17+08:00 123daxian fix(quiz): fix quiz routes (#115)
+79e8dca67a0fe8f7594203c44bb63f83b8dbe973 2023-04-20T16:20:23+08:00 123daxian fix(word): fix duplicated words in words creating (#113)
+eade18ff81a06448860fdb3aae73258c5018a187 2023-04-09T15:55:57+08:00 123daxian fix(record): fix filters in records reviewing (#111)
+1f03d9db7a6cc87a3b271cadb8722b7c7fa58624 2023-02-16T12:52:23+08:00 sheeplin refactor(tools): improve tool images alt attr
+7db0e43799cc14f50afe8fff7b0edad3f57e5f2e 2023-02-03T23:29:16+08:00 123daxian feat(recordRank): show my rank status (#108)
+8d2ff07128f014a04cf047001f39ae224db9f5dd 2023-02-02T19:54:16+08:00 123daxian fix(article): show comments with nickname (#106)
+82f4e537ab12e99325a652b38d3ac5cd6745de06 2023-01-20T16:31:24+08:00 sheeplin refactor(home): change tool lists
+541ea214b36df6104bfbb7849f47f4d7d9ef6148 2023-01-20T16:31:06+08:00 sheeplin refactor(dictionary): refactor page header
+c8c26da9dc0d65e2f5e3bdca6efa1be5b277af20 2023-01-20T16:11:41+08:00 sheeplin fix(user): fix for notifications APIs changing (#101)
+66b4d6083cbbb8af186798b9a7ea080bf4cca276 2023-01-17T00:43:25+08:00 123daxian fix(record): change the way of record filter (#96)
+7cd1e89dad1f3f4b0741264ee0e283406590c63a 2023-01-16T13:58:02+08:00 sheeplin refactor: merge branch remove resize (#89)
+88e8903cd78402095e52074eebf67ebfca83d8b1 2023-01-15T23:41:09+08:00 123daxian fix(home): change size and color of font (#95)
+ba45957e8a6b942832b38bcaa3eb2c047096818f 2023-01-15T20:17:22+08:00 123daxian fix(home): change alert from warning to info (#93)
+a5d9ba8d9f62821e6d01531cd9454769d1f5ec12 2023-01-15T19:13:23+08:00 123daxian fix(recordRank): show weekrank when loaded (#88)
+e433ccd033b7987a10273894a71d3de4f1f26d9a 2023-01-15T18:18:10+08:00 sheeplin 去除网页入口的强制缩放 (#86)
+b3a4539b6f9c96f020106aa21029068079bd26db 2023-01-15T02:03:53+08:00 123daxian feat(recordRank): add recordRank (#83)
+5851dc37c008d5273a2ba617360912cffd882f83 2023-01-15T01:19:01+08:00 123daxian feat(dictionary): optimize dictionary UI (#82)
+afc5251291c2452926421032621571820f5e17ac 2023-01-12T22:37:14+08:00 sheeplin feat: add dictionary logic (#81)
+d3412b9cb3223cd83e8832cad9af9ee1c69b1cc1 2023-01-12T17:02:17+08:00 123daxian feat: preparation for dictionary (#79)
+0851373d798ca254616eafaff163a53d506bc0f3 2023-01-12T02:34:00+08:00 sheeplin fix: fix bugs detected after #77 (#78)
+7f49d7ff08f1da806d38085b14a0e9eab5c860e9 2023-01-11T16:07:47+08:00 Zheng 修正并完善了“亲戚计算机”中的亲戚关系图谱 (#77)
+10631234fa7f67a8ba916bb644b1bcba1ecebfa1 2023-01-10T23:28:09+08:00 123daxian fix: fix create word (#74)
+5ff9bc33f592619ca6d0d3e5d522100eb059fad0 2023-01-10T23:23:09+08:00 sheeplin fix: refresh token on site created (#76)
+a94c0381ac5da19c747e41a6b158c1199eda5c02 2023-01-10T21:36:31+08:00 sheeplin ci: fix workflows (#73)
+7d75b7fd3790e3df057b18be2dea3ea521a2ac17 2023-01-10T14:48:23+08:00 123daxian feat: add quiz voice (#62)
+fcb4f2e2163a3fae6970a43edd1288c0483ace10 2023-01-10T02:37:49+08:00 sheeplin ci: merge two workflows (#70)
+5cd6e1c0e444062e4346b2d2b84772acb25f1d54 2023-01-10T01:23:48+08:00 sheeplin ci: update default branch name
+a69ba94618d35d02a7f7e213afac544b6be85ccb 2023-01-10T01:21:48+08:00 sheeplin ci: fix ci triggers (#69)
+fdb7750885c6b7431773ed0969fb382b0c7aba25 2023-01-10T01:17:06+08:00 sheeplin ci: remove outdated ci (#68)
+138d01b7be7fcc3b82c8307c4ea6c7ad8ec7356e 2023-01-10T01:12:35+08:00 sheeplin fix: fix azure ci (#67)
+66d3b4443dace67c188e527b3f048db2daa72103 2023-01-10T00:34:06+08:00 sheeplin ci: fix azure ci (#66)
+0776d0459cc3c007403850cd7d3f2adee3aafe1a 2023-01-09T12:22:20+08:00 sheeplin ci: adjust azure workflow (#65)
+7d86866ad8f630305d28886082ca8c43799658a8 2023-01-09T11:04:42+08:00 sheeplin ci: add Azure Static Web Apps workflow file on-behalf-of: @Azure opensource@microsoft.com
+1b4e86d3b4300f69c8c3ae99e9e702c15e453c13 2023-01-09T10:05:33+08:00 123daxian feat: add tuxiaochao (#64)
+98265a71c36765417fd8ab33cbf2f52b2468cfd9 2023-01-08T21:31:01+08:00 123daxian feat: add filter about recordStatus (#63)
+2d7115bb4883023934843922f6dbc37a99f6b689 2023-01-04T23:12:45+08:00 123daxian feat: add text attention for record review (#60)
+232b3fc26957d87297d49714e8c502e7fdd3c039 2022-11-28T20:19:24+08:00 sheeplin fix: fix quiz module (#50)
+450c5fa0a98529ccc02c135c4a15354a827b3691 2022-11-28T13:56:53+08:00 123daxian fix: refactor quiz (#49)
+ead1889c500803cff0f47392417ae9eacf63a531 2022-11-26T17:21:40+08:00 123daxian fix: check login status in settings (#47)
+336ec89ff2264397d59ec64d50d767c9fd472a94 2022-11-26T17:20:34+08:00 123daxian feat: add searching by selection (#34)
+3e9d1f028de062fdf507557bdf411c7402a8de4e 2022-11-17T22:20:13+08:00 sheeplin chore: add LICENSE (#46)
+fa06d9c8a335c0228d247ea1fcc8b070512cc10d 2022-11-17T20:32:46+08:00 123daxian fix: fix all-selecting button (#44)
+e39a1c3ed5becdb4276b508f243b50c94e87d0e3 2022-11-15T16:47:22+08:00 sheeplin fix: fix user settings page (#42)
+87f042bc9285e94b7b5b49169cbe649256b39433 2022-11-08T19:19:36+08:00 123daxian feat: add quiz module (#32)
+9af39f2ce64241a944be94b7f6b8620580404f4e 2022-10-12T00:07:30+08:00 sheeplin refactor: use request.js and services (#31)
+93951c34ce5374cc4196d0178ccef1cf5f0ff950 2022-08-13T16:20:28+08:00 123daxian fix: disable feature comment without login (#29)
+ad1ebaf1fd03ffcfec7f78fb529c9d3dc1b76b87 2022-08-07T01:40:35+08:00 sheeplin fix: use GitHub instead of Github
+92d00dcd86cee9fb7c8787f8cf4bcc1275566140 2022-08-06T23:54:07+08:00 sheeplin feat: update home page for showing (#28)
+ebbaa182e68c320fa70c865dde58be78321f8c77 2022-08-06T15:07:57+08:00 123daxian docs: change bracket to full width (#27)
+1aef820e2ec78f4c43f694be576b4d9847be716e 2022-07-30T20:45:20+08:00 sheeplin chore: add issue template (#24)
+892fe15eb8f512dc07ad9dbc48dac12ed9f5eb54 2022-07-27T16:24:17+08:00 123daxian fix: permit keyboard login (#23)
+086e8b4101469405606ba7050b029276a7bb7b68 2022-07-26T16:48:37+08:00 sheeplin ci: delete check-pr-title.yml (#22)
+660695fd426ddb56a3e922a7845c5327e2b6df0e 2022-07-25T21:59:35+08:00 sheeplin ci: create check-pr-title.yml (#21)
+82150967a324c338790f51c6053133bae737ea7a 2022-07-25T20:13:58+08:00 sheeplin fix: resolve iframe issues (#20)
+985103d89c69ead32c34418d364761e97166a4ae 2022-07-24T00:23:18+08:00 123daxian feat: relative icon and bottom (#19)
+e34e65d26162e928f5aa292558e872d5429a88c5 2022-07-06T14:48:32+08:00 sheeplin Merge pull request #15 from FrogDar/master
+47edeb0d9012423f9df685a5889ef9be0fbd231b 2022-07-06T14:42:32+08:00 sheeplin docs: update README.md
+5ed6de14da49c13c43245a930dc456f4095167ac 2022-07-06T13:51:32+08:00 sheeplin ci: rename steps name
+724ef8c306da158d53543918b718f04ad5b55a30 2022-07-06T13:41:27+08:00 sheeplin build: rename project name
+40c9dbd1b3b6b185557d3464432fa3a8c7bcae24 2022-07-06T13:38:24+08:00 Charlie Chiang ci: use correct script
+79fc34c8160d6e8809f0ee487aa6704fc840cdc5 2022-07-06T13:36:48+08:00 Charlie Chiang ci: add test build workload
+4816eaf557ce747c50487a7a1df9442f4d62ddb1 2022-07-01T02:54:48+08:00 sheeplin Merge pull request #10 from e-dialect/dependabot/npm_and_yarn/eventsource-1.1.2
+c91370820a0df2407701e59e28430a73f6cbb337 2022-06-30T18:53:42+00:00 dependabot[bot] build(deps): bump eventsource from 1.1.0 to 1.1.2
+df4541ffa9ae14990af6ab65d9367d797e92f7b1 2022-06-19T18:50:43+08:00 sheeplin refactor: update relative.js
+ef97816d8165a045e463c0444b9ca210ec0c371b 2022-06-19T18:50:27+08:00 sheeplin feat: update for hinghwa.cn
+0be12bf93d8bf26fb51c9f6c19f61de7dfcd9304 2022-05-22T22:51:25+08:00 sheeplin fix: address the different key name
+18df6f611f9aadcc768598e50a9a1b36de4bf320 2022-05-22T22:36:24+08:00 sheeplin fix: fix the error showing of area cascader
+c8f60def61f09a71abf7d209f8886116dca56a45 2022-05-20T20:54:37+08:00 sheeplin Merge branch 'master' of https://github.com/FrogDar/EDialect-PXM
+5d085c42b02ab3b147546e07f02462a84d7887d5 2022-05-20T20:54:32+08:00 sheeplin feat: add relative selection 1.0 with some bug
+1f8c5d7186e792f079fd0f79371b7431a32ccc34 2022-05-08T13:47:47+08:00 sheeplin fix: fix the error cache showing
+0059db5ef46d96b651cae0979fdd401cda4c9a4d 2022-05-07T23:20:43+08:00 sheeplin feat: add tts pronunciation
+7a9f9d3f0114780dadd64088b930756e8878fb8d 2022-05-07T22:58:29+08:00 sheeplin fix: clear the cache
+6b3bc84dd66d9a524f1f457800137a643c88bdd4 2022-05-07T22:48:13+08:00 sheeplin refactor: improve information showing
+942a99ddb12baa29aa898d6229ed003aeee1c4b4 2022-05-07T22:47:20+08:00 sheeplin feat: add tts pronunciation of a sentence
+75be9cdcc63264d9938e8f2f540eb1ceab69f641 2022-05-07T22:11:52+08:00 sheeplin feat: add tts pronunciation
+6b040ed1244d01ccdc68f8f6adfa279e001ccbac 2022-05-07T21:07:17+08:00 sheeplin fix: fix the showing of related articles and words
+0eb3facb73f7ddd1909f9dffd0f8db9e0c56d1d7 2022-04-20T15:12:11+08:00 sheeplin Merge pull request #9 from FrogDar/dependabot/npm_and_yarn/async-2.6.4
+492101b064453613f46e6a102bd0c62d2f7119db 2022-04-20T15:12:01+08:00 sheeplin Merge pull request #8 from FrogDar/dependabot/npm_and_yarn/minimist-1.2.6
+fa4e799c5ff554f1bb89b72acdce8cae5b18bf1a 2022-04-20T07:11:22+00:00 dependabot[bot] build(deps): bump async from 2.6.3 to 2.6.4
+72e5ecd050cbed49470c571fea883d23c073136c 2022-04-20T07:11:20+00:00 dependabot[bot] build(deps): bump minimist from 1.2.5 to 1.2.6
+033ecb9df5ddc438392567d4cd1071b86f849f35 2022-04-20T15:09:52+08:00 sheeplin Merge pull request #7 from FrogDar/dependabot/npm_and_yarn/moment-2.29.2
+45b6b1ce0d217659c64086adebb6ac24330a8899 2022-04-10T21:46:16+08:00 sheeplin fix: address the login problem with unavailable token
+e62cc31e02b5d1a55af7923e69e93557c22cc072 2022-04-10T12:16:38+00:00 dependabot[bot] build(deps): bump moment from 2.29.1 to 2.29.2
+445a9bba3bd2dd226d901750cf47b3c16f33b8fa 2022-04-10T16:43:52+08:00 sheeplin style: format the code
+768fce158efd0156b7da439104823c44fc986b00 2022-04-10T16:35:26+08:00 sheeplin feat: add word creating
+a11a7354582ba934f400068e9f27d87155cb28fc 2022-04-10T15:34:49+08:00 sheeplin feat: update pronunciation confriming
+34da2c5d0780953f64b5c6229d01c305734c2408 2022-04-10T15:32:30+08:00 sheeplin fix: fix the admin access to the record confirming page
+435c27796564370584149460d85dba4beb213b17 2022-04-08T20:43:45+08:00 sheeplin fix: fix the first loading of user information
+9bb389264ee608c0a32ea17e0b870e0cc03869a3 2022-03-31T23:29:13+08:00 sheeplin refactor: add tips of county filed
+b1d2e2ee48147f754dba5cac3679caa9949a03a0 2022-03-31T23:23:40+08:00 sheeplin refactor: change the translation of annotation
+1876b5602c2ff87d8d8ed3da3f86de409f32c499 2022-03-31T20:28:07+08:00 sheeplin feat: add empty showing
+706ebf45ea54a752ee24c3df29bd99076faee632 2022-03-31T20:26:34+08:00 sheeplin fix: address the error mime type
+b5ad50ad767f8df52c4757c19cd7a07fcbbc34ee 2022-03-21T00:08:38+08:00 sheeplin build: use yarn instead of npm
+1dbe6fe7d14073785b30804a80565217f23dc024 2022-03-20T23:55:13+08:00 sheeplin Merge pull request #5 from FrogDar/dependabot/npm_and_yarn/follow-redirects-1.14.9
+b960123a12144f79abb9d6db9f2c62d2ad4c44f9 2022-03-20T15:54:23+00:00 dependabot[bot] build(deps): bump follow-redirects from 1.14.1 to 1.14.9
+f08eb11d33be2145adbbc42e85656697bbc0ac68 2022-03-20T23:53:14+08:00 sheeplin Merge pull request #4 from FrogDar/dependabot/npm_and_yarn/url-parse-1.5.10
+7ca8f46cd9e5c5cb48f2f30c7741bd5b84cf61ea 2022-03-20T15:47:25+00:00 dependabot[bot] build(deps): bump url-parse from 1.5.3 to 1.5.10
+09313a8657ea39c03fd5626e161d4c950a5c799b 2022-03-20T23:46:12+08:00 sheeplin refactor: enhance traditional Chinese character showing
+eb613d5e980aabea31b1c885d1e3ba3e6d70b479 2022-03-20T23:31:51+08:00 sheeplin feat: add traditional Chinese character showing
+b237efe836be3eb74735ae380765067a470c4f43 2022-03-20T22:57:42+08:00 sheeplin refactor: use MarkdownViewer component
+b15a306ea05c1ab10f812827be0d56831107dc7c 2022-03-20T22:55:47+08:00 sheeplin feat: enhance word details showing
+50a826187a2cc843327f2970a6378e80f1b98055 2022-03-20T22:13:02+08:00 sheeplin fix: fix the errors using of vars
+47aefb6726b087981a17fa8bb3eb6c45e58ec421 2022-03-20T21:37:13+08:00 sheeplin feat: enhance condition searching
+64ffb49dbaede8424ce3ebba5fd56f154de53fd2 2022-03-20T20:26:22+08:00 sheeplin feat: enhance characters searching
+73b50b6fadb069336d974b5a040076345c5801f2 2022-03-20T01:50:50+08:00 sheeplin fix: fix the bug of changing password
+3490010eb5b1c4b6f7efa5da1f7b7ea25db61069 2022-03-20T01:39:46+08:00 sheeplin fix: fix the bugs of mistakes
+23d20df930c5308e457347526b7bb18d422fff39 2022-03-20T01:39:16+08:00 sheeplin fix: fix the bugs of v-model in components
+5a1153fdb1c9f3ebb2ec341639383bd9132ad9c4 2022-03-20T00:18:19+08:00 sheeplin refactor: do for good code style
+5bf9b8fb8fd6e960f440de568a5ff06b942b9d6d 2022-03-20T00:16:16+08:00 sheeplin feat: add word confirming
+e11c08ae99a118b603f9a653d0b8e69dfdd25646 2022-03-20T00:13:47+08:00 sheeplin fix: fix the warning of empty string
+b05d997589a09bfdbe85297feb622c55936c9349 2022-03-17T23:45:21+08:00 sheeplin refactor: modularize word editing
+4aba7e28ebc0996963c99a31c2bd2e5257ff4386 2022-03-17T22:19:55+08:00 sheeplin feat: add word editing feature
+96ac456cff3a58cdb27b0cc20ad1c2127309ad36 2022-03-17T20:04:04+08:00 sheeplin fix: fix a typo
+59be52a12490b68da7251fd3ad442e9cc49dd4fb 2022-03-17T20:01:26+08:00 sheeplin refactor: modularize markdown editor
+0614d6e1b7899ac183e1bfdf1c51f770fb974569 2022-03-16T09:51:06+08:00 sheeplin refactor: modularize word details showing
+002ca51d828bd8961d050e18495a637ef146a0ca 2022-03-08T21:09:19+08:00 sheeplin fix: fix the problem for long definition showing
+1b517972607ee3a9109a94001a4dc489b5a20ed7 2022-03-08T12:16:11+08:00 sheeplin fix: fix the problem when search nothing
+f0e21087c0483876e45a0c25e6b4d31e32230946 2022-03-06T03:06:43+08:00 sheeplin feat: add a button route to a random word
+eeb8fa2624aa4f74fe251962d82641aec499d9b6 2022-03-06T02:51:46+08:00 sheeplin feat: show personal pronunciation in user details page
+1782699cbd5e80d979e7cd579a011f0b3d0368de 2022-03-06T00:55:10+08:00 sheeplin fix: address the mistaken message showing
+01ec8359db3b0a8f64a3932ef186406c94e8aa59 2022-03-06T00:54:17+08:00 sheeplin feat: add mail system
+9dd03b4fc4e5cf51ae0b4822a4e8cd387ebbb3d0 2022-03-04T22:02:47+08:00 sheeplin refactor: construct user components
+eb48444c1890115f51c27bfbb648592e64f744bb 2022-02-08T11:53:00+08:00 sheeplin fix: address data init
+c94d025f1559c92df9d518f6bfb152d9265c206b 2022-02-02T23:08:36+08:00 sheeplin fix: fix the result showing when no chinese characters
+da80cc5a28e50cb9767311bee432bbfeefb66695 2022-02-02T22:57:31+08:00 sheeplin refactor: optimize the user experience
+822c06798dd0af5b9aca1d6f3734b5a3fb6ff63e 2022-02-02T22:27:45+08:00 sheeplin refactor: use AreaCascader to optimize the user experience
+b6f93b1447f7a30a3f8f9ce1f68ba219165db7cd 2022-02-02T21:40:46+08:00 sheeplin refactor: optimize the user experience
+e3da68211cfdad40adf260ac688ca4ed084b6759 2022-01-27T18:50:31+08:00 sheeplin refactor: adjust for Sanpu Team
+375fd74c94bbc46a6305712b00b338697ab931e6 2022-01-18T21:48:30+08:00 sheeplin refactor: add invalid login help message
+f7e5aeec577e5276cc9a48b85210adc9f228dd42 2022-01-18T21:35:54+08:00 sheeplin refactor: add help message
+fceff861e28ddb0ae03a3cce1d1f07e8083c9500 2022-01-18T21:07:57+08:00 sheeplin refactor: change button 'like' logic
+df40a283b9c2c6ae43ee199532bd5c017585ec72 2022-01-18T21:06:56+08:00 sheeplin fix: use 'dispatch' instead of 'commit' for vuex action
+7cfc4a1eb29c5cedbc9b3f653ccde57a821624fe 2022-01-18T21:05:29+08:00 sheeplin feat: add record confirming
+c95834f22a1cf21fe9715b97e5efb5e65f4c64e5 2022-01-18T20:08:11+08:00 sheeplin refactor: use loading cache
+f9795e310a1c7bf06aaab45b5c0c144e357b6a4a 2022-01-17T17:59:05+08:00 sheeplin feat: add API cache
+61d734c60f7b879d1486708b0a0c626811c5a0ea 2021-12-12T04:18:24+08:00 sheeplin feat: add re-recording tips
+6284830280713a3d74cc7865495abeb0d73b219f 2021-12-12T04:00:52+08:00 sheeplin feat: add record playing button
+9479b9abc2635eb9c5492a61d5a947b528feba45 2021-12-12T01:45:09+08:00 sheeplin feat: use dynamically filter
+87d50975fc91c806ba6221b093063354e4adc972 2021-12-12T01:28:26+08:00 sheeplin feat: use dynamically loading instead of static data
+084543d1c60c0735a3622558ca10f4ca4ebc77b5 2021-11-08T23:33:18+08:00 sheeplin feat: add QuickRecording link
+4c3d2101525fe1d212b3d9173552912046de9b83 2021-11-08T23:21:49+08:00 sheeplin build: update package-lock.json
+223448cf5d1c05da573a7d2647e27b9775ef0cc0 2021-11-08T23:11:59+08:00 sheeplin Merge pull request #2 from FrogDar/dependabot/npm_and_yarn/axios-0.21.2
+8c6c7d07d93059fd6f8572c7703a654bac6e3067 2021-11-08T15:11:24+00:00 dependabot[bot] build(deps): bump axios from 0.21.1 to 0.21.2
+d80815069551a89a13d3bf61dba95bba30678a16 2021-11-08T23:05:29+08:00 sheeplin fix: fix forget password and login error
+3bb8cbe2e6dd831b36ae9c0240851f8d83678db1 2021-11-08T22:44:20+08:00 sheeplin feat: add standard pinyin and ipa
+058881c86506ddce99cc580defcfc3bdae861e83 2021-11-08T21:47:14+08:00 sheeplin feat: add word recording
+fe1af8c103d2ae9eb75a5e5f4e9b8becc7906283 2021-11-07T02:23:20+08:00 sheeplin feat: add quick (multiple) recording
+13ae444f29d4e7a2f0816509f48cf8c8227a9758 2021-10-09T16:35:22+08:00 sheeplin feat: update music page performance
+0e6e244676d8450e0c9356bc8f0967ef4f7dfd2d 2021-10-09T15:56:28+08:00 sheeplin feat: update page performance
+11ab6391fedf3a5636f4af7b86d85ae37fa02d5a 2021-10-09T14:48:32+08:00 sheeplin build: update settings
+7f68d88e276eadc3e6682e01d7b8c583fb3dfce6 2021-10-07T02:01:56+08:00 sheeplin feat: add DailyExpressions page
+fd578257578117470781100c58c1be477c945d4d 2021-10-07T00:15:35+08:00 sheeplin feat: add pinyin search for characters
+ad79bc11dc4bf183997ad2ab94073238ceaf6511 2021-10-05T22:47:11+08:00 sheeplin refactor: adjust page layout
+a08328ea106257b3f58db99142b2cf43053604d1 2021-10-04T22:35:55+08:00 sheeplin fix: fix losing left arrow
+ca823be1c65844aa0e3df03f885f40e448051c76 2021-10-04T22:21:22+08:00 sheeplin refactor: update website information
+65226f4f56224bb954689062f5e596112bbd0fcb 2021-10-04T21:23:37+08:00 sheeplin feat: add pinyin page
+5723d3cb95b510e8648c2247d0ea20feca07652d 2021-10-04T16:39:30+08:00 sheeplin feat: add ICP information
+c68a6c7e5e22152874b88d1890915d0a31b4d1b2 2021-10-04T16:02:40+08:00 sheeplin fix: update bing api
+6a4f2170fd8697ffc05bf1d73744d652e76cf4b7 2021-10-04T16:02:12+08:00 sheeplin refactor: rename folder name
+8ae67a1fca733b4dd7515cf0bf2244ed00bdac59 2021-10-04T15:58:40+08:00 sheeplin refactor: update response message
+546c988fe4bf7e95782781ae416b82a9bcf7ef13 2021-09-15T14:23:35+08:00 sheeplin fix: address some warning
+55fdd2e5de1a7e4ae30207f7c9f11a98ffd0bfa6 2021-09-15T14:23:07+08:00 sheeplin refactor: refactor sending code function
+4d4138e84634e927ac55b9f767775815e25ae414 2021-08-22T22:36:55+08:00 Frog Dar fix: typo of a variable
+3ef4796cb7078ebf7de23b32288fd0c2e861c52d 2021-08-22T22:22:09+08:00 Frog Dar fix: place popover on the right of the affix
+3cc4e53f6c1a2be94a3e4c258c70b8f057130ce8 2021-08-22T22:19:26+08:00 Frog Dar feat: comments
+bd9614503276fd225c0ac2cd2ef5fff0db1ecbda 2021-08-22T18:26:34+08:00 Frog Dar fix: position of affix
+8486f6caa39193ff5c5ad504ff8f6a577b36c082 2021-08-22T17:33:10+08:00 Frog Dar feat: music
+5fe82d9b8b71ac3bc9d49a5bd0202a055b5ab5cc 2021-08-20T20:37:46+08:00 Frog Dar fix: bugs of showing order numbers
+e098e73d8164d4f81a6f657d7253407f0667566e 2021-08-20T20:36:40+08:00 Frog Dar feat: show word list
+cac9b349dc1f8e3834c5ed66bfa06c4f8d7a0012 2021-08-20T17:27:32+08:00 Frog Dar feat: author avatar
+126a5c95deb3dff79251fa2faa92b646e93eeae0 2021-08-20T17:16:27+08:00 Frog Dar feat: router link to article details
+016a44f15e24cb5cdd731ecc8a8915267fe18609 2021-08-20T17:12:30+08:00 Frog Dar feat: show word details
+894855fdcaa5c0df70a9b147b645c18f3a7135d7 2021-08-20T15:25:39+08:00 Frog Dar fix: tab
+c74c013f4c3bf41d4bbcde1638c2766567658a2f 2021-08-20T15:24:59+08:00 Frog Dar feat: search page
+f1aab794e6eed7d7eec70e466449f49dc22b16c9 2021-08-20T01:55:36+08:00 Frog Dar fix: bugs
+05e6dee076a6b432fc3434ba6ac86ce2b3a6627b 2021-08-20T01:48:19+08:00 Frog Dar feat: search by conditions
+d7f712357a7585d34e5e9b2cc09787ad0b35e9c8 2021-08-19T22:36:05+08:00 Frog Dar fix: pagination
+5428028437b4a290a6d4501acefeb6fe80614a6d 2021-08-19T20:16:57+08:00 Frog Dar feat: router link (with bugs)
+791aa5558e2ede568cee5f2c16dc8e73db50689a 2021-08-19T17:39:00+08:00 Frog Dar fix: tab errors
+32cb72a9c61c89af371f49d6afe01c3688d9d705 2021-08-17T00:48:06+08:00 Frog Dar fix: type error
+fef65a8626a3e0ff8b6eafbf5e5c7dbfb2ec0775 2021-08-16T17:24:49+08:00 Frog Dar feat: Tools Page
+36e7cbe43b25f6f0dbefe65def9f819695ec9ce4 2021-08-16T16:32:37+08:00 Frog Dar feat: Forbidden Page
+d15c81c6d2d76c77a28081013c7873b9e1b22fe5 2021-08-16T16:32:23+08:00 Frog Dar feat: NotFound Page
+c952803aa24e51f29542ee72dcf423d2fba4ca35 2021-08-16T16:20:14+08:00 Frog Dar feat: submit article comments
+3a0e8455323d0467070deb6bc9cc623d4ee53f0c 2021-08-16T15:08:24+08:00 Frog Dar feat: edit user settings
+ff441d99735222378961ff6900c69173dbfed839 2021-08-16T15:07:34+08:00 Frog Dar feat: show user details
+6603bf299b094c70039fa83325fea2c45c52e359 2021-08-14T17:06:37+08:00 Frog Dar fix: data changes missing
+87888b1b980c24b95ccc83afe8562ea4e83dd09c 2021-08-14T16:09:45+08:00 Frog Dar fix: reload and add animation when open the drawer
+0b53e8648786d8eb782665a314539dbe8a5c34b9 2021-08-14T16:08:43+08:00 Frog Dar fix: the third commit of Articles
+fdbc3d6488f3f43c3f54d423a72e2428d97ec37b 2021-08-14T04:39:46+08:00 Frog Dar feat: App page zoom on resize
+30116134b928de763307c80fa283f4482742d724 2021-08-14T04:38:38+08:00 Frog Dar feat: articles second commit
+119871bac715405460031dabfa35cbb7bb30bb70 2021-08-13T16:14:33+08:00 Frog Dar fix: token before axios request
+03525f546a0f7292cd42b55d48981f9c66cf39fb 2021-08-13T16:10:06+08:00 Frog Dar fix: global drawVisibility control
+53e99c71e189d3f6696bf63ec717a39fff8d08fd 2021-08-13T15:45:22+08:00 Frog Dar fix: header tab
+0fe7f2ddaff1e085438ae021c9e312e00d6b11b6 2021-08-13T14:55:59+08:00 Frog Dar refactor: page zoom
+fa32182e1ea2f1e9e6033231f93a33e56e7da6a9 2021-08-13T01:08:39+08:00 Frog Dar feat: Article Components Spinning
+8ae405fbc40ff3aa56fe20e87b7abe8632c31bf6 2021-08-11T19:18:59+08:00 Frog Dar refactor: ArticleList loading animation
+33c21424f833704cacae1fda674d63ec35511d93 2021-08-11T19:10:03+08:00 Frog Dar feat: ArticleList loading animation
+2b6f97d5b69cbc30a92aee982d3e59943faaa44b 2021-08-11T19:06:07+08:00 Frog Dar feat: login second commit
+51565b396829acd13373fee1875d4d4ece2b0fc8 2021-08-11T16:26:37+08:00 Frog Dar feat: login first commit
+0bfba617c31683f47fc7af7056af0e45fb521d20 2021-08-11T00:08:52+08:00 Frog Dar feat: articles first commit
+02e870405e3916583b66fda18672033ce1ff0d5e 2021-08-09T22:05:25+08:00 Frog Dar feat: HomePage first commit
+ed0dbbe102fc0bab2b07c0c65a2a8f2d8c7dcbfe 2021-08-08T19:10:15+08:00 Frog Dar docs: 更新页面的“需求文档”
+03925e2809a2b06ee1bf721aa050a8ac31581ad5 2021-08-08T17:34:03+08:00 Frog Dar feat: 创建基本页面
+8c0d5a668462717628af677be48c043587ea58d1 2021-08-08T15:53:22+08:00 Frog Dar init

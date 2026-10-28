@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "issuedAt": "2026-10-25T00:00:00Z",
+  "expiresAt": "2026-11-24T00:00:00Z",
+  "features": {
+    "wordApplications": {
+      "enabled": true,
+      "roles": [
+        "authenticated"
+      ]
+    }
+  }
+}
