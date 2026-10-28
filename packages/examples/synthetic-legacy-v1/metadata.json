@@ -1,0 +1,15 @@
+{
+  "profile": "legacy-tsv-v1",
+  "package_id": "synthetic-legacy-v1",
+  "source": "Project-authored synthetic text and generated digital silence. Not real language-resource data.",
+  "license": "CC0-1.0 for this synthetic fixture only",
+  "dialect": {
+    "county": "合成县",
+    "town": "合成镇",
+    "mapping_note": "Synthetic example; does not represent a real dialect"
+  },
+  "publication": {
+    "authorized": true,
+    "statement": "The fixture author authorizes public use of this self-written synthetic text and generated digital silence."
+  }
+}

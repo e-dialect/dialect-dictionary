@@ -1,83 +1,86 @@
-# 可配置在线词典 · 本地整合候选
+# 可配置在线词典
 
-本仓库将真实兴化语记后端、Web 与 Uni-App 源码整合为独立部署候选。新增通用配置与移动端词条纠错/新建申请，保留原项目版权、许可证、第三方声明、数据边界和固定上游提交归属。此公开仓库仅上传已清理的当前源码快照；未部署生产服务。
+把自己的方言资料整理成可检索、可听录音的网站。一个部署同时提供电脑网页和手机网页，可配置站名、方言、Logo 与内容来源。源码来自兴化语记的后端、Web 和 Uni-App，保留原作者与组件许可。
 
-源码交付版本见 `VERSION`；从归档安装请先阅读[完整安装、快照恢复与回滚指南](docs/install.md)，执行 `python3 scripts/verify_package.py` 核对包内 `RELEASE.json` 和 `MANIFEST.json`。该入口针对解压后的包，不依赖 Git；开发工作区没有生成的两份元数据时，先打包再验收。
+## 先在自己电脑上试用
 
-候选4修正：候选3的许可清单遗漏了讯飞示例派生代码和购买素材，不能视作已清理的通用部署成品。当前候选实际移除两份识别实现和三份购买素材；旧普通话识别入口改为文字查词/查音，积分图标为新建中性SVG，证书页为新建学习记录画布。普通话麦克风识别、购买证书外观及其二维码不再随包提供。原项目代码与历史声明保留；详见[本轮许可修复记录](docs/license-cleanup-validation.md)。
-
-## 启动两个不同品牌/方言的独立网站
-
-需要 Docker Engine 和 Compose v2。首次构建需要网络下载基础镜像和锁定依赖。请在本仓库根目录执行；无需修改源码：
+安装 Docker（含 Compose v2）和 Python 3.10+，启动 Docker，然后在本目录打开终端：
 
 ```sh
-COMPOSE_PARALLEL_LIMIT=1 docker compose -p dictionary-coast config --quiet
-COMPOSE_PARALLEL_LIMIT=1 docker compose -p dictionary-coast up --build -d
-curl http://localhost:18080/healthz
+./dictionary init
+./dictionary start
 ```
 
-Web：`http://localhost:18080`；移动网页：`http://localhost:18080/mobile/`。
-第二份配置复用同一组镜像，使用独立端口和独立数据库卷：
+首次启动会下载依赖并构建镜像，需要网络和一些时间。完成后打开：
+
+- 电脑网页：<http://localhost:18080>
+- 手机网页：<http://localhost:18080/mobile/>
+
+`init` 生成 `.env` 和 `config/site.json`，已有文件不会被覆盖。修改 `config/site.json` 中的站名、方言和来源说明，再运行 `./dictionary start` 应用配置。配置会发给浏览器，不能填写密钥。
+
+空库默认只有明确标记的“技术演示”词条。示例品牌、合成资料包和示例音频均用于演示，**不是真实语保资料包或真实方言词典**。
+
+日常停止：`./dictionary stop`，保留数据。已有本地镜像时可用 `./dictionary start --no-build --pull never` 重新启动。更多安装、端口和排错说明见[安装指南](docs/install.md)。
+
+## 我有一整包资料
+
+先把资料整理为本仓库支持的目录或 ZIP，再预览检查：
 
 ```sh
-SITE_CONFIG=./config/examples/mountain.json HTTP_PORT=18081 \
-  docker compose -p dictionary-mountain config --quiet
-SITE_CONFIG=./config/examples/mountain.json HTTP_PORT=18081 \
-  docker compose -p dictionary-mountain up -d --no-build
-curl http://localhost:18081/healthz
+./dictionary preview /你的路径/资料包.zip
 ```
 
-海岚词典（闽南语）与山城语库（客家话）仅为配置示例，不自带真实方言词典、语音或用户数据。首次空库会创建一个明确标为“技术演示”的自编词条。已有非空词库不插入/覆盖演示词条。设置 `SEED_DEMO=0` 禁用演示种子；导入真实资料前核验授权。
+预览只检查包，不写数据库。格式为本项目的 `legacy-tsv-v1` 适配格式：`metadata.json`、五列 `words.tsv`、按四位编号命名的 WAV/MP3 录音；FLV 暂不支持。**这不是官方统一资料包标准**。字段、来源许可声明、地区映射和示例见[整包导入指南](docs/packages/README.md)。
 
-默认仅绑定本机回环端口。停止实例用 `docker compose -p dictionary-coast stop`，保留数据库卷。不要用删除卷命令清理有价值的数据。
-
-如果主机 Docker 自动地址池耗尽，先核验已有 Docker/主机路由，再用 `compose.network.yaml` 与 `DICTIONARY_SUBNET` 指定不重叠的私有网段；不要清理其他项目网络。第一轮运行验证使用了 `compose.prebuilt.yaml`；第二轮已用标准 `deploy/website.Dockerfile` 完成镜像内全新frozen安装/源码构建，并从空白配置和恢复目录启动验证。prebuilt入口仍保留为可选产物运行方式。
-
-## 配置与运行范围
-
-选择或复制 `config/examples/*.json`，通过 `SITE_CONFIG` 指定。配置控制站名、简称、Logo、方言名称/代码、API、Web/H5地址、内容来源及基础功能开关。公开配置会发送到浏览器，不能填入密钥。Compose 在容器启动时从同一个 JSON 生成 Web/H5 运行时配置；切换配置无需改源码或重构镜像。修改挂载内容后重建容器以重生成 JS。
-
-`config/examples/hinghwa.json`单独保留并开启莆仙音系、亲属、地区等原有能力；不导入生产数据。
-
-默认关闭原项目音系教学、拼音合成、亲属称谓、地区、日常用语、测试等方言专属内容；保留其来源说明。开启旧功能不等于完成新方言适配。`phonologyAudioBase` 可选，默认空，只有显式启用拼音且提供自己的音频端点才播放示例。参见 [前端配置说明](frontends-config/README.md)。
-
-后端使用同一份 Django 业务与模型、独立 SQLite 卷、本地媒体存储、单 worker Gunicorn 和轻量关键词搜索。默认不下载模型，不启动语义索引或后台定时任务。完整上游语义检索源码与依赖说明仍在 `backend/`。邮件默认输出至容器日志；微信登录、云存储、真实邮件服务需自行配置，未包含线上凭据。可执行 `docker compose -p dictionary-coast exec backend python manage.py createsuperuser` 建立自己的管理账号。
-
-## 小程序
-
-Compose 发布的是 Web 与 Uni-App H5。微信小程序需提供自己的 AppID、绝对 HTTPS API、平台允许的服务器域名，使用开发工具预览、真机测试、上传及审核。原应用标识已清空。生成构建配置：
+启动网站后，用自己建立的账号导入；用户名是登录用户名，不是数据库 ID：
 
 ```sh
-WECHAT_APP_ID=你自己的AppID node frontends-config/generate.mjs /path/to/public-config.json --mini-program
-cd uni-app
-yarn install --frozen-lockfile
-yarn build:mp-weixin
+./dictionary manage createsuperuser
+./dictionary import /你的路径/资料包.zip --importer 你的用户名
 ```
 
-静态构建成功不能替代平台注册、真机验证或发布。不要使用两个 H5 示例中的相对 `/api` 直接打包发布小程序。
+创建账号时按提示设置自己的凭据。上面的方式保持私有，录音保存在私有目录；命令成功不代表已经公开。首次导入时，若已核验发布授权并在包中明确声明，可改用下面的公开方式（二选一，不是先私有导入再重复执行）：
 
-## 验证与来源
+```sh
+./dictionary import /你的路径/资料包.zip --importer 你的用户名 --publish
+```
 
-- [真实功能差异矩阵与补齐依据](docs/feature-matrix.md)
-- [验证记录与剩余事项](docs/validation.md)
-- [兴化语记实例兼容、迁移与回滚边界](docs/migration-and-compatibility.md)
-- [技术二共性数字服务底座映射](docs/technical-foundation.md)
-- [三仓来源及固定提交](provenance/sources.json)，各组件历史摘要在 `provenance/*-history.txt`；上游完整历史可由固定提交追溯；此发布树不携带本地未经审阅的父历史。
+同包、同内容和同公开状态重导不会新增条目；相同包 ID 内容变化或请求切换公开状态会被拒绝。本轮不提供已导入包的就地发布/撤回，请在首次导入前选择状态。先按导入指南核验来源、许可和发布范围。
 
-定向测试：`python3 -B scripts/test_site_config.py`、`node frontends-config/test.mjs`、`node uni-app/scripts/test-word-application.mjs`。后端集成测试使用合成数据库，详见验证文档。
+## 给别人访问
 
-## 许可与交付
+默认地址只供这台电脑访问。准备使用域名提供服务时，已有 Traefik 的主机按 [Traefik 接入指南](docs/traefik.md)配置 `.env.traefik` 和 HTTPS 站点地址，再运行：
 
-三个固定基线的授权原创软件均为 AGPL-3.0-only；各组件的 `LICENSE`、`LICENSING.md`、`THIRD_PARTY_NOTICES.md`、`ASSET_BOUNDARIES.md`、`DATA_PROVENANCE.md` 优先规定其各自边界。历史版本和第三方路径继续适用原条款。新整合代码除明确例外外按 AGPL-3.0-only 提供；`integrations/quick-start/` 的上游固定提交没有LICENSE，适配只作本地审阅，其NOTICE不授予上游许可，不得据根AGPL推断完整公开发布授权。不扩大词典、录音、用户内容、商标或购买素材授权。产品去品牌化不抹去 E方言及历史贡献者署名。
+```sh
+./dictionary --traefik start
+```
 
-开发者在已审阅且干净的 Git 工作区运行 `python3 scripts/package_candidate.py`，创建 `artifacts/dialect-dictionary-kt2-source.tar.gz`、`SHA256SUMS` 与清单。包内保留来源、历史摘要、授权声明和固定依赖锁哈希；不含 `.git`、凭据、运行卷、模型、构建缓存、生产数据库/媒体、旧 API 录制 JSON、未获许可的 quick-start `sql.js`/`test_sql.py` 或依赖该适配的旧恢复验收脚本，以及已排除的讯飞派生实现/三份购买素材。排除路径和原字节哈希见 `provenance/excluded-materials.json`，打包会拒绝被改名后重新混入的相同字节。quick-start 的说明/NOTICE仅记录来源与未交付边界；当前部署和快照工具独立于它。完整本地候选历史不随本次公开快照上传。软件公开不额外授权数据、素材或商标，未来新增资料仍须核验其权利。
+此方案接入已有 Traefik，不启动第二套代理、不占用新的 80/443、不修改现有证书管理。全新服务器还没有代理时，可按同一指南选择显式的独立 Traefik 方案 `./dictionary --traefik-standalone start`；有代理的机器不要运行这个分支。域名、DNS、已有网络和证书设置需由部署者提供；真实域名的 TLS 与公网可达性仍需在目标主机验证。
 
-这是源码部署包，首次在另一环境构建需下载基础镜像与锁定依赖，不是离线二进制镜像包。`BACKEND_IMAGE`、`WEBSITE_IMAGE` 可指定自有固定标签或本地 image ID；使用 `--no-build --pull never` 复用镜像。`latest` 默认值不能代替版本记录，须保存实际镜像ID/平台。源码归档和快照都用SHA256检测损坏，未宣称数字签名或可跨架构复用本机镜像。
+## 备份与搬家
 
-## 第二轮验收
+数据在 Docker 数据卷中，复制源码目录不能备份词库。升级、搬家前先停写，备份数据库、录音和有效配置，并在新目录恢复验证。按[备份、恢复与回滚指南](docs/backup.md)操作；快照含私有内容，单独妥善保存。不要用 `docker compose down -v` 日常停止服务，它会删除数据卷。
 
-已完成镜像内干净frozen安装与源码构建、28项后端回归、13脚本两编译目标隔离、微信目标静态构建，以及合成数据库/静音MP3/来源许可/站点与策略配置/版本元数据的备份恢复。独立恢复Compose健康、原媒体URL字节、真实角色限制与关闭后旧客户端拒绝写入均通过。见 [第二轮记录](docs/round2-validation.md)。
+## 源码在哪里
 
-普通词条贡献写接口默认关闭；只读策略目录挂载由`FEATURE_POLICY_DIRECTORY`与`FEATURE_POLICY_FILE`选择。兴化已允许能力可显式选择`FEATURE_POLICY_FILE=feature-policy.hinghwa.example.json`，须先核验自身发布/内容资格并维护有效期；历史读取保留原权限。详情见[服务端开关](docs/server-feature-policy.md)。它不识别审核身份，不按审核状态隐蔽切换能力；公开capabilities不是授权。
+| 目录 | 用途 |
+| --- | --- |
+| `apps/backend/` | Django 后端；业务工程在 `hinghwa-dict-backend/` |
+| `apps/web/` | 电脑网页 |
+| `apps/mobile/` | Uni-App 手机网页与小程序源码 |
+| `config/` | 站点配置与服务端功能策略示例 |
+| `packages/examples/` | 合成资料包示例 |
+| `ops/docker/`、`ops/compose/` | 镜像构建与可选部署组合 |
+| `tools/` | 导入、校验、打包、备份和前端配置工具 |
+| `docs/development/` | 开发说明与历史验收证据 |
+| `docs/attribution/` | 来源、固定上游提交与署名 |
 
-[quick-start实际整合及许可例外](docs/quick-start-integration.md)与[平台差异/官方链接](docs/platform-capabilities.md)单独记录。微信官方原文入口当前读取失败，真机与平台审核未验证。
+Compose 提供 Web 和手机 H5；微信小程序需自有 AppID、HTTPS API、服务器域名及平台审核，见[平台边界说明](docs/development/platform-capabilities.md)。站点配置见[前端配置说明](tools/frontend-config/README.md)，贡献功能的开关和账号权限见[服务端策略](docs/server-feature-policy.md)。
+
+## 许可与来源
+
+根 [LICENSE](LICENSE) 及三个组件的 [后端](apps/backend/LICENSE)、[Web](apps/web/LICENSE)、[移动端](apps/mobile/LICENSE)许可和各自的 `LICENSING.md`、第三方声明、素材与数据边界共同适用。新整合代码除明确例外外按 AGPL-3.0-only 提供；历史第三方内容继续适用其原条款。
+
+软件许可不扩大真实词典、录音、用户内容、商标或购买素材的授权。去品牌化仍须保留 E方言及历史贡献者署名。[固定来源记录](docs/attribution/sources/sources.json)可追溯组件基线；未获许可的 quick-start 实现未随包交付，其[来源说明](docs/attribution/quick-start.md)不授予再分发权。
+
+这是源码部署包；首次构建需要网络，不包含真实资料、凭据、运行卷或可跨机器直接运行的离线镜像。当前工作对应的验证范围以[本轮验收记录](docs/development/onboarding-validation.md)为准，历史记录不代表本轮已通过。

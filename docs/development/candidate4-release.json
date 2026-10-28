@@ -1,0 +1,73 @@
+{
+  "version": "0.1.0-candidate.4",
+  "sourceCommit": "16b94ce39b6509562f54c6bc923b6ce2aca0716f",
+  "sourceDirty": false,
+  "delivery": "source-only; online dependency/base-image fetch required for a new build",
+  "excludedUnlicensedCode": [
+    "integrations/quick-start/sql.js",
+    "integrations/quick-start/test_sql.py",
+    "tools/verify_synthetic_restore.py",
+    "apps/web/public/certificate.png",
+    "apps/web/src/assets/IatRecorder.js",
+    "apps/web/src/assets/rewards.svg",
+    "apps/web/src/assets/timg.gif",
+    "apps/web/src/assets/transcode.worker.js"
+  ],
+  "validatedLocalImages": {
+    "scope": "Local-only validated runtime images; not remote pull references or an offline image delivery",
+    "backendApplicationSourceCommit": "4dc1ac032a3d312c1b6d04b0982bcf5e2ee9cd4f",
+    "platform": "linux/amd64",
+    "backend": "sha256:a3d7d8d41a8e79b2d86ca8e20c632e6de07634ed662f291b01b330709e0cb863",
+    "website": "sha256:ea2ff64b2620a9feeb6f4587a789ea82f4349b47ab71cea248f1e2c5514ed311",
+    "websiteBuild": {
+      "candidateVersion": "0.1.0-candidate.4",
+      "mode": "Targeted host Web build using existing locked dependencies; static runtime image via ops/compose/prebuilt.yaml; unchanged H5 artifact reused from round2",
+      "webSourceTreeSha256": "f5e6bdfca74c02fb3ce0f76ca3b1810c0853ce8e891bd049caed08c2e09be815",
+      "treeDigestAlgorithm": "Sorted relative path + NUL + file SHA256 hex + newline for apps/web/src, apps/web/public, package.json, yarn.lock, vue.config.js",
+      "h5ApplicationSourceCommit": "4dc1ac032a3d312c1b6d04b0982bcf5e2ee9cd4f"
+    },
+    "sourceBuildCaveat": "Base image tags and OS package repositories are not a bit-for-bit reproducible lock. Record newly built image IDs/platform on new hosts. This targeted build is not a new clean dependency install."
+  },
+  "upstreams": [
+    {
+      "component": "backend",
+      "source": "https://github.com/e-dialect/hinghwa-dict-backend.git",
+      "ref": "refs/remotes/origin/develop",
+      "commit": "b08f367ede7d7e2eca90b2e02828b76b784ba2f0",
+      "commit_info": "2026-10-20T23:50:18+08:00 ci(backend): publish immutable packages after verified develop checks (#409)",
+      "upstream_freshness": "Verified via GitHub connector and fetched exact commit on 2026-10-25.",
+      "initial_import_commit": "3a42c2656640330b84d8cb3d8666457f7276b4fa"
+    },
+    {
+      "component": "web",
+      "source": "https://github.com/e-dialect/hinghwa-dict-web.git",
+      "ref": "refs/remotes/origin/master",
+      "commit": "8be2e372db5df31e80cd9320ddb72754f40f766d",
+      "commit_info": "2026-10-20T23:40:35+08:00 ci: publish verified immutable production images (#192)",
+      "upstream_freshness": "Verified via GitHub connector and fetched exact commit on 2026-10-25.",
+      "initial_import_commit": "8f4a6b67fac6fc171744cdc1c874c689b45b883d"
+    },
+    {
+      "component": "uni-app",
+      "source": "https://github.com/e-dialect/hinghwa-dict-uni-app.git",
+      "ref": "refs/remotes/origin/master",
+      "commit": "468aa59091af33f95a2a5112039fca0427f7fb09",
+      "commit_info": "2026-10-20T23:40:41+08:00 ci: publish verified immutable production images (#248)",
+      "upstream_freshness": "Verified via GitHub connector and fetched exact commit on 2026-10-25.",
+      "initial_import_commit": "330aa04df0b0423fedf513a683854c3415e96080"
+    }
+  ],
+  "dependencyLocks": {
+    "apps/web/yarn.lock": "e3a85542c62f6f30168a07010e52b3f8b400ee0951c0d0f83f4d0e2acbcc6455",
+    "apps/mobile/yarn.lock": "135a1305b01b15577d1fc5a06888133f7d2ac17fe4c4c68f23780f1b6d077f7c",
+    "ops/docker/requirements.dictionary.lock": "44a05abfd14b323d360680778b898bf1033d72f062d2623953c7625689464e36"
+  },
+  "publicationSnapshot": {
+    "candidateCommit": "16b94ce39b6509562f54c6bc923b6ce2aca0716f",
+    "sanitizedMetadata": true,
+    "fullCandidateHistoryIncluded": false,
+    "repositoryTargetConfirmed": true,
+    "repository": "https://github.com/e-dialect/dialect-dictionary",
+    "visibility": "public"
+  }
+}
