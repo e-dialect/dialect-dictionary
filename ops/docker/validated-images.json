@@ -1,9 +1,10 @@
 {
   "scope": "Local isolated onboarding verification; not remotely published images",
   "platform": "linux/amd64",
-  "backend": "sha256:0a6d382eb82e759226615023c3e4dab32754a152d1079d78ff73d48d86b64f4c",
-  "website": "sha256:d8b22461695c3e89261d21271f87c00c1e7f581b83545e8faebece27ea893403",
-  "websiteBuild": "Previously verified unchanged frontend artifacts with current proxy/config entrypoint; no repeated full frontend dependency install",
+  "backend": "sha256:1b7932b0c06a22ad2f40e62696a36cfc97368f63a3dd7f2f9f741feba8dfcaca",
+  "website": "sha256:f7c383e0be080c1c886d85db9555dc023a4936c71b51274aaffeec146fb6308c",
+  "websiteBuild": "Fresh source archive; no preexisting node_modules or dist; frozen yarn installs and Web then Uni-App H5 builds completed. Base-image layers and pip download cache may be reused.",
   "sourceBuildCaveat": "Default Dockerfiles build from the reorganized source paths; base image tags/system repositories are not a byte-for-byte reproducibility lock. Record actual image IDs per deployment.",
-  "receiptGateFollowup": "These runtime images predate the receipt-gate patch; patched backend tests bind current source. Rebuild backend from the PR head before running a deployment."
+  "receiptGateFollowup": "These rebuilt images include committed-receipt media gate and standalone legacy-files alias fix. Tested synthetic imports and proxy HTTP path; not production or TLS certification.",
+  "sourceCommit": "9e28c2c27f7826cb5ead5c57ceac3506c22810d3"
 }
