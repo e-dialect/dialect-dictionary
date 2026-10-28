@@ -57,5 +57,20 @@
     "Bulk-read regression initially compared JSON-escaped text; changed to parsed ID checks",
     "Live detail GET invoked legacy clean via save(), mutating imported IPA and audio match; fixed counter-only writes and added real-read regression",
     "Independent static review fixed corrupt ZIP diagnostics, preview bytecode writes and Traefik documentation environment loading"
-  ]
+  ],
+  "receiptGateReviewFix": {
+    "backendTests": 49,
+    "storage": "All new import media stays private, including authorized public imports",
+    "visibility": "Committed published receipt plus matching entry and visible word/pronunciation, never static existence",
+    "failureInjection": "Ready files before receipt; pending entry via independent request; skipped cleanup residual; retry filling missing files; mismatched/alien/link rejection; concurrent lock busy",
+    "legacyMediaCompatible": true,
+    "retryWithoutManualDeletion": true,
+    "fsyncBeforeDatabaseCommit": true,
+    "realProcessKill": false,
+    "realPowerLossTest": false,
+    "inMemorySqlitePendingReadMayReturn500": true,
+    "logIgnoreDefaultAndWhitelistTest": true,
+    "realServicesRestartedForThisFix": false,
+    "testMode": "Existing isolated image with read-only current source bind; no full rebuild or TLS changes"
+  }
 }

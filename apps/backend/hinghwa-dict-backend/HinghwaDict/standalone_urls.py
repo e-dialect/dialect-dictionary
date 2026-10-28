@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.urls import include, path, re_path
 from django.views.static import serve
 from django.views.decorators.http import require_GET
+from .import_media import dictionary_media
 
 
 @require_GET
@@ -34,7 +35,7 @@ admin.site.site_title = settings.SITE_CONFIG["shortName"]
 urlpatterns = [
     path("healthz", health),
     path("site-config", site_config),
-    re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
+    re_path(r"^media/(?P<path>.*)$", dictionary_media),
     re_path(r"^static/(?P<path>.*)$", serve, {"document_root": settings.STATIC_ROOT}),
     path("", include("HinghwaDict.urls")),
 ]

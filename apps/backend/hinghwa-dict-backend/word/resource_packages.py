@@ -4,6 +4,7 @@ Validation reads bounded files into memory and has no database/filesystem writes
 Only apply_package touches the ORM or creates isolated, exclusively owned directories.
 """
 import csv
+from contextlib import contextmanager
 import hashlib
 import io
 import json
@@ -220,6 +221,47 @@ def validate_package(path, publish=False):
     return dict(metadata=metadata, digest=digest.hexdigest(), rows=rows, files=files, errors=errors, encoding=encoding)
 
 
+@contextmanager
+def package_lock(private_root, package_id):
+    """Apply-only, nonblocking process lock. OS releases it after crash/close."""
+    import fcntl
+    lock_root = private_root / ".locks"
+    if lock_root.is_symlink():
+        raise PackageError("Import lock directory must not be a symlink")
+    lock_root.mkdir(mode=0o700, exist_ok=True)
+    lock_path = lock_root / (hashlib.sha256(package_id.encode()).hexdigest() + ".lock")
+    flags = os.O_WRONLY | os.O_CREAT | getattr(os, "O_NOFOLLOW", 0)
+    descriptor = os.open(lock_path, flags, 0o600)
+    try:
+        try:
+            fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError as exc:
+            raise PackageError("Import busy for this package ID; retry after the other import finishes") from exc
+        yield
+    finally:
+        # Closing also releases the flock; never unlink a lock inode while others may use it.
+        os.close(descriptor)
+
+
+def verify_resumable_directory(destination, expected):
+    """Inspect all existing bytes before adding anything; never overwrite alien data."""
+    if destination.is_symlink() or not destination.is_dir():
+        raise PackageError("Residual import destination must be a regular directory")
+    for item in destination.iterdir():
+        if item.is_symlink() or not item.is_file() or item.name not in expected:
+            raise PackageError("Residual import contains unknown or linked data; inspect it before retrying")
+        if item.stat().st_size != len(expected[item.name]) or read_bounded(item) != expected[item.name]:
+            raise PackageError("Residual import bytes differ from this exact package; nothing was overwritten")
+
+
+def sync_directory(path):
+    descriptor = os.open(path, os.O_RDONLY | getattr(os, "O_DIRECTORY", 0))
+    try:
+        os.fsync(descriptor)
+    finally:
+        os.close(descriptor)
+
+
 def apply_package(plan, importer, publish=False):
     from django.conf import settings
     from django.contrib.auth.models import User
@@ -239,49 +281,75 @@ def apply_package(plan, importer, publish=False):
     except User.DoesNotExist:
         raise PackageError(f"Importer {importer!r} does not exist; use an existing username")
     package_id = plan["metadata"]["package_id"]
-    previous = ResourcePackage.objects.filter(package_id=package_id).first()
-    if previous:
-        if previous.digest != plan["digest"]:
-            raise PackageError(f"Package ID {package_id} already exists with a different digest; choose a new version ID")
-        if previous.published != publish:
-            raise PackageError("Package already imported with different publication state; no implicit publication change")
-        return previous, False
     data_root = Path(getattr(settings, "DATA_DIR", os.environ.get("DATA_DIR", str(Path(settings.BASE_DIR) / "data")))).resolve()
     private_root = data_root / "private-imports"
     media_root = Path(settings.MEDIA_ROOT).resolve()
     if private_root.is_symlink() or private_root.resolve().is_relative_to(media_root):
         raise PackageError("DATA_DIR/private-imports must be outside publicly served MEDIA_ROOT")
     private_root.mkdir(parents=True, exist_ok=True, mode=0o700)
-    staging = Path(tempfile.mkdtemp(prefix=".stage-", dir=private_root))
-    destination = None
-    moved = False
-    try:
-        for row in plan["rows"]:
-            (staging / Path(row["audio"]).name).write_bytes(plan["files"][row["audio"]])
-        folder = hashlib.sha256(package_id.encode()).hexdigest()[:24] + "-" + plan["digest"][:16]
-        root = media_root / "imports" if publish else private_root
-        if root.is_symlink():
-            raise PackageError("Import storage root must not be a symlink")
-        root.mkdir(parents=True, exist_ok=True)
-        destination = root / folder
-        # mkdir is exclusive: existing/orphan files are never overwritten or removed.
-        destination.mkdir(mode=0o755 if publish else 0o700)
-        moved = True
-        for item in staging.iterdir():
-            item.rename(destination / item.name)
-        with transaction.atomic():
-            UserInfo.objects.get_or_create(user=author, defaults={"nickname": "资料维护者"})
-            receipt = ResourcePackage.objects.create(package_id=package_id, digest=plan["digest"], profile="legacy-tsv-v1", metadata=plan["metadata"], importer=author, published=publish, storage_path=str(destination))
-            dialect = plan["metadata"]["dialect"]
-            for row in plan["rows"]:
-                word = Word.objects.bulk_create([Word(word=row["word"], definition=row["note"], annotation=f"Resource package: {package_id}; external ID: {row['external_id']}\nSource: {plan['metadata']['source']}\nLicense: {plan['metadata']['license']}", mandarin=json.dumps([row["mandarin"]], ensure_ascii=False), standard_ipa=row["ipa"], standard_pinyin="", contributor=author, visibility=publish)])[0]
-                source = getattr(settings, "PUBLIC_API_BASE", "").rstrip("/") + "/media/imports/" + folder + "/" + quote(Path(row["audio"]).name) if publish else ""
-                pronunciation = Pronunciation.objects.bulk_create([Pronunciation(word=word, source=source, ipa=row["ipa"], pinyin="", county=dialect["county"], town=dialect["town"], contributor=author, visibility=publish)])[0]
-                ResourcePackageEntry.objects.create(package=receipt, external_id=row["external_id"], source_line=row["line"], word=word, pronunciation=pronunciation, audio_name=Path(row["audio"]).name)
-        return receipt, True
-    except BaseException:
-        if moved:
-            shutil.rmtree(destination, ignore_errors=True)
-        raise
-    finally:
-        shutil.rmtree(staging, ignore_errors=True)
+    sync_directory(data_root)
+    with package_lock(private_root, package_id):
+        # A competing importer may have completed while this invocation was starting.
+        previous = ResourcePackage.objects.filter(package_id=package_id).first()
+        if previous:
+            if previous.digest != plan["digest"]:
+                raise PackageError(f"Package ID {package_id} already exists with a different digest; choose a new version ID")
+            if previous.published != publish:
+                raise PackageError("Package already imported with different publication state; no implicit publication change")
+            return previous, False
+        staging = Path(tempfile.mkdtemp(prefix=".stage-", dir=private_root))
+        destination = None
+        created_destination = False
+        try:
+            expected = {Path(row["audio"]).name: plan["files"][row["audio"]] for row in plan["rows"]}
+            for name, content in expected.items():
+                with (staging / name).open("wb") as stream:
+                    stream.write(content)
+                    stream.flush()
+                    os.fsync(stream.fileno())
+            folder = hashlib.sha256(package_id.encode()).hexdigest()[:24] + "-" + plan["digest"][:16]
+            root = private_root  # Even published imports are served only through the receipt/entry gate.
+            if root.is_symlink():
+                raise PackageError("Import storage root must not be a symlink")
+            root.mkdir(parents=True, exist_ok=True)
+            destination = root / folder
+            if destination.exists() or destination.is_symlink():
+                verify_resumable_directory(destination, expected)
+            else:
+                destination.mkdir(mode=0o700)
+                created_destination = True
+            for item in staging.iterdir():
+                target = destination / item.name
+                if target.exists():
+                    continue  # Validated byte-for-byte above under this package's lock.
+                if created_destination:
+                    item.rename(target)
+                else:
+                    # Resume only missing files, exclusively; preserve all adopted bytes on failure.
+                    # Link a fully written/fsynced private staged file atomically. A
+                    # crash during resume must not create a truncated target file.
+                    os.link(item, target, follow_symlinks=False)
+            sync_directory(destination)
+            sync_directory(private_root)
+            with transaction.atomic():
+                UserInfo.objects.get_or_create(user=author, defaults={"nickname": "资料维护者"})
+                receipt = ResourcePackage.objects.create(package_id=package_id, digest=plan["digest"], profile="legacy-tsv-v1", metadata=plan["metadata"], importer=author, published=publish, storage_path=str(destination))
+                dialect = plan["metadata"]["dialect"]
+                for row in plan["rows"]:
+                    word = Word.objects.bulk_create([Word(word=row["word"], definition=row["note"], annotation=f"Resource package: {package_id}; external ID: {row['external_id']}\nSource: {plan['metadata']['source']}\nLicense: {plan['metadata']['license']}", mandarin=json.dumps([row["mandarin"]], ensure_ascii=False), standard_ipa=row["ipa"], standard_pinyin="", contributor=author, visibility=publish)])[0]
+                    source = getattr(settings, "PUBLIC_API_BASE", "").rstrip("/") + "/media/imports/" + folder + "/" + quote(Path(row["audio"]).name) if publish else ""
+                    pronunciation = Pronunciation.objects.bulk_create([Pronunciation(word=word, source=source, ipa=row["ipa"], pinyin="", county=dialect["county"], town=dialect["town"], contributor=author, visibility=publish)])[0]
+                    ResourcePackageEntry.objects.create(package=receipt, external_id=row["external_id"], source_line=row["line"], word=word, pronunciation=pronunciation, audio_name=Path(row["audio"]).name)
+            return receipt, True
+        except BaseException:
+            if created_destination:
+                # Do not delete media if commit succeeded or its state cannot safely be established.
+                try:
+                    committed = ResourcePackage.objects.filter(package_id=package_id, digest=plan["digest"]).exists()
+                except Exception:
+                    committed = True
+                if not committed:
+                    shutil.rmtree(destination, ignore_errors=True)
+            raise
+        finally:
+            shutil.rmtree(staging, ignore_errors=True)

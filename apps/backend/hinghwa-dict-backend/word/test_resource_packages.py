@@ -11,7 +11,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.test import TestCase, override_settings
 from word.models import Word, Pronunciation, ResourcePackage
-from word.resource_packages import PackageError, apply_package, validate_package, read_package
+from word.resource_packages import PackageError, apply_package, validate_package, read_package, package_lock
 
 
 def fixture(root, package_id='synthetic-test'):
@@ -172,3 +172,73 @@ class PackageImportTests(TestCase):
                     validate_package(archive)
         self.assertFalse(ResourcePackage.objects.exists())
         self.assertFalse(list(self.media.rglob('*')))
+
+    def interrupted_destination(self, plan):
+        # A controlled cleanup omission stands in for a terminated process. No real kill.
+        with patch('word.models.ResourcePackageEntry.objects.create', side_effect=RuntimeError('interrupted before commit')):
+            with patch('word.resource_packages.shutil.rmtree'):
+                with self.assertRaises(RuntimeError):
+                    apply_package(plan, self.user.username, publish=True)
+        self.assertFalse(ResourcePackage.objects.exists())
+        files = list((self.root/'data/private-imports').rglob('*.wav'))
+        self.assertEqual(len(files), 1)
+        self.assertFalse(list(self.media.rglob('*.wav')))
+        return files[0]
+
+    def test_interrupted_public_import_retries_identical_bytes_and_fills_missing(self):
+        plan = validate_package(self.package, publish=True)
+        leftover = self.interrupted_destination(plan)
+        original = leftover.read_bytes()
+        leftover.unlink()  # Simulate interruption before the last expected file was installed.
+        receipt, created = apply_package(plan, self.user.username, publish=True)
+        self.assertTrue(created)
+        self.assertEqual((Path(receipt.storage_path)/leftover.name).read_bytes(), original)
+        self.assertTrue(Path(receipt.storage_path).is_relative_to(self.root/'data/private-imports'))
+        self.assertFalse(list(self.media.rglob('*.wav')))
+        self.assertFalse(apply_package(plan, self.user.username, publish=True)[1])
+        self.assertEqual(Word.objects.count(), 1)
+
+    def test_adopted_bytes_survive_retry_failure_then_success(self):
+        plan = validate_package(self.package, publish=True)
+        leftover = self.interrupted_destination(plan)
+        before = leftover.read_bytes()
+        with patch('word.models.ResourcePackageEntry.objects.create', side_effect=RuntimeError('retry fails after adopting')):
+            with self.assertRaises(RuntimeError): apply_package(plan, self.user.username, publish=True)
+        self.assertEqual(leftover.read_bytes(), before)
+        self.assertFalse(ResourcePackage.objects.exists())
+        receipt, _ = apply_package(plan, self.user.username, publish=True)
+        self.assertEqual(Path(receipt.storage_path), leftover.parent)
+        self.assertEqual(leftover.read_bytes(), before)
+
+    def test_residual_unknown_mismatch_or_link_is_not_overwritten(self):
+        plan = validate_package(self.package, publish=True)
+        leftover = self.interrupted_destination(plan)
+        original = leftover.read_bytes()
+        alien = leftover.parent/'unknown.txt'
+        alien.write_bytes(b'leave my unrelated bytes alone')
+        with self.assertRaisesRegex(PackageError, 'unknown or linked'):
+            apply_package(plan, self.user.username, publish=True)
+        self.assertEqual(alien.read_bytes(), b'leave my unrelated bytes alone')
+        alien.unlink()
+        leftover.write_bytes(b'unexpected modified media')
+        with self.assertRaisesRegex(PackageError, 'bytes differ'):
+            apply_package(plan, self.user.username, publish=True)
+        self.assertEqual(leftover.read_bytes(), b'unexpected modified media')
+        leftover.unlink()
+        external = self.root/'external.wav'; external.write_bytes(original)
+        leftover.symlink_to(external)
+        with self.assertRaisesRegex(PackageError, 'unknown or linked'):
+            apply_package(plan, self.user.username, publish=True)
+        self.assertTrue(leftover.is_symlink())
+        self.assertEqual(external.read_bytes(), original)
+        self.assertFalse(ResourcePackage.objects.exists())
+
+    def test_same_package_busy_lock_is_actionable_and_released(self):
+        plan = validate_package(self.package)
+        private = self.root/'data/private-imports'; private.mkdir()
+        with package_lock(private, plan['metadata']['package_id']):
+            with self.assertRaisesRegex(PackageError, 'Import busy'):
+                apply_package(plan, self.user.username)
+            self.assertFalse(ResourcePackage.objects.exists())
+            self.assertFalse(list(private.glob('.stage-*')))
+        self.assertTrue(apply_package(plan, self.user.username)[1])
