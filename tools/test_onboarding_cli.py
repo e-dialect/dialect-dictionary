@@ -32,4 +32,25 @@ class PreviewCliTests(unittest.TestCase):
             self.assertNotEqual(result.returncode, 0)
             self.assertNotIn('Traceback', result.stderr)
 
+class VersionCliTests(unittest.TestCase):
+    def test_unpacked_source_never_inherits_parent_git_identity(self):
+        with tempfile.TemporaryDirectory() as directory:
+            parent = Path(directory)
+            subprocess.run(['git', 'init', '--quiet', str(parent)], check=True)
+            (parent / 'parent.txt').write_text('synthetic parent repository')
+            subprocess.run(['git', '-C', str(parent), 'add', 'parent.txt'], check=True)
+            subprocess.run(['git', '-C', str(parent), '-c', 'user.name=Synthetic Test', '-c', 'user.email=synthetic@example.test', 'commit', '--quiet', '-m', 'synthetic fixture'], check=True)
+            target = parent / 'unpacked-release'
+            target.mkdir()
+            shutil.copyfile(ROOT / 'dictionary', target / 'dictionary')
+            (target / 'VERSION').write_text('synthetic-version')
+            def version():
+                result = subprocess.run([sys.executable, str(target / 'dictionary'), 'version'], capture_output=True, text=True, check=True)
+                return json.loads(result.stdout)
+            record = version()
+            self.assertEqual(record['sourceCommit'], 'unknown')
+            self.assertIsNone(record['sourceDirty'])
+            (target / 'RELEASE.json').write_text(json.dumps({'sourceCommit': 'synthetic-release-source'}))
+            self.assertEqual(version()['sourceCommit'], 'synthetic-release-source')
+
 if __name__ == '__main__': unittest.main()

@@ -12,7 +12,16 @@ docker compose version
 python3 --version
 ```
 
-使用源码归档时，把包解压到新的安装目录，进入其中的 `dialect-dictionary/`，先核对交付清单：
+第一次获取源码可选择 Git：
+
+```sh
+git clone https://github.com/e-dialect/dialect-dictionary.git
+cd dialect-dictionary
+```
+
+也可在仓库页面选择 **Code → Download ZIP**，解压后进入包含 `dictionary`、`compose.yaml` 的目录。不要直接在压缩包预览窗口运行命令。GitHub 自动生成的源码 ZIP 没有本项目的发布清单，不需要运行下方清单校验；可先执行 `python3 dictionary version` 查看可用版本信息，未包含提交元数据时会显示 unknown。
+
+使用带 `RELEASE.json` / `MANIFEST.json` 的专门交付归档时，把包解压到新的安装目录，进入其中的 `dialect-dictionary/`，先核对交付清单：
 
 ```sh
 python3 tools/verify_package.py

@@ -14,6 +14,18 @@
 
 Django 启动时会再次检查 DOMAIN 与站点 URL 的一致性。Compose 的 `${VAR:?}` 只保证非空，不能替代上述 schema 校验。直接运行 Compose 前也必须先完成参数校验；不要把外部文本拼进 label。
 
+首次配置已有 Traefik 时，从仓库根目录执行：
+
+```sh
+./dictionary init
+cp .env.traefik.example .env.traefik
+# 用编辑器填写 .env.traefik 中现有的域名、network、entrypoint、resolver 和唯一 router 名。
+# 同时把 config/site.json 的 webUrl/mobileUrl 改成上文一致的 HTTPS 地址。
+./dictionary --traefik check
+```
+
+已有 `.env.traefik` 时直接编辑，不要再次复制覆盖。`check` 不构建、不启动服务，也不申请证书；校验通过后才运行 `./dictionary --traefik start`。停止使用 `./dictionary --traefik stop`，数据卷保留。
+
 校验后可只读检查合并结果（从项目根目录运行，Compose 自动读取 `.env`）：
 
 ```sh
