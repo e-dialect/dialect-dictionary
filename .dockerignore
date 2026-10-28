@@ -16,4 +16,7 @@
 runtime
 artifacts
 evidence
-provenance/*-history.txt
+docs/attribution/sources/*-history.txt
+
+packages
+backups

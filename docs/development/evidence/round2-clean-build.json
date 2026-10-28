@@ -1,0 +1,7 @@
+{
+  "exit": 0,
+  "seconds": 684.9,
+  "hostNodeModulesCopied": false,
+  "command": "docker compose build --no-cache website",
+  "dockerfile": "ops/docker/website.Dockerfile"
+}

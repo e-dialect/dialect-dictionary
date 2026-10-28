@@ -1,0 +1,61 @@
+{
+  "realTraefik": false,
+  "realTls": false,
+  "secondHost": false,
+  "syntheticOnly": true,
+  "localWebH5AdminStaticAndForgedScheme": true,
+  "publicZipImportedAndWavDecoded": true,
+  "privateMediaAnonymous404": true,
+  "privateWordsAnonymous403AndBulkExcluded": true,
+  "explicitPublicAudioBytesMatch": true,
+  "sourceIdAcrossPackagesDistinct": true,
+  "idempotentReimport": true,
+  "invalidFlvNoPublicResidue": true,
+  "receipts": 2,
+  "proxyNoPublishedPorts": true,
+  "backendPrivateNetworkOnly": true,
+  "actualNginxOverwritesForgedProtoToHttps": true,
+  "proxyAdminStaticCsrfPaths": true,
+  "allPassed": true,
+  "stopErrors": [],
+  "backendRegressionTests": 40,
+  "resourcePackageTestsIncluded": 8,
+  "migrationConsistency": "No changes detected",
+  "proxyOfflineTests": 5,
+  "cliNoWritePreviewTests": 1,
+  "snapshotAndPackageRegressionTests": 7,
+  "siteConfigTests": 4,
+  "frontendConfigGroups": 9,
+  "frontendComparison": {
+    "frontendRuntimeFilesCompared": 275,
+    "changed": [
+      "apps/mobile/src/utils/u-parse/readme.md"
+    ]
+  },
+  "standaloneTraefik": {
+    "mergeValidated": true,
+    "proxyPorts": [
+      80,
+      443
+    ],
+    "applicationPortsPublished": false,
+    "ownNetwork": true,
+    "ownAcmeVolume": true,
+    "image": "traefik:v3.7.16",
+    "realProxyStarted": false,
+    "realTls": false
+  },
+  "images": {
+    "backend": "sha256:0a6d382eb82e759226615023c3e4dab32754a152d1079d78ff73d48d86b64f4c",
+    "website": "sha256:d8b22461695c3e89261d21271f87c00c1e7f581b83545e8faebece27ea893403"
+  },
+  "validationScope": "Same-host isolated projects/volumes and synthetic package fixtures only; no real language-resource bundle, public TLS, DNS/ACME account, second host or production deployment.",
+  "failuresCorrected": [
+    "Read-only test bind needed isolated logs mount before tests could start",
+    "Legacy Http404 middleware incorrectly returned 500",
+    "Existing management user lacked UserInfo; import now creates missing profile transactionally without credentials",
+    "Bulk-read regression initially compared JSON-escaped text; changed to parsed ID checks",
+    "Live detail GET invoked legacy clean via save(), mutating imported IPA and audio match; fixed counter-only writes and added real-read regression",
+    "Independent static review fixed corrupt ZIP diagnostics, preview bytecode writes and Traefik documentation environment loading"
+  ]
+}

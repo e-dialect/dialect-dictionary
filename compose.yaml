@@ -4,7 +4,7 @@ services:
     image: ${BACKEND_IMAGE:-dialect-dictionary-candidate-backend:latest}
     build:
       context: .
-      dockerfile: deploy/backend.Dockerfile
+      dockerfile: ops/docker/backend.Dockerfile
     environment:
       DJANGO_SETTINGS_MODULE: HinghwaDict.standalone
       DICTIONARY_CONFIG: /config/site.json
@@ -33,7 +33,7 @@ services:
     image: ${WEBSITE_IMAGE:-dialect-dictionary-candidate-website:latest}
     build:
       context: .
-      dockerfile: deploy/website.Dockerfile
+      dockerfile: ops/docker/website.Dockerfile
     ports:
       - "127.0.0.1:${HTTP_PORT:-18080}:8080"
     environment:

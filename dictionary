@@ -1,0 +1,124 @@
+#!/usr/bin/env python3
+"""Small local entry point. No shell evaluation, deployment accounts or DNS changes."""
+import sys
+sys.dont_write_bytecode = True
+
+import argparse
+import importlib.util
+import json
+import os
+from pathlib import Path
+import re
+import subprocess
+import sys
+
+ROOT = Path(__file__).resolve().parent
+
+def fail(message):
+    raise SystemExit(message)
+
+def version_record():
+    try:
+        commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, stderr=subprocess.DEVNULL, text=True).strip()
+        dirty = bool(subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT).strip())
+    except (OSError, subprocess.CalledProcessError):
+        release = json.loads((ROOT / 'RELEASE.json').read_text()) if (ROOT / 'RELEASE.json').exists() else {}
+        commit, dirty = release.get('sourceCommit', 'unknown'), None
+    record = {'version': (ROOT / 'VERSION').read_text().strip(), 'sourceCommit': commit, 'sourceDirty': dirty, 'note': 'Installation source metadata; record actual runtime image IDs separately.'}
+    (ROOT / 'config').mkdir(exist_ok=True)
+    (ROOT / 'config/version.json').write_text(json.dumps(record, ensure_ascii=False, indent=2) + '\n')
+    return record
+
+def env_values(path):
+    values = {}
+    for line in path.read_text().splitlines():
+        line = line.strip()
+        if not line or line.startswith('#'): continue
+        key, sep, value = line.partition('=')
+        if not sep: fail('配置行缺少等号：' + key)
+        values[key.strip()] = value.strip().strip('\"\'')
+    values.update({k: v for k, v in os.environ.items() if k in values})
+    return values
+
+def validate_instance(traefik=False, standalone=False):
+    if not (ROOT / '.env').exists(): fail('请先执行 ./dictionary init')
+    values = env_values(ROOT / '.env')
+    site_path = Path(os.environ.get('SITE_CONFIG', values.get('SITE_CONFIG', './config/site.json')))
+    if not site_path.is_absolute(): site_path = ROOT / site_path
+    spec = importlib.util.spec_from_file_location('dictionary_public_config', ROOT / 'apps/backend/hinghwa-dict-backend/HinghwaDict/site_config.py')
+    module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
+    config = module.load_config(site_path)
+    if traefik:
+        path = ROOT / ('.env.traefik-standalone' if standalone else '.env.traefik')
+        if not path.exists(): fail('请按 docs/traefik.md 复制 .env.traefik.example 并填写域名/已有Traefik网络。')
+        edge = env_values(path); domain = edge.get('DOMAIN', '')
+        if not re.fullmatch(r'(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?', domain): fail('DOMAIN必须是小写ASCII域名，不含端口或表达式。')
+        for key in ['TRAEFIK_NETWORK', 'TRAEFIK_ENTRYPOINT', 'TRAEFIK_CERTRESOLVER', 'TRAEFIK_ROUTER_NAME']:
+            if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]*', edge.get(key, '')): fail('无效Traefik参数：' + key)
+        if config['webUrl'].rstrip('/') != 'https://' + domain or config['mobileUrl'].rstrip('/') != 'https://' + domain + '/mobile': fail('config/site.json的webUrl/mobileUrl必须与DOMAIN的HTTPS地址一致。')
+        if standalone and edge.get('TRAEFIK_ENTRYPOINT') == 'web': fail('独立Traefik的HTTPS入口不能叫web，该名保留给HTTP跳转和挑战。')
+        if standalone and not re.fullmatch(r'[^\s@]+@[^\s@]+\.[^\s@]+', edge.get('ACME_EMAIL', '')): fail('独立Traefik需要运营者自己的ACME_EMAIL；配置校验不会申请证书。')
+        if config['apiBase'] not in ['/api', 'https://' + domain + '/api']: fail('Traefik使用同域/api端点。')
+    return config
+
+def main():
+    parser = argparse.ArgumentParser(description='词典：初始化、启动、资料包预览/导入和日常管理。')
+    modes = parser.add_mutually_exclusive_group()
+    modes.add_argument('--traefik', action='store_true', help='复用已有Traefik')
+    modes.add_argument('--traefik-standalone', action='store_true', help='仅新服务器：显式运行独立Traefik，详见docs/traefik.md')
+    parser.add_argument('action', choices=['init', 'version', 'check', 'start', 'stop', 'preview', 'import', 'manage'])
+    args, rest = parser.parse_known_args()
+    os.chdir(ROOT)
+    use_proxy = args.traefik or args.traefik_standalone
+    if args.action == 'init':
+        for source, target in [('.env.example', '.env'), ('config/examples/coast.json', 'config/site.json')]:
+            path = ROOT / target
+            if not path.exists(): path.write_bytes((ROOT / source).read_bytes())
+            else: print('保留已有配置：' + target)
+        version_record(); print('已初始化。可先 ./dictionary preview 资料包路径，再 ./dictionary start。'); return
+    if args.action == 'version': print(json.dumps(version_record(), ensure_ascii=False, indent=2)); return
+    if args.action == 'preview':
+        if not rest: fail('用法：./dictionary preview 资料目录或.zip [--publish]')
+        spec = importlib.util.spec_from_file_location('resource_package_preview', ROOT / 'apps/backend/hinghwa-dict-backend/word/resource_packages.py')
+        module = importlib.util.module_from_spec(spec); sys.modules[spec.name] = module; spec.loader.exec_module(module)
+        plan = module.validate_package(Path(rest[0]), publish='--publish' in rest[1:])
+        print(json.dumps(module.preview_summary(plan), ensure_ascii=False, indent=2))
+        if plan.get('errors'): raise SystemExit(1)
+        return
+    if args.action != "stop": validate_instance(use_proxy, args.traefik_standalone)
+    compose = ['docker', 'compose', '--env-file', '.env']
+    if use_proxy: compose += ['--env-file', '.env.traefik-standalone' if args.traefik_standalone else '.env.traefik']
+    compose += ['-f', 'compose.yaml']
+    if use_proxy: compose += ['-f', 'ops/compose/traefik.yaml']
+    if args.traefik_standalone: compose += ['-f', 'ops/compose/traefik-standalone.yaml']
+    if os.environ.get('DICTIONARY_SUBNET'): compose += ['-f', 'ops/compose/network.yaml']
+    if args.action == 'check': command = compose + ['config', '--quiet']
+    elif args.action == 'start':
+        if args.traefik_standalone:
+            config = json.loads(subprocess.check_output(compose + ['config', '--format', 'json'], text=True))
+            name = config['networks']['traefik']['name']
+            names = subprocess.check_output(['docker', 'network', 'ls', '--format', '{{.Name}}'], text=True).splitlines()
+            if name in names:
+                network = json.loads(subprocess.check_output(['docker', 'network', 'inspect', name], text=True))[0]
+                labels = network.get('Labels') or {}
+                if labels.get('com.docker.compose.project') != config['name'] or labels.get('com.docker.compose.network') != 'traefik':
+                    fail('TRAEFIK_NETWORK已存在且不属于本项目；请更换唯一名字，不接管已有网络。')
+        version_record()
+        command = compose + ['up', '-d', '--wait'] + (['--build'] if '--no-build' not in rest else []) + rest
+    elif args.action == 'stop': command = compose + ['stop'] + rest
+    elif args.action == 'manage':
+        command = compose + ['run', '--rm', '--no-deps', '--entrypoint', 'python', 'backend', '/app/manage-command.py'] + rest
+    else:
+        if not rest: fail('用法：./dictionary import 资料包路径 --importer 已有用户名 [--publish]')
+        path = Path(rest[0])
+        if path.is_symlink(): fail('资料包根不能是符号链接。')
+        path = path.resolve(strict=True)
+        if ':' in str(path): fail('Docker挂载路径不能包含冒号。')
+        destination = '/import-package.zip' if path.is_file() else '/import-package'
+        command = compose + ['run', '--rm', '--no-deps', '--entrypoint', 'python', '-v', str(path) + ':' + destination + ':ro', 'backend', '/app/manage-command.py', 'import_resource_package', destination, '--apply'] + rest[1:]
+    subprocess.run(command, check=True)
+
+if __name__ == '__main__':
+    try: main()
+    except (ValueError, OSError, subprocess.CalledProcessError) as error:
+        fail('操作失败：' + str(error))

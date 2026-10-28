@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-28",
+  "retention": "Original component repositories and candidate Git history remain unchanged/available; excluded current-tree materials are not shipped",
+  "files": [
+    {
+      "path": "apps/web/src/assets/IatRecorder.js",
+      "sha256": "a90e29c0779a6527fc0f2db8793faeb8bd691e1de2b80e64cd369fa561d8668a",
+      "reason": "No verified redistribution grant for vendor demo"
+    },
+    {
+      "path": "apps/web/src/assets/transcode.worker.js",
+      "sha256": "a459e1f3d7e1214ff407f5b69ed45c7604209b8e4231c2a98aa8fd662df9e942",
+      "reason": "No verified redistribution grant for vendor demo"
+    },
+    {
+      "path": "apps/web/src/assets/rewards.svg",
+      "sha256": "96c14897fcec5c809c131a6e38797ad4092e59713adcb521868adbce08d199c5",
+      "reason": "Purchased project-use asset; no template redistribution grant established"
+    },
+    {
+      "path": "apps/web/src/assets/timg.gif",
+      "sha256": "b82dcb48068a5aa9e64358e5ffcb51faf75eb5f607d3678e3dc71ef465ed194a",
+      "reason": "Purchased project-use asset; no template redistribution grant established"
+    },
+    {
+      "path": "apps/web/public/certificate.png",
+      "sha256": "dfd1de71a36f9895fa795cd8491e57ca9154d1d8e3615c6cce7c2e0835b95301",
+      "reason": "Purchased project-use asset; no template redistribution grant established"
+    }
+  ]
+}

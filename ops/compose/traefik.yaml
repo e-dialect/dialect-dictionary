@@ -1,0 +1,29 @@
+# Existing Traefik only. Requires Docker Compose >= 2.24.4 (!override).
+services:
+  backend:
+    environment:
+      PROXY_MODE: traefik
+      DOMAIN: ${DOMAIN:?Set the validated public DNS domain}
+    labels:
+      traefik.enable: "false"
+  website:
+    ports: !override []
+    environment:
+      PROXY_MODE: traefik
+    networks:
+      - default
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=${TRAEFIK_NETWORK:?Set the existing external network}
+      - traefik.http.routers.${TRAEFIK_ROUTER_NAME:-dictionary}.rule=Host(`${DOMAIN:?Set the validated public DNS domain}`)
+      - traefik.http.routers.${TRAEFIK_ROUTER_NAME:-dictionary}.entrypoints=${TRAEFIK_ENTRYPOINT:?Set the existing HTTPS entrypoint}
+      - traefik.http.routers.${TRAEFIK_ROUTER_NAME:-dictionary}.tls=true
+      - traefik.http.routers.${TRAEFIK_ROUTER_NAME:-dictionary}.tls.certresolver=${TRAEFIK_CERTRESOLVER:?Set the existing certificate resolver}
+      - traefik.http.routers.${TRAEFIK_ROUTER_NAME:-dictionary}.service=${TRAEFIK_ROUTER_NAME:-dictionary}
+      - traefik.http.services.${TRAEFIK_ROUTER_NAME:-dictionary}.loadbalancer.server.port=8080
+      - traefik.http.services.${TRAEFIK_ROUTER_NAME:-dictionary}.loadbalancer.server.scheme=http
+networks:
+  traefik:
+    external: true
+    name: ${TRAEFIK_NETWORK:?Set the existing external network}

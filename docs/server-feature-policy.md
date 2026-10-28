@@ -75,7 +75,7 @@ Web 可保留既有 UI，但开关关闭或角色不允许时其写入同样被�
 轻量纯策略测试，无 Django、数据库或外部网络：
 
 ```sh
-cd backend/hinghwa-dict-backend
+cd apps/backend/hinghwa-dict-backend
 python3 -m unittest HinghwaDict.test_feature_policy -v
 ```
 
