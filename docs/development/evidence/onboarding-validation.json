@@ -72,5 +72,20 @@
     "logIgnoreDefaultAndWhitelistTest": true,
     "realServicesRestartedForThisFix": false,
     "testMode": "Existing isolated image with read-only current source bind; no full rebuild or TLS changes"
+  },
+  "legacyFilesAliasReviewFix": {
+    "targetedBackendTests": 8,
+    "newAliasTests": 3,
+    "existingGateTests": 5,
+    "elapsedSeconds": 0.408,
+    "standaloneAliasUsesReceiptGate": true,
+    "orphanAndPhysicalAliasAnonymous404": true,
+    "committedLegacyImportReadable": true,
+    "privatePackageAndRevokedWordAnonymous404": true,
+    "ordinaryLegacyDownloadCompatible": true,
+    "nonStandaloneOriginalHandlerUnchanged": true,
+    "realServicesRestarted": false,
+    "testMode": "Existing isolated image; read-only current source; network none; temporary synthetic data",
+    "scope": "Checked standalone media and legacy files aliases; not a claim of an exhaustive route audit"
   }
 }

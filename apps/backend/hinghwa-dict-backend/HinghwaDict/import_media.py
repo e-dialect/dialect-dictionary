@@ -12,6 +12,7 @@ from django.db.models import Q
 from django.http import Http404
 from django.views.decorators.http import require_safe
 from django.views.static import serve
+from django.utils.http import content_disposition_header
 
 
 @require_safe
@@ -49,4 +50,17 @@ def dictionary_media(request, path):
         raise Http404
     response = serve(request, filename, document_root=str(directory))
     response['Cache-Control'] = 'private, no-store'
+    return response
+
+
+@require_safe
+def dictionary_legacy_file(request, type, id, Y, M, D, X):
+    """Standalone legacy alias shares the same namespace and receipt checks.
+
+    The original non-standalone website.openUrl is deliberately unchanged.
+    Preserve successful legacy downloads' bytes, MIME type and attachment name.
+    """
+    response = dictionary_media(request, f"{type}/{id}/{Y}_{M}_{D}_{X}")
+    response['Content-Type'] = 'application/octet-stream'
+    response['Content-Disposition'] = content_disposition_header(True, X)
     return response
