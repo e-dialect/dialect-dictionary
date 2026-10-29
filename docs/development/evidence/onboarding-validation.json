@@ -87,5 +87,69 @@
     "realServicesRestarted": false,
     "testMode": "Existing isolated image; read-only current source; network none; temporary synthetic data",
     "scope": "Checked standalone media and legacy files aliases; not a claim of an exhaustive route audit"
+  },
+  "postMergeRebuiltInstall": {
+    "sourceCommit": "9e28c2c27f7826cb5ead5c57ceac3506c22810d3",
+    "dateUtc": "2026-10-28",
+    "platform": "linux/amd64",
+    "dockerCompose": "5.5.0",
+    "backendImage": "sha256:1b7932b0c06a22ad2f40e62696a36cfc97368f63a3dd7f2f9f741feba8dfcaca",
+    "websiteImage": "sha256:f7c383e0be080c1c886d85db9555dc023a4936c71b51274aaffeec146fb6308c",
+    "cleanSourceArchive": true,
+    "preexistingNodeModulesOrDist": false,
+    "fullWebAndH5Build": true,
+    "baseImageAndDownloadCacheMayBeReused": true,
+    "backendImageTestsWithoutSourceBind": 52,
+    "backendImageTestsSeconds": 9.758,
+    "offlineTestsAfterVersionFix": 19,
+    "runtime": {
+      "realTraefik": false,
+      "realTls": false,
+      "secondHost": false,
+      "syntheticOnly": true,
+      "localWebH5AdminStaticAndForgedScheme": true,
+      "publicZipImportedAndWavDecoded": true,
+      "publishedMediaPhysicallyPrivate": true,
+      "privateMediaAnonymous404": true,
+      "privateWordsAnonymous403AndBulkExcluded": true,
+      "explicitPublicAudioBytesMatch": true,
+      "sourceIdAcrossPackagesDistinct": true,
+      "idempotentReimport": true,
+      "invalidFlvNoPublicResidue": true,
+      "receipts": 2,
+      "proxyNoPublishedPorts": true,
+      "backendPrivateNetworkOnly": true,
+      "actualNginxOverwritesForgedProtoToHttps": true,
+      "proxyAdminStaticCsrfPaths": true,
+      "proxyOrdinaryMediaAndOrphanAliases": true,
+      "allPassed": true,
+      "stopErrors": []
+    },
+    "firstDefaultStart": "Failed: host predefined Docker address pools exhausted; inspected unused subnet and used existing network overlay; no other network removed",
+    "auxiliaryProbe": "Backend-only imports completed, but HTTP probe addressed its one-shot container localhost and failed; stopped and retained. Full website workflow above subsequently passed in a separate isolated project.",
+    "remainingBoundaries": [
+      "Same physical host only",
+      "Nginx HTTPS-ingress simulation, no actual Traefik or public TLS",
+      "Synthetic packages only",
+      "No WeChat device or review",
+      "No real process kill or power loss",
+      "Library remains old candidate"
+    ],
+    "versionMetadataFix": "CLI no longer inherits a parent checkout identity; real nested-Git fixture passes; this CLI change is outside application images"
+  },
+  "chineseUserDocumentation": {
+    "dateUtc": "2026-10-29",
+    "offlineTests": 22,
+    "frontendConfigGroups": 9,
+    "checks": [
+      "Relative document links",
+      "bash -n for all user shell examples",
+      "Real CLI directory/ZIP preview with Chinese spaces",
+      "Actual Compose parse of all three backup selectors and project/data-volume identities"
+    ],
+    "servicesStarted": false,
+    "credentialsOrCertificatesCreated": false,
+    "priorRuntimeEvidenceReused": true,
+    "newFullImageBuild": false
   }
 }

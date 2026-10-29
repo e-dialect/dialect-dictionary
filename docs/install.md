@@ -12,7 +12,16 @@ docker compose version
 python3 --version
 ```
 
-使用源码归档时，把包解压到新的安装目录，进入其中的 `dialect-dictionary/`，先核对交付清单：
+第一次获取源码可选择 Git：
+
+```sh
+git clone https://github.com/e-dialect/dialect-dictionary.git
+cd dialect-dictionary
+```
+
+也可在仓库页面选择 **Code → Download ZIP**，解压后进入包含 `dictionary`、`compose.yaml` 的目录。不要直接在压缩包预览窗口运行命令。GitHub 自动生成的源码 ZIP 没有本项目的发布清单，不需要运行下方清单校验；可先执行 `python3 dictionary version` 查看可用版本信息，未包含提交元数据时会显示 unknown。
+
+使用带 `RELEASE.json` / `MANIFEST.json` 的专门交付归档时，把包解压到新的安装目录，进入其中的 `dialect-dictionary/`，先核对交付清单：
 
 ```sh
 python3 tools/verify_package.py
@@ -60,7 +69,7 @@ curl --fail http://localhost:18080/healthz
 - **Docker 无法连接**：先确认 Docker 服务已启动。
 - **端口占用**：修改 `.env` 的 `HTTP_PORT`，同步 JSON 中两个访问地址，再启动。
 - **网站未就绪**：运行 `docker compose ps` 和 `docker compose logs --tail=80 backend website`，检查构建、迁移或配置错误。日志可能含邮箱和重置链接，分享前先去除私有信息。
-- **网络地址池耗尽**：检查主机与 Docker 路由，按 `ops/compose/network.yaml` 选择不重叠的 `DICTIONARY_SUBNET`；不要清理其他项目的网络。
+- **网络地址池耗尽**：检查主机与 Docker 路由，请管理员确认一个未占用且不重叠的私有 CIDR，然后在同一终端导出 `DICTIONARY_SUBNET`（例如 `export DICTIONARY_SUBNET=10.253.23.0/24`，这个值只是示例，不能未经检查照抄）。再运行 `./dictionary start --no-build --pull never`，复用此次已完成的镜像。CLI 会加入 `ops/compose/network.yaml`；仅写入 `.env` 不能让当前 CLI 选择该覆盖文件。后续操作在该终端保留此变量；不要清理其他项目的网络。
 - **管理账号**：运行 `./dictionary manage createsuperuser`，按提示设置自己的账号和密码。真实邮件、微信登录、云存储需另配服务；默认邮件输出到容器日志。
 
 默认仅绑定 `127.0.0.1`。已有 Traefik 的域名部署请使用[专门指南](traefik.md)，不要把本机 HTTP 地址当成已部署的 HTTPS 服务。使用 Traefik 时启停都带 `--traefik`。

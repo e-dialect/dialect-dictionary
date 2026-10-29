@@ -19,6 +19,11 @@ def fail(message):
 
 def version_record():
     try:
+        # An unpacked release may sit inside another checkout. Never attribute
+        # that parent repository's commit/dirty state to this installation.
+        top = subprocess.check_output(['git', 'rev-parse', '--show-toplevel'], cwd=ROOT, stderr=subprocess.DEVNULL, text=True).strip()
+        if Path(top).resolve() != ROOT:
+            raise OSError('Installation has no own Git worktree')
         commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, stderr=subprocess.DEVNULL, text=True).strip()
         dirty = bool(subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT).strip())
     except (OSError, subprocess.CalledProcessError):
