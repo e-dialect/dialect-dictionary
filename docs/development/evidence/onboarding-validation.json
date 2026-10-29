@@ -136,5 +136,20 @@
       "Library remains old candidate"
     ],
     "versionMetadataFix": "CLI no longer inherits a parent checkout identity; real nested-Git fixture passes; this CLI change is outside application images"
+  },
+  "chineseUserDocumentation": {
+    "dateUtc": "2026-10-29",
+    "offlineTests": 22,
+    "frontendConfigGroups": 9,
+    "checks": [
+      "Relative document links",
+      "bash -n for all user shell examples",
+      "Real CLI directory/ZIP preview with Chinese spaces",
+      "Actual Compose parse of all three backup selectors and project/data-volume identities"
+    ],
+    "servicesStarted": false,
+    "credentialsOrCertificatesCreated": false,
+    "priorRuntimeEvidenceReused": true,
+    "newFullImageBuild": false
   }
 }

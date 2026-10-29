@@ -2,9 +2,11 @@
 
 把自己的方言资料整理成可检索、可听录音的网站。一个部署同时提供电脑网页和手机网页，可配置站名、方言、Logo 与内容来源。源码来自兴化语记的后端、Web 和 Uni-App，保留原作者与组件许可。
 
+完整的[中文使用指南](docs/README.md)按安装、资料包、代理和备份组织；不了解目录时先看[目录说明](docs/directory.md)。
+
 ## 先在自己电脑上试用
 
-安装 Docker（含 Compose v2）和 Python 3.10+，启动 Docker，然后在本目录打开终端：
+按[安装指南](docs/install.md)获取源码，安装 Docker（含 Compose v2）和 Python 3.10+，启动 Docker，然后在本目录打开终端：
 
 ```sh
 ./dictionary init
@@ -27,7 +29,7 @@
 先把资料整理为本仓库支持的目录或 ZIP，再预览检查：
 
 ```sh
-./dictionary preview /你的路径/资料包.zip
+./dictionary preview "/你的路径/资料包.zip"
 ```
 
 预览只检查包，不写数据库。格式为本项目的 `legacy-tsv-v1` 适配格式：`metadata.json`、五列 `words.tsv`、按四位编号命名的 WAV/MP3 录音；FLV 暂不支持。**这不是官方统一资料包标准**。字段、来源许可声明、地区映射和示例见[整包导入指南](docs/packages/README.md)。
@@ -36,13 +38,13 @@
 
 ```sh
 ./dictionary manage createsuperuser
-./dictionary import /你的路径/资料包.zip --importer 你的用户名
+./dictionary import "/你的路径/资料包.zip" --importer 你的用户名
 ```
 
 创建账号时按提示设置自己的凭据。上面的方式保持私有，录音保存在私有目录；命令成功不代表已经公开。首次导入时，若已核验发布授权并在包中明确声明，可改用下面的公开方式（二选一，不是先私有导入再重复执行）：
 
 ```sh
-./dictionary import /你的路径/资料包.zip --importer 你的用户名 --publish
+./dictionary import "/你的路径/资料包.zip" --importer 你的用户名 --publish
 ```
 
 同包、同内容和同公开状态重导不会新增条目；相同包 ID 内容变化或请求切换公开状态会被拒绝。本轮不提供已导入包的就地发布/撤回，请在首次导入前选择状态。先按导入指南核验来源、许可和发布范围。

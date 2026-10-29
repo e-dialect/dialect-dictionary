@@ -2,19 +2,51 @@
 
 备份前停止所有写入，恢复到新目录验证后再切换。复制源码目录不会带走 Docker 数据卷；不要只复制运行中的 SQLite 主文件。
 
-以下命令适用于默认 `.env` 实例，在安装根目录执行。若用了自定义配置、额外 Compose 覆盖或 Traefik，先确认命令选中原来的 project、数据卷和有效配置。Traefik 实例启停使用 `./dictionary --traefik stop` / `./dictionary --traefik start --no-build --pull never`。
+所有命令在项目根目录、Bash/Zsh终端执行。先选中**实际运行的模式**，本节三个命令块只执行一个；后面统一用 `"${DC[@]}"` 操作。独立Traefik模板可能设置不同的实例名，不能省略其env文件后对默认卷做备份。
+
+普通本机实例：
+
+<!-- compose-local -->
+```sh
+DC=(docker compose --env-file .env -f compose.yaml)
+```
+
+接入已有Traefik：
+
+<!-- compose-existing-traefik -->
+```sh
+DC=(docker compose --env-file .env --env-file .env.traefik -f compose.yaml -f ops/compose/traefik.yaml)
+```
+
+新服务器独立Traefik：
+
+<!-- compose-standalone-traefik -->
+```sh
+DC=(docker compose --env-file .env --env-file .env.traefik-standalone -f compose.yaml -f ops/compose/traefik.yaml -f ops/compose/traefik-standalone.yaml)
+```
+
+若原实例使用了地址池修复，保留原来已核验的 `DICTIONARY_SUBNET`，再执行：
+
+<!-- compose-source-inspect -->
+```sh
+if [ -n "${DICTIONARY_SUBNET:-}" ]; then DC+=(-f ops/compose/network.yaml); fi
+"${DC[@]}" config --services
+"${DC[@]}" ps -a
+```
+
+确认显示的就是待备份实例；任何自定义组合都需加入同样的选项。不要在恢复副本的终端误操作原实例。
 
 ## 备份前准备
 
 快照包括数据库、本地媒体、私有导入录音、卷内其他文件、配置和版本记录，可能包含密钥、个人信息和未公开资料。它是私有备份，不可混入公开源码包或上传公开仓库。远端对象存储内容、外部环境变量中的密钥、Traefik 和 DNS 配置需要单独保存。
 
-确认 `config/site.json` 与 `config/` 中策略文件就是实际使用的内容；若 `.env` 指向其他目录，下方 `/instance-config` 挂载须改为对应的有效配置目录。另行私下保存 `.env`、`.env.traefik` 和外部密钥来源。
+确认 `config/site.json` 与 `config/` 中策略文件就是实际使用的内容；若 `.env` 指向其他目录，下方 `/instance-config` 挂载须改为对应的有效配置目录。另行私下保存实际使用的 `.env`、`.env.traefik` 或 `.env.traefik-standalone` 和外部密钥来源。
 
 记录版本和所用镜像，保存输出到自己的运维记录：
 
 ```sh
 ./dictionary version
-docker compose images
+"${DC[@]}" images
 ```
 
 `config/version.json` 记录本地源码版本；它不证明运行镜像由同一份源码构建。用 `docker image inspect 你的镜像名` 另记镜像 ID、系统和架构；保留旧镜像或自行导出镜像以便搬家。源码包与数据快照均不包含镜像。
@@ -24,10 +56,10 @@ docker compose images
 先停止网站、后端，以及外部脚本、管理任务和其他共享此数据卷的写入进程：
 
 ```sh
-./dictionary stop
-docker compose ps -a
+"${DC[@]}" stop
+"${DC[@]}" ps -a
 mkdir -p backups
-docker compose run --rm --no-deps --entrypoint python \
+"${DC[@]}" run --rm --no-deps --entrypoint python \
   -v "$PWD:/package:ro" \
   -v "$PWD/config:/instance-config:ro" \
   -v "$PWD/backups:/backups" \
@@ -44,7 +76,7 @@ docker compose run --rm --no-deps --entrypoint python \
 备份成功后，如需继续原实例：
 
 ```sh
-./dictionary start --no-build --pull never
+"${DC[@]}" up -d --wait --no-build --pull never
 curl --fail http://localhost:18080/healthz
 ```
 
@@ -52,7 +84,7 @@ curl --fail http://localhost:18080/healthz
 
 ## 恢复到新目录
 
-把源码、私有快照和所需镜像带到目标主机，保持原始快照不变。下方目标目录 `runtime/recovery-check` 必须不存在：
+另开一个终端进入安装根目录，仅在这个终端设置恢复副本参数，避免影响原实例的配置。把源码、私有快照和所需镜像带到目标主机，保持原始快照不变。下方目标目录 `runtime/recovery-check` 必须不存在：
 
 ```sh
 python3 tools/offline_snapshot.py restore \
@@ -79,12 +111,12 @@ export WEBSITE_IMAGE=你保存的网站镜像标签
 将策略文件名改为备份时实际生效的文件名；过期策略仍应关闭，不能为恢复演练擅自延长授权。不要将 `RESTORED_DATA` 指向原实例，也不要让两个可写实例共享此目录。
 
 ```sh
-docker compose -p dictionary-restored -f compose.yaml \
-  -f ops/compose/restore.example.yaml config --quiet
-docker compose -p dictionary-restored -f compose.yaml \
-  -f ops/compose/restore.example.yaml up -d --no-build --pull never
-docker compose -p dictionary-restored -f compose.yaml \
-  -f ops/compose/restore.example.yaml ps
+RC=(docker compose --env-file .env -p dictionary-restored -f compose.yaml -f ops/compose/restore.example.yaml)
+# 若本机需要地址池修复，这里使用另一个已核验且不重叠的子网。
+if [ -n "${DICTIONARY_SUBNET:-}" ]; then RC+=(-f ops/compose/network.yaml); fi
+"${RC[@]}" config --quiet
+"${RC[@]}" up -d --wait --no-build --pull never
+"${RC[@]}" ps
 curl --fail http://localhost:18082/healthz
 ```
 
@@ -99,11 +131,13 @@ curl --fail http://localhost:18082/healthz
 - 来源、许可和发布状态仍正确，私有资料不会自动公开。
 - 真实账号角色权限，以及贡献关闭后后端仍拒绝写入。
 
-演练结束，用同样两项 `-f` 和 project 停止副本：
+演练结束，用同一 `RC` 选择停止副本，再清除这个终端中的临时变量：
 
 ```sh
-docker compose -p dictionary-restored -f compose.yaml \
-  -f ops/compose/restore.example.yaml stop
+"${RC[@]}" stop
+unset RESTORED_DATA SITE_CONFIG FEATURE_POLICY_DIRECTORY FEATURE_POLICY_FILE HTTP_PORT BACKEND_IMAGE WEBSITE_IMAGE
+# 若这个终端也设置了仅供恢复副本使用的DICTIONARY_SUBNET，用完一并清除。
+unset DICTIONARY_SUBNET
 ```
 
 通过检查后再安排域名或代理切换，并让新旧实例的写入安排明确。保留原快照、原镜像和恢复记录。
@@ -113,3 +147,8 @@ docker compose -p dictionary-restored -f compose.yaml \
 升级前先保存可恢复快照、旧源码、旧镜像和配置。回滚使用**旧镜像和匹配的升级前快照**，按上述步骤恢复到新目录；已被新版本迁移的数据库不能直接交给旧版本。
 
 回到旧快照会丢失其后产生的修改。切换前停止写入，另存新版本当前快照，并审阅新增数据的导出与合并方案；没有完成方案时保留副本，不覆盖原数据。这里不提供生产环境的自动回滚或无损合并保证。
+
+
+## 验证边界
+
+已用合成SQLite/媒体/配置检查快照校验和、拒绝覆盖、非法路径和损坏快照，并在同一主机的隔离实例做过恢复验证。这不等于第二主机、不同架构或跨版本迁移/回滚已通过；当前图片、录音、远端对象与账号权限仍须按你的实际部署逐项核验。详见[验收记录](development/onboarding-validation.md)；错误含义见[常见错误](troubleshooting.md#备份与恢复)。
