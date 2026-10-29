@@ -1,0 +1,54 @@
+{
+  "dateUtc": "2026-10-29",
+  "baseCommit": "8144abba5e5661575884b9095ef1f8ae140028e7",
+  "upstream": {
+    "repository": "https://github.com/e-dialect/hinghwa-ime",
+    "commit": "e3b392032dd3dff586948553f944ca628e4cbd33",
+    "defaultBranch": "master",
+    "license": "MPL-2.0",
+    "schema": "Pouleng",
+    "schemaVersion": "2019.11.22.1",
+    "codeOrDictionaryCopied": false
+  },
+  "profile": "pouleng-rime-v1",
+  "backendTests": 60,
+  "newExporterTests": 8,
+  "backendSeconds": 9.108,
+  "offlineTests": 24,
+  "runtime": {
+    "actualRootCli": true,
+    "privateDefaultDenied": true,
+    "ownerExplicitPrivatePreviewAndExport": true,
+    "previewCreatedNoExportDirectory": true,
+    "otherUserDenied": true,
+    "outputMode600": true,
+    "existingArchiveUnchanged": true,
+    "offlineArchiveVerification": true,
+    "newInputMethodInstalled": false,
+    "engineCompilation": false,
+    "allPassed": true
+  },
+  "runtimeImage": "sha256:5f7e28be3de04ca176cac2fca1cbea876a808e6f6d4d37fc6a79823bbcc3713b",
+  "imageBuild": "Existing validated dependency image, application-code-only COPY; no repeated frontend or dependency build",
+  "syntheticOnly": true,
+  "servicesStopped": true,
+  "noPublicHttpExportEndpoint": true,
+  "faultsCorrected": [
+    "Test copyfile did not preserve executable mode; used documented python3 entry, no permission change",
+    "Real CLI exposed Django reserved --version option conflict; backend uses --export-version while root CLI keeps --version; regression now calls real management parser"
+  ],
+  "notVerified": [
+    "Rime engine compilation",
+    "Real keyboard or OS installation",
+    "Other devices",
+    "HinghuaBUC output",
+    "Automatic IPA conversion",
+    "Unpackaged words without provenance"
+  ],
+  "finalVerifierHardening": {
+    "image": "sha256:41e29be7cbc15901307c17a079b49a03be6d36530540ad8714665f9cf89aec95",
+    "targetedTests": 8,
+    "seconds": 0.542,
+    "checks": "Fixed output filenames, no executable/link entries, bounded per-file/total size and reads; same export payload format"
+  }
+}

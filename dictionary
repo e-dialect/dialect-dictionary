@@ -67,11 +67,11 @@ def validate_instance(traefik=False, standalone=False):
     return config
 
 def main():
-    parser = argparse.ArgumentParser(description='词典：初始化、启动、资料包预览/导入和日常管理。')
+    parser = argparse.ArgumentParser(description='词典：初始化、启动、资料包预览/导入、输入法词库导出和日常管理。')
     modes = parser.add_mutually_exclusive_group()
     modes.add_argument('--traefik', action='store_true', help='复用已有Traefik')
     modes.add_argument('--traefik-standalone', action='store_true', help='仅新服务器：显式运行独立Traefik，详见docs/traefik.md')
-    parser.add_argument('action', choices=['init', 'version', 'check', 'start', 'stop', 'preview', 'import', 'manage'])
+    parser.add_argument('action', choices=['init', 'version', 'check', 'start', 'stop', 'preview', 'import', 'export-ime', 'manage'])
     args, rest = parser.parse_known_args()
     os.chdir(ROOT)
     use_proxy = args.traefik or args.traefik_standalone
@@ -111,6 +111,35 @@ def main():
         version_record()
         command = compose + ['up', '-d', '--wait'] + (['--build'] if '--no-build' not in rest else []) + rest
     elif args.action == 'stop': command = compose + ['stop'] + rest
+    elif args.action == 'export-ime':
+        export_parser = argparse.ArgumentParser(description='导出已导入资料包的Pouleng附加词库')
+        export_parser.add_argument('package_id')
+        export_parser.add_argument('--mapping', required=True)
+        export_parser.add_argument('--requester', required=True)
+        export_parser.add_argument('--version', required=True)
+        export_parser.add_argument('--include-private', action='store_true')
+        export_parser.add_argument('--preview', action='store_true')
+        export_parser.add_argument('--output')
+        export_parser.add_argument('--authorization-statement')
+        option = export_parser.parse_args(rest)
+        mapping = Path(option.mapping)
+        if mapping.is_symlink() or not mapping.is_file(): fail('输入码对照表须为普通文件。')
+        mapping = mapping.resolve()
+        if ':' in str(mapping): fail('Docker挂载路径不能包含冒号。')
+        command = compose + ['run', '--rm', '--no-deps', '--entrypoint', 'python', '-v', str(mapping)+':/ime-codes.tsv:ro']
+        if option.output:
+            if option.preview: fail('预览不能同时写出文件。')
+            if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]{0,115}\.zip', option.output): fail('--output填写不含目录的ASCII .zip文件名。')
+            exports = ROOT / 'exports'
+            if exports.is_symlink(): fail('exports目录不能是符号链接。')
+            exports.mkdir(mode=0o700, exist_ok=True)
+            if (exports/option.output).exists() or (exports/option.output).is_symlink(): fail('导出文件已存在，不覆盖。')
+            command += ['-v', str(exports)+':/export-output']
+        command += ['backend', '/app/manage-command.py', 'export_ime_dictionary', option.package_id, '--mapping', '/ime-codes.tsv', '--requester', option.requester, '--export-version', option.version]
+        if option.include_private: command += ['--include-private']
+        if option.preview: command += ['--preview']
+        if option.output: command += ['--output', '/export-output/'+option.output]
+        if option.authorization_statement: command += ['--authorization-statement', option.authorization_statement]
     elif args.action == 'manage':
         command = compose + ['run', '--rm', '--no-deps', '--entrypoint', 'python', 'backend', '/app/manage-command.py'] + rest
     else:
