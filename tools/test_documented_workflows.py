@@ -17,7 +17,7 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ['README.md', 'docs/README.md', 'docs/directory.md', 'docs/install.md',
         'docs/packages/README.md', 'docs/traefik.md', 'docs/backup.md',
-        'docs/troubleshooting.md', 'tools/frontend-config/README.md']
+        'docs/troubleshooting.md', 'docs/ime-export.md', 'tools/frontend-config/README.md']
 
 
 class DocumentedWorkflowTests(unittest.TestCase):
