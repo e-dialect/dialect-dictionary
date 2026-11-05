@@ -1,0 +1,13 @@
+<div class="announcement-editor" data-search-url="{{ widget.search_url }}">
+  <input type="hidden" name="{{ widget.name }}" value="{{ widget.value|default_if_none:'' }}" id="{{ widget.attrs.id }}">
+  {{ widget.choices|json_script:widget.data_id }}
+  {% if widget.error %}<p class="errornote">{{ widget.error }} 原值已保留，请联系管理员核对；不会自动清空。</p>{% endif %}
+  <p><label>按文章标题查找 <input type="search" class="announcement-query" placeholder="例如：资料征集" autocomplete="off"></label> <button type="button" class="announcement-search">搜索文章</button></p>
+  <p class="announcement-message" role="status" aria-live="polite">输入标题后点击搜索；搜索和加入都不会自动保存。</p>
+  <div class="announcement-results" aria-label="搜索结果"></div>
+  <h3>已选公告（从上到下就是网站显示顺序）</h3>
+  <ol class="announcement-selected" aria-label="已选公告"></ol>
+  <button type="button" class="announcement-reset">恢复打开时的选择</button>
+  <a class="announcement-cancel" href="{{ widget.cancel_url }}">取消并返回（不保存）</a>
+  <noscript>需要启用浏览器JavaScript才能搜索与调整选择；当前值不会自动清空。</noscript>
+</div>

@@ -1,0 +1,12 @@
+.announcement-editor {max-width: 850px; width: 100%;}
+.announcement-editor input[type=search] {width: min(360px, 90%); margin: 6px 0;}
+.announcement-editor button {margin: 4px 6px 4px 0; padding: 7px 12px; cursor: pointer;}
+.announcement-editor button:disabled {cursor: default; opacity: .5;}
+.announcement-result, .announcement-selected>li {padding: 12px; margin: 8px 0; border: 1px solid var(--hairline-color, #ccc); border-radius: 5px;}
+.announcement-selected {padding-left: 26px !important;}
+.announcement-detail strong {display: block; margin-bottom: 6px;}
+.announcement-badge, .announcement-date {display: inline-block; margin-right: 12px; font-size: 13px;}
+.announcement-detail details p {white-space: pre-wrap; overflow-wrap: anywhere; max-width: 680px;}
+.announcement-editor label {float: none !important; width: auto !important;}
+.announcement-message {color: var(--body-quiet-color, #555);}
+.announcement-cancel {display: inline-block; margin: 12px;}
