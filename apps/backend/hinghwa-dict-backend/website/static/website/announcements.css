@@ -10,3 +10,7 @@
 .announcement-editor label {float: none !important; width: auto !important;}
 .announcement-message {color: var(--body-quiet-color, #555);}
 .announcement-cancel {display: inline-block; margin: 12px;}
+.announcement-pick-controls {border: 0; padding: 0; margin: 0; min-width: 0;}
+.announcement-pick-controls:disabled {opacity: .65;}
+.announcement-editor pre {white-space: pre-wrap; overflow-wrap: anywhere; max-height: 180px; overflow-y: auto;}
+.announcement-editor button:focus-visible, .announcement-editor a:focus-visible {outline: 3px solid var(--link-fg, #1774a6); outline-offset: 2px;}

@@ -1,13 +1,22 @@
-<div class="announcement-editor" data-search-url="{{ widget.search_url }}">
+<div class="announcement-editor" data-search-url="{{ widget.search_url }}" data-broken="{{ widget.original_error|yesno:'true,false' }}">
   <input type="hidden" name="{{ widget.name }}" value="{{ widget.value|default_if_none:'' }}" id="{{ widget.attrs.id }}">
+  <input type="hidden" name="announcement_revision" value="{{ widget.revision }}">
   {{ widget.choices|json_script:widget.data_id }}
-  {% if widget.error %}<p class="errornote">{{ widget.error }} 原值已保留，请联系管理员核对；不会自动清空。</p>{% endif %}
-  <p><label>按文章标题查找 <input type="search" class="announcement-query" placeholder="例如：资料征集" autocomplete="off"></label> <button type="button" class="announcement-search">搜索文章</button></p>
-  <p class="announcement-message" role="status" aria-live="polite">输入标题后点击搜索；搜索和加入都不会自动保存。</p>
-  <div class="announcement-results" aria-label="搜索结果"></div>
-  <h3>已选公告（从上到下就是网站显示顺序）</h3>
-  <ol class="announcement-selected" aria-label="已选公告"></ol>
-  <button type="button" class="announcement-reset">恢复打开时的选择</button>
+  {% if widget.original_error %}
+    <div class="errornote">原公告配置无法读取：{{ widget.original_error }} 原值仍在服务器，未自动清空。</div>
+    <details><summary>查看原配置文字（只读）</summary><pre>{{ widget.original_preview }}</pre>{% if widget.original_truncated %}<p>文字过长，只显示前2000字；服务器保留完整原值。</p>{% endif %}</details>
+    <p><label><input type="checkbox" name="announcement_rebuild" value="yes" class="announcement-rebuild" {% if widget.repairing %}checked{% endif %}>我确认重新选择公告，保存时替换损坏配置</label></p>
+    <p>保存前可取消确认或返回，原值不会改变；明确保存修复时自动保留一份原值，可撤销刚才的修复。下一次修复会替换这份备份，长期保留请先做站点备份。</p>
+  {% elif widget.error %}<p class="errornote">{{ widget.error }} 请重新选择后保存。</p>{% endif %}
+  <p class="announcement-message" role="status" aria-live="polite">{% if widget.original_error %}请先明确确认修复，再重新选择；未确认时不能搜索或修改列表。{% else %}输入标题后搜索；搜索和加入都不会自动保存。{% endif %}</p>
+  <fieldset class="announcement-pick-controls" {% if widget.original_error and not widget.repairing %}disabled{% endif %}>
+    <p><label>按文章标题查找 <input type="search" class="announcement-query" placeholder="例如：资料征集" autocomplete="off"></label> <button type="button" class="announcement-search">搜索文章</button></p>
+    <div class="announcement-results" aria-label="搜索结果"></div>
+    <h3>已选公告（从上到下就是网站显示顺序）</h3>
+    <ol class="announcement-selected" aria-label="已选公告" tabindex="-1"></ol>
+    <button type="button" class="announcement-reset">恢复打开时的选择</button>
+  </fieldset>
+  {% if widget.undo_url %}<p>可撤销上一次修复，恢复修复前的原始配置；未保存的页面改动不会保留。</p><button type="submit" formaction="{{ widget.undo_url }}" formmethod="post" formnovalidate>撤销上次修复并恢复原值</button>{% endif %}
   <a class="announcement-cancel" href="{{ widget.cancel_url }}">取消并返回（不保存）</a>
   <noscript>需要启用浏览器JavaScript才能搜索与调整选择；当前值不会自动清空。</noscript>
 </div>

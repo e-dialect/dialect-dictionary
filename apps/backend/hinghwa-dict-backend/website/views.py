@@ -20,7 +20,7 @@ from word.models import Word, split
 from .audio import split_ipa_from_mp3
 from .forms import DailyExpressionForm
 from .models import Website, DailyExpression
-from .announcement_config import article_ids
+from .announcement_config import article_ids, payload_ids, ACTIVE_WEBSITE_ID, MAX_CONFIG_CHARS
 from .notification.dto import notification_normal
 from .notification.utils import sendNotification, readNotification
 from .storage import FileTooLargeError, upload_file, delete_file, validate_file_size
@@ -85,7 +85,7 @@ def email(request):
 @csrf_exempt
 def announcements(request):
     try:
-        item = Website.objects.filter(id=1).first()
+        item = Website.objects.filter(id=ACTIVE_WEBSITE_ID).first()
         if request.method == "GET":
             try:
                 articles = article_ids(item.announcements if item else [])
@@ -119,16 +119,15 @@ def announcements(request):
                 )
             return JsonResponse({"announcements": announcements}, status=200)
         elif request.method == "PUT":
-            body = demjson3.decode(request.body)
             token = request.headers.get("token", "")
             if token_check(token, settings.JWT_KEY, -1):
                 try:
-                    if not isinstance(body.get("announcements"), list):
-                        raise ValueError()
-                    selected = article_ids(body["announcements"])
-                except (ValueError, TypeError):
-                    return JsonResponse({"msg": "公告须为文章编号列表。"}, status=400)
-                Website.objects.update_or_create(id=1, defaults={'announcements': json.dumps(selected)})
+                    if int(request.META.get('CONTENT_LENGTH') or 0) > MAX_CONFIG_CHARS:
+                        return JsonResponse({"msg": "公告请求过长。"}, status=413)
+                    selected = payload_ids(request.body)
+                except (ValueError, TypeError) as exc:
+                    return JsonResponse({"msg": str(exc)}, status=400)
+                Website.objects.update_or_create(id=ACTIVE_WEBSITE_ID, defaults={'announcements': json.dumps(selected)})
                 return JsonResponse({}, status=200)
             else:
                 return JsonResponse({}, status=401)

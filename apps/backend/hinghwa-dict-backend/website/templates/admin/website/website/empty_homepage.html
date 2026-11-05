@@ -1,0 +1,7 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<h1>还没有当前网站首页配置</h1>
+<p>网站读取固定的首页配置。其他已有记录会保留，不会被覆盖。</p>
+{% if can_create %}<form method="post" action="{{ create_url }}">{% csrf_token %}<button type="submit">创建当前首页配置并开始选择公告</button></form>{% else %}<p>你的现有账号没有新增配置权限，请联系站点管理员。无需修改安全设置。</p>{% endif %}
+<p><a href="{{ all_url }}">查看已有的其他配置</a></p>
+{% endblock %}
