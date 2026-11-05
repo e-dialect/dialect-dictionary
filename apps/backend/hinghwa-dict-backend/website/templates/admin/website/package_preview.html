@@ -1,0 +1,36 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<h1>选择 ZIP，先看资料是否齐全</h1>
+<p><strong>这里只预览，不入库、不公开，不改变已有词条、录音或权限。</strong>使用现有账号的资料包查看权限；资料只交给你自己的这个服务，不发送第三方。</p>
+<p>当前支持本项目 <code>legacy-tsv-v1</code> 适配格式，不代表全部官方语保格式。只读检查不会播放录音，也不会证明你已取得数据公开授权。</p>
+{% if failure %}<p class="errornote" role="alert">{{ failure }}</p>{% endif %}
+<form method="post" enctype="multipart/form-data">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">只读检查并预览</button>
+</form>
+<p>ZIP最大19 MiB，整个上传请求最大20 MiB（包含表单开销）。另有包内容限制：最多5000项、单文件32 MiB、展开内容合计128 MiB；不会把 ZIP 解压到媒体目录。大包可改用中文资料包指南中的本地预览命令。</p>
+{% if result %}
+<section aria-labelledby="preview-result">
+<h2 id="preview-result">检查结果：{% if result.error_count %}有{{ result.error_count }}处问题，请先修正{% else %}通过当前格式校验{% endif %}</h2>
+<p>本次仅预览，<strong>没有导入、没有公开</strong>。临时副本在检查结束后清理；重新检查需再次选择文件。通过格式校验仍需你核对内容、许可和录音质量。</p>
+<dl>
+  <dt>包标识</dt><dd>{{ result.package_id }}</dd>
+  <dt>来源</dt><dd><pre>{{ result.source }}</pre></dd>
+  <dt>许可声明（不代表系统替你取得授权）</dt><dd><pre>{{ result.license }}</pre></dd>
+  <dt>方言对应</dt><dd>{{ result.county }} / {{ result.town }}<pre>{{ result.mapping_note }}</pre></dd>
+  <dt>词表编码</dt><dd>{{ result.encoding }}</dd>
+  <dt>内容摘要 SHA-256</dt><dd><code>{{ result.digest }}</code></dd>
+</dl>
+{% if result.errors %}<h3>问题详情</h3><p>按文件名或词表行号定位；缺失录音、多余文件、编码和来源错误均需修正。校验器的详细错误可能含英文，请保留文件名和行号。</p><ul>{% for error in result.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
+{% if result.errors_truncated %}<p>只显示前100条问题，每条最多1000字；完整问题请用本地预览命令检查。</p>{% endif %}
+<h3>词条与录音关联（共{{ result.row_count }}行）</h3>
+{% if result.rows_truncated %}<p>页面只展示前50行，但校验器已检查整个包；原包及IPA未被修改。</p>{% endif %}
+<div style="overflow-x:auto"><table>
+<thead><tr><th>词表行号</th><th>原编号</th><th>普通话</th><th>方言</th><th>IPA（原样）</th><th>注释</th><th>录音文件</th></tr></thead>
+<tbody>{% for row in result.rows %}<tr><td>{{ row.line }}</td><td>{{ row.external_id }}</td><td>{{ row.mandarin }}</td><td>{{ row.word }}</td><td>{{ row.ipa }}</td><td>{{ row.note }}</td><td>{{ row.audio }}</td></tr>{% empty %}<tr><td colspan="7">没有可展示的数据行，请检查词表编码、表头与错误详情。</td></tr>{% endfor %}</tbody>
+</table></div>
+<p>较长的显示文字会明确标注截短；页面不提供公开媒体地址。录音可播放性仍应在获授权导入后的隔离实例核验。</p>
+</section>
+{% endif %}
+<p><a href="{{ back_url }}">取消/返回后台首页（不导入、不保存）</a></p>
+{% endblock %}

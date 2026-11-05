@@ -7,6 +7,7 @@ from django import forms
 from .models import Website, DailyExpression
 from .announcement_admin import WebsiteAdminForm, article_choice, can_view_private_articles
 from .announcement_config import article_ids, ACTIVE_WEBSITE_ID
+from .package_preview import package_preview as render_package_preview
 from article.models import Article
 from django.http import JsonResponse, HttpResponseForbidden, HttpResponseNotAllowed, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import path, reverse
@@ -29,6 +30,10 @@ class WebsiteAdmin(admin.ModelAdmin):
     def configuration_role(self, obj):
         return "当前网站首页（生效）" if obj.pk == ACTIVE_WEBSITE_ID else "其他/历史配置（不影响首页）"
 
+    def preview_context(self, request):
+        return {'package_preview_url': reverse('admin:website_package_preview')
+                if request.user.has_perm('word.view_resourcepackage') else ''}
+
     def changelist_view(self, request, extra_context=None):
         if not self.has_view_or_change_permission(request):
             return HttpResponseForbidden()
@@ -37,6 +42,7 @@ class WebsiteAdmin(admin.ModelAdmin):
                 return HttpResponseRedirect(reverse('admin:website_website_change', args=[ACTIVE_WEBSITE_ID]))
             return TemplateResponse(request, 'admin/website/website/empty_homepage.html', {
                 **self.admin_site.each_context(request), 'opts': self.model._meta,
+                **self.preview_context(request),
                 'title': '还没有首页配置', 'can_create': self.has_add_permission(request),
                 'create_url': reverse('admin:website_create_homepage'),
                 'all_url': reverse('admin:website_website_changelist') + '?all=1',
@@ -45,6 +51,7 @@ class WebsiteAdmin(admin.ModelAdmin):
 
     def change_view(self, request, object_id, form_url='', extra_context=None):
         context = dict(extra_context or {})
+        context.update(self.preview_context(request))
         context.update(is_active_homepage=str(object_id) == str(ACTIVE_WEBSITE_ID),
                        active_homepage_url=reverse('admin:website_website_changelist'),
                        all_configurations_url=reverse('admin:website_website_changelist') + '?all=1')
@@ -52,6 +59,7 @@ class WebsiteAdmin(admin.ModelAdmin):
 
     def add_view(self, request, form_url='', extra_context=None):
         context = dict(extra_context or {})
+        context.update(self.preview_context(request))
         context.update(is_add_configuration=True,
                        active_homepage_url=reverse('admin:website_website_changelist'),
                        all_configurations_url=reverse('admin:website_website_changelist') + '?all=1')
@@ -113,10 +121,14 @@ class WebsiteAdmin(admin.ModelAdmin):
 
     def get_urls(self):
         return [
+            path('package-preview/', self.admin_site.admin_view(self.package_preview), name='website_package_preview'),
             path('announcement-search/', self.admin_site.admin_view(self.announcement_search), name='website_announcement_search'),
             path('create-homepage/', self.admin_site.admin_view(self.create_homepage), name='website_create_homepage'),
             path('<path:object_id>/undo-announcement-repair/', self.admin_site.admin_view(self.undo_announcement_repair), name='website_announcement_undo'),
         ] + super().get_urls()
+
+    def package_preview(self, request):
+        return render_package_preview(request, self.admin_site)
 
     def announcement_search(self, request):
         if not self.has_change_permission(request) or request.method != 'GET':

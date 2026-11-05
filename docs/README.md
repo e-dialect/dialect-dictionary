@@ -7,6 +7,8 @@
 | 第一次安装、修改站名、启停网站 | [安装与日常使用](install.md) |
 | 不知道哪个目录、文件需要改 | [目录与配置说明](directory.md) |
 | 有一整包词表和录音 | [资料包预览与导入](packages/README.md) |
+| 用网页先检查ZIP，不导入 | [网页只读预览（本地候选，尚未运行验收）](packages/web-preview.md) |
+| 按标题选择、排序和保存公告 | [公告管理（本地候选，浏览器验收待完成）](announcements.md) |
 | 已有 Traefik，或新服务器需要代理 | [两种 Traefik 部署方案](traefik.md) |
 | 备份、搬家、恢复或回滚 | [备份恢复指南](backup.md) |
 | 命令报错、页面打不开、录音不可读 | [常见错误](troubleshooting.md) |
