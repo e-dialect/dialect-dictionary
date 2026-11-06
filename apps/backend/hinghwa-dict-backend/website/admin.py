@@ -98,7 +98,12 @@ class WebsiteAdmin(admin.ModelAdmin):
         backup = obj.announcements_repair_backup
         if not isinstance(backup, dict) or not isinstance(backup.get('original'), str) or not isinstance(backup.get('repaired'), str):
             return self.repair_conflict(request, '没有可撤销的修复备份；原配置没有改变。')
-        updated = Website.objects.filter(pk=obj.pk, announcements=backup['repaired']).update(announcements=backup['original'])
+        # Match the repair backup too: another repair may produce the same
+        # announcement list while preserving a different original value.
+        updated = Website.objects.filter(
+            pk=obj.pk, announcements=backup['repaired'],
+            announcements_repair_backup=backup,
+        ).update(announcements=backup['original'])
         if not updated:
             return self.repair_conflict(request, '配置已被再次修改，未覆盖任何内容。请重新打开核对；修复前原值仍保留。')
         self.log_change(request, obj, '撤销公告修复，恢复原始配置；未修改文章公开状态或其他字段。')

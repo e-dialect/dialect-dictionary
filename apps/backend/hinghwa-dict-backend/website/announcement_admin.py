@@ -86,10 +86,13 @@ class WebsiteAdminForm(forms.ModelForm):
         except ValueError:
             self.original_error = True
         self.repair_requested = self.is_bound and self.data.get('announcement_rebuild') == 'yes'
-        self.fields['announcements'].widget = AnnouncementWidget(
-            request, self.original_announcements, self.instance.announcements_repair_backup, self.instance.pk)
-        self.fields['announcements'].required = False
-        self.fields['announcements'].help_text = '按标题搜索并加入；上移/下移调整顺序。加入未公开文章不会替它通过审核。最后点击页面底部保存。'
+        # Django removes editable fields from view-only admin forms.
+        field = self.fields.get('announcements')
+        if field is not None:
+            field.widget = AnnouncementWidget(
+                request, self.original_announcements, self.instance.announcements_repair_backup, self.instance.pk)
+            field.required = False
+            field.help_text = '按标题搜索并加入；上移/下移调整顺序。加入未公开文章不会替它通过审核。最后点击页面底部保存。'
 
     def clean(self):
         cleaned = super().clean()

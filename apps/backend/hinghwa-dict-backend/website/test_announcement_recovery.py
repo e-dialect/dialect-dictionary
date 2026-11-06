@@ -1,4 +1,4 @@
-"""New recovery/active-row cases, authored but not executed in this checkpoint.
+"""Synthetic recovery, concurrency and active-homepage regression cases.
 
 This file does not import/inherit the earlier announcement regression class.
 """
@@ -68,6 +68,26 @@ class AnnouncementRecoveryFlowTests(TestCase):
         Website.objects.filter(pk=1).update(announcements='[]')
         self.assertEqual(self.client.post(self.undo).status_code,409)
         self.site.refresh_from_db();self.assertEqual(self.site.announcements,'[]')
+
+    def test_concurrent_repair_with_same_result_rejects_stale_undo(self):
+        from django.contrib import admin
+        self.post(announcement_rebuild='yes', announcement_revision=revision(self.original))
+        self.site.refresh_from_db()
+        current = self.site.announcements
+        newer_backup = {'original': '[another invalid original]', 'repaired': current}
+        model_admin = admin.site._registry[Website]
+        get_object = model_admin.get_object
+
+        def interleave_new_repair(*args, **kwargs):
+            stale_object = get_object(*args, **kwargs)
+            Website.objects.filter(pk=1).update(announcements_repair_backup=newer_backup)
+            return stale_object
+
+        with patch.object(model_admin, 'get_object', side_effect=interleave_new_repair):
+            self.assertEqual(self.client.post(self.undo).status_code, 409)
+        self.site.refresh_from_db()
+        self.assertEqual(self.site.announcements, current)
+        self.assertEqual(self.site.announcements_repair_backup, newer_backup)
 
     def test_undo_is_post_only_csrf_protected_and_permission_checked(self):
         self.assertEqual(self.client.get(self.undo).status_code,405)

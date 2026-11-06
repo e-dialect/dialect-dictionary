@@ -1,6 +1,6 @@
-"""Synthetic ZIP-preview cases authored for later authorized execution.
+"""Synthetic ZIP-preview regression cases.
 
-No import/inheritance of the paused announcement regression class.
+Covers permissions, no business writes, bounded input and temporary cleanup.
 """
 import io
 from pathlib import Path
@@ -90,6 +90,40 @@ class PackagePreviewTests(TestCase):
                 with self.assertRaises(PackageError): preview_upload(upload)
             self.assertEqual(list(self.scratch.iterdir()), [])
             self.assertFalse(list(self.media.rglob('*')))
+
+    def test_corrupt_compression_is_reported_and_temporary_files_are_removed(self):
+        import struct
+        for compression in (zipfile.ZIP_DEFLATED, zipfile.ZIP_LZMA):
+            contents = io.BytesIO()
+            with zipfile.ZipFile(contents, 'w', compression=compression) as archive:
+                archive.writestr('metadata.json', b'{}')
+            damaged = bytearray(contents.getvalue())
+            name_length, extra_length = struct.unpack_from('<HH', damaged, 26)
+            payload_offset = 30 + name_length + extra_length
+            if compression == zipfile.ZIP_DEFLATED:
+                damaged[payload_offset] = (damaged[payload_offset] & 0xf8) | 0x07
+            else:
+                damaged[payload_offset + 4] = 255  # Invalid LZMA properties.
+            upload = SimpleUploadedFile('damaged-compression.zip', bytes(damaged))
+            with self.subTest(compression=compression), patch(
+                'website.package_preview.tempfile.TemporaryDirectory',
+                side_effect=self.private_temporary,
+            ):
+                response = self.client.post(self.url, {'package': upload})
+                self.assertEqual(response.status_code, 200, response.content)
+                self.assertIsNone(response.context_data['result'])
+                self.assertIn('无法校验', str(response.context_data['form'].errors))
+                self.assertEqual(list(self.scratch.iterdir()), [])
+                self.assertFalse(ResourcePackage.objects.exists())
+
+    def test_malformed_rows_still_count_toward_record_limit(self):
+        from word.resource_packages import HEADER, MAX_FILES, validate_package
+        (self.package / 'words.tsv').write_text(
+            '\t'.join(HEADER) + '\n' + 'x\n' * (MAX_FILES + 20), encoding='utf-8')
+        plan = validate_package(self.package)
+        self.assertTrue(any('exceeds 5000 rows' in error for error in plan['errors']))
+        self.assertLessEqual(len(plan['errors']), MAX_FILES + 5)
+        self.assertFalse(ResourcePackage.objects.exists())
 
     def test_request_upload_stream_and_expanded_limits_are_distinct(self):
         upload = SimpleUploadedFile('large.zip', b'x')

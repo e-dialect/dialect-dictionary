@@ -1,4 +1,5 @@
 import json
+import re
 from unittest.mock import patch
 from django.contrib.auth.models import User, Permission
 from django.test import TestCase, SimpleTestCase
@@ -65,7 +66,26 @@ class AnnouncementAdminTests(TestCase):
         self.assertNotIn(self.private.pk,[a['id'] for a in response.json()['articles']])
         page=self.client.get(self.change)
         self.assertNotContains(page,self.private.title)
-        self.assertContains(page,'已删除或无查看权限')
+        # json_script correctly escapes non-ASCII text. Assert decoded data,
+        # not a literal substring that is absent from the safe HTML payload.
+        match = re.search(
+            r'<script[^>]*id="id_announcements_choices"[^>]*>(.*?)</script>',
+            page.content.decode(), re.DOTALL,
+        )
+        self.assertIsNotNone(match)
+        choices = json.loads(match.group(1))
+        hidden = next(item for item in choices if item['id'] == self.private.pk)
+        self.assertEqual(hidden['title'], f'文章 #{self.private.pk}（已删除或无查看权限）')
+        self.assertEqual(hidden['preview'], '')
+        self.assertIsNone(hidden['public'])
+
+    def test_view_only_admin_can_open_without_edit_controls(self):
+        self.client.force_login(self.viewer)
+        response = self.client.get(self.change)
+        self.assertEqual(response.status_code, 200, response.content)
+        self.assertNotContains(response, 'class="announcement-search"')
+        self.assertNotContains(response, self.private.title)
+        self.assertEqual(self.client.get('/admin/website/website/').status_code, 302)
 
     def test_superuser_search_status_date_plaintext_and_title_filter(self):
         self.client.force_login(self.operator)

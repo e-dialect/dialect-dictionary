@@ -8,7 +8,7 @@
   {{ form.as_p }}
   <button type="submit">只读检查并预览</button>
 </form>
-<p>ZIP最大19 MiB，整个上传请求最大20 MiB（包含表单开销）。另有包内容限制：最多5000项、单文件32 MiB、展开内容合计128 MiB；不会把 ZIP 解压到媒体目录。大包可改用中文资料包指南中的本地预览命令。</p>
+<p>ZIP最大19 MiB，整个上传请求最大20 MiB（包含表单开销）。另有包内容限制：最多5000项及5000条词表记录（坏行也计数）、单文件32 MiB、展开内容合计128 MiB；不会把 ZIP 解压到媒体目录。大包可改用中文资料包指南中的本地预览命令。</p>
 {% if result %}
 <section aria-labelledby="preview-result">
 <h2 id="preview-result">检查结果：{% if result.error_count %}有{{ result.error_count }}处问题，请先修正{% else %}通过当前格式校验{% endif %}</h2>
@@ -24,7 +24,7 @@
 {% if result.errors %}<h3>问题详情</h3><p>按文件名或词表行号定位；缺失录音、多余文件、编码和来源错误均需修正。校验器的详细错误可能含英文，请保留文件名和行号。</p><ul>{% for error in result.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
 {% if result.errors_truncated %}<p>只显示前100条问题，每条最多1000字；完整问题请用本地预览命令检查。</p>{% endif %}
 <h3>词条与录音关联（共{{ result.row_count }}行）</h3>
-{% if result.rows_truncated %}<p>页面只展示前50行，但校验器已检查整个包；原包及IPA未被修改。</p>{% endif %}
+{% if result.rows_truncated %}<p>页面只展示前50行；校验遇到大小或记录数上限会停止并报错。原包及IPA未被修改。</p>{% endif %}
 <div style="overflow-x:auto"><table>
 <thead><tr><th>词表行号</th><th>原编号</th><th>普通话</th><th>方言</th><th>IPA（原样）</th><th>注释</th><th>录音文件</th></tr></thead>
 <tbody>{% for row in result.rows %}<tr><td>{{ row.line }}</td><td>{{ row.external_id }}</td><td>{{ row.mandarin }}</td><td>{{ row.word }}</td><td>{{ row.ipa }}</td><td>{{ row.note }}</td><td>{{ row.audio }}</td></tr>{% empty %}<tr><td colspan="7">没有可展示的数据行，请检查词表编码、表头与错误详情。</td></tr>{% endfor %}</tbody>
