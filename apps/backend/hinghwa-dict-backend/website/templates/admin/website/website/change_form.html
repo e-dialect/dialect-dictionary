@@ -1,0 +1,7 @@
+{% extends "admin/change_form.html" %}
+{% block form_top %}
+  {{ block.super }}
+  {% if package_preview_url %}<p><a href="{{ package_preview_url }}">选择 ZIP 资料包 → 只读预览（不导入）</a></p>{% endif %}
+  {% if is_add_configuration %}<p>这是通用新增页面。要创建或编辑网站实际读取的首页，请使用<a href="{{ active_homepage_url }}">当前首页入口</a>；已有其他配置会保留。</p>{% elif is_active_homepage %}<p class="messagelist">正在编辑当前网站首页，保存后新请求生效；未公开文章仍不公开。</p>{% else %}<p class="errornote">这是其他/历史配置，不会用于网站首页。<a href="{{ active_homepage_url }}">去编辑当前网站首页</a></p>{% endif %}
+  <p><a href="{{ all_configurations_url }}">查看所有配置（含历史记录，不删除数据）</a></p>
+{% endblock %}

@@ -1,5 +1,6 @@
 # -*-coding:utf-8-*-
 import os
+import json
 from pathlib import Path
 from urllib.parse import urlparse, unquote
 
@@ -19,6 +20,7 @@ from word.models import Word, split
 from .audio import split_ipa_from_mp3
 from .forms import DailyExpressionForm
 from .models import Website, DailyExpression
+from .announcement_config import article_ids, payload_ids, ACTIVE_WEBSITE_ID, MAX_CONFIG_CHARS
 from .notification.dto import notification_normal
 from .notification.utils import sendNotification, readNotification
 from .storage import FileTooLargeError, upload_file, delete_file, validate_file_size
@@ -83,9 +85,12 @@ def email(request):
 @csrf_exempt
 def announcements(request):
     try:
-        item = Website.objects.get(id=1)
+        item = Website.objects.filter(id=ACTIVE_WEBSITE_ID).first()
         if request.method == "GET":
-            articles = eval(item.announcements) if item.announcements else []
+            try:
+                articles = article_ids(item.announcements if item else [])
+            except ValueError:
+                return JsonResponse({"msg": "公告配置格式不正确，请在管理后台核对。"}, status=400)
             result = Article.objects.filter(id__in=articles).filter(visibility=True)
             result = filterInOrder(result, articles)
             announcements = []
@@ -114,17 +119,19 @@ def announcements(request):
                 )
             return JsonResponse({"announcements": announcements}, status=200)
         elif request.method == "PUT":
-            body = demjson3.decode(request.body)
-            token = request.headers["token"]
+            token = request.headers.get("token", "")
             if token_check(token, settings.JWT_KEY, -1):
-                if isinstance(body["announcements"], list):
-                    item.announcements = body["announcements"]
-                    item.save()
-                    return JsonResponse({}, status=200)
-                else:
-                    return JsonResponse({}, status=400)
+                try:
+                    if int(request.META.get('CONTENT_LENGTH') or 0) > MAX_CONFIG_CHARS:
+                        return JsonResponse({"msg": "公告请求过长。"}, status=413)
+                    selected = payload_ids(request.body)
+                except (ValueError, TypeError) as exc:
+                    return JsonResponse({"msg": str(exc)}, status=400)
+                Website.objects.update_or_create(id=ACTIVE_WEBSITE_ID, defaults={'announcements': json.dumps(selected)})
+                return JsonResponse({}, status=200)
             else:
                 return JsonResponse({}, status=401)
+        return JsonResponse({}, status=405)
     except Exception as e:
         return JsonResponse({"msg": str(e)}, status=500)
 
