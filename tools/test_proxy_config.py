@@ -68,6 +68,12 @@ class ProxyBoundaryTests(unittest.TestCase):
         self.assertNotIn('$http_forwarded', proxy)
         self.assertNotIn('proxy_set_header X-Forwarded-Proto $scheme;', proxy)
 
+    def test_public_services_follow_operator_stop_policy(self):
+        text = (ROOT / 'ops/compose/traefik.yaml').read_text()
+        for service in ['backend', 'website']:
+            self.assertRegex(text, rf'(?m)^  {service}:\n    restart: unless-stopped$')
+        self.assertIn('restart: unless-stopped', (ROOT / 'ops/compose/traefik-standalone.yaml').read_text())
+
     def test_overlay_has_no_new_proxy_or_host_ports(self):
         overlay = (ROOT / 'ops/compose/traefik.yaml').read_text()
         self.assertIn('ports: !override []', overlay)
