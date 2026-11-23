@@ -20,7 +20,7 @@
 
         <div>
           {{ $site.name }} · {{ $site.dialect.name }}
-          <a v-if="$site.mobileUrl" :href="$site.mobileUrl" style="color: #C7C7C7">移动版</a>
+          <a v-if="$site.mobileUrl" :href="mobileLink" style="color: #C7C7C7">移动版</a>
         </div>
         <div>
           内容来源：<a v-if="$site.contentSource.url" :href="$site.contentSource.url">{{ $site.contentSource.name }}</a>
@@ -43,7 +43,14 @@
 
 <script>
 export default {
-  name: 'Footer'
+  name: 'Footer',
+  computed: {
+    mobileLink () {
+      const url = new URL(this.$site.mobileUrl)
+      url.searchParams.set('mobile', '1')
+      return url.href
+    }
+  }
 }
 </script>
 
@@ -59,8 +66,10 @@ h4 {
 }
 
 p {
-  font-size: 0.1rem;
-  margin: auto;
-  color: #8b8b8b;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin: 4px 0;
+  color: #d0d0d0;
+  overflow-wrap: anywhere;
 }
 </style>

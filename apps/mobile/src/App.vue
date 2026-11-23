@@ -16,6 +16,13 @@ export default {
   async onLaunch() {
     // #ifdef H5
     document.title = siteConfig.name;
+    let preferMobile = new URLSearchParams(window.location.search).get('mobile') === '1';
+    try {
+      if (preferMobile) window.sessionStorage.setItem('preferMobileSite', '1');
+      preferMobile = preferMobile || window.sessionStorage.getItem('preferMobileSite') === '1';
+    } catch {
+      // An explicit link also works when session storage is unavailable.
+    }
     if (!pageEnabled(window.location.pathname)) {
       uni.reLaunch({ url: '/pages/index' });
       return;
@@ -38,7 +45,7 @@ export default {
       success: (e) => {
         // #ifdef H5
         // if widescreen device redirect to widescreen page
-        if (uni.getSystemInfoSync().uniPlatform === 'web') {
+        if (!preferMobile && uni.getSystemInfoSync().uniPlatform === 'web') {
           // UA check
           if (navigator.userAgent.indexOf('Mobile') === -1 && window.innerWidth > 768) {
             // Redirect to the configured desktop website.

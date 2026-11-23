@@ -25,6 +25,9 @@
           </view>
         </view>
       </view>
+      <!-- #ifdef H5 -->
+      <button v-if="$site.webUrl" class="cu-btn margin" @tap="openDesktop">打开电脑版</button>
+      <!-- #endif -->
       <view class="stand-view" />
     </scroll-view>
   </view>
@@ -86,6 +89,13 @@ export default {
   },
   methods: {
     pageEnabled,
+    // #ifdef H5
+    openDesktop() {
+      const url = new URL(this.$site.webUrl);
+      url.searchParams.set('desktop', '1');
+      window.location.assign(url.href);
+    },
+    // #endif
     getTools(e) {
       uni.navigateTo({
         url: `/pages${e.currentTarget.dataset.url}`,
