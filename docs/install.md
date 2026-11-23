@@ -55,7 +55,7 @@ docker compose ps
 curl --fail http://localhost:18080/healthz
 ```
 
-首次构建可能较慢。浏览器打开首页和 `/mobile/`，确认站名、方言和词条读取；健康接口可达并不证明全部业务和权限正确。导入整包按[资料包指南](packages/README.md)操作。
+启动成功后，终端分别列出电脑端和手机端入口。普通本机模式读取实际发布端口，代理模式显示配置的 HTTPS 地址。`./dictionary check` 会指出本机站点地址与 `HTTP_PORT` 不一致的字段。首次构建可能较慢。浏览器打开首页和 `/mobile/`，确认站名、方言和词条读取；健康接口可达并不证明全部业务和权限正确。导入整包按[资料包指南](packages/README.md)操作。
 
 ```sh
 ./dictionary stop
