@@ -91,6 +91,12 @@ class PackageImportTests(TestCase):
             self.assertEqual(detail.status_code, 200)
             self.assertEqual(detail.json()['word']['standard_ipa'], 't ɛ s t 1')
             self.assertEqual(detail.json()['word']['source'], item.pronunciation.source)
+            provenance = detail.json()['word']['provenance']
+            self.assertEqual(provenance['package_id'], package_id)
+            self.assertEqual(provenance['external_id'], '0001')
+            self.assertEqual(provenance['source'], metadata['source'])
+            self.assertEqual(provenance['license'], metadata['license'])
+            self.assertEqual(provenance['importer']['id'], self.user.id)
             pronunciation_detail = self.client.get('/pronunciation/' + str(item.pronunciation_id))
             self.assertEqual(pronunciation_detail.status_code, 200)
             item.word.refresh_from_db(); item.pronunciation.refresh_from_db()

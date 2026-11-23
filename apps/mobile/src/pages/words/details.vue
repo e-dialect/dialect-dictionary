@@ -6,6 +6,12 @@
     <!--导航栏-->
     <cu-custom :back-home="true" />
 
+    <view v-if="!word" class="padding">
+      <text>{{ loadMessage }}</text>
+      <button v-if="loadFailed" class="cu-btn margin-left-sm" @tap="toSearchPage">返回查词</button>
+    </view>
+
+    <template v-else>
     <!--标题栏：词语-->
     <view class="flex padding solid-bottom">
       <view class="flex-sub">
@@ -21,13 +27,13 @@
           访问：{{ word.views }}
         </view>
         <view class="text-grey text-df margin-top-xs">
-          来源：
+          {{ word.provenance ? '导入者' : '贡献者' }}：
           <text
-            :data-id="word.contributor.id"
+            :data-id="entryUser.id"
             class="text-blue"
-            @tap="toUserPage(word.contributor.id)"
+            @tap="toUserPage(entryUser.id)"
           >
-            {{ word.contributor.nickname }}
+            {{ entryUser.nickname }}
           </text>
         </view>
       </view>
@@ -167,9 +173,16 @@
         </view>
       </view>
 
+      <view v-if="word.provenance" class="margin-top-xl">
+        <view class="text-bold text-xl">资料出处</view>
+        <view class="margin-top-sm">资料包：{{ word.provenance.package_id }} · {{ word.provenance.external_id }}</view>
+        <view v-if="word.provenance.source" class="margin-top-xs">资料来源：{{ word.provenance.source }}</view>
+        <view v-if="word.provenance.license" class="margin-top-xs">使用许可：{{ word.provenance.license }}</view>
+      </view>
+
       <!--附注-->
       <view
-        v-if="word.annotation.length !== 0"
+        v-if="showAnnotation"
         class="margin-top-xl"
       >
         <view class="text-bold text-xl">
@@ -215,6 +228,7 @@
         </view>
       </view>
     </scroll-view>
+    </template>
   </view>
 </template>
 
@@ -226,7 +240,7 @@ import { getPronunciations } from '@/services/pronunciation';
 import { toUploadPronunciationPage, toWordPage, toWordPronunciations } from '@/routers/word';
 import { toUserPage } from '@/routers/user';
 import { defaultMessage } from '@/services/shareMessages';
-import { toTuxiaochaoPage } from '@/routers';
+import { toSearchPage, toTuxiaochaoPage } from '@/routers';
 import { toArticlePage } from '@/routers/article';
 import { setClipboard } from '@/utils/clipboard';
 import MarkdownViewer from '@/components/MarkdownViewer.vue';
@@ -237,34 +251,36 @@ export default {
   data() {
     return {
       id: 0,
-      word: {
-        id: 0,
-        word: '',
-        definition: '',
-        definitions: [],
-        contributor: {
-          nickname: '',
-          avatar: '',
-          id: 0,
-        },
-        annotation: '',
-        mandarin: [],
-        related_words: [],
-        related_articles: [],
-        views: 0,
-        standard_ipa: '',
-        standard_pinyin: '',
-        source: '',
-      },
+      word: null,
+      loadMessage: '正在加载词条…',
+      loadFailed: false,
       startData: { clientX: 0, clientY: 0 },
       pronunciation: [],
     };
+  },
+
+  computed: {
+    showAnnotation() {
+      const { annotation, provenance } = this.word;
+      if (!annotation || !provenance) return Boolean(annotation);
+      // Older imports also recorded this exact attribution in their annotation.
+      const legacy = [
+        'Resource package: ' + provenance.package_id + '; external ID: ' + provenance.external_id,
+        'Source: ' + provenance.source,
+        'License: ' + provenance.license,
+      ].join('\n');
+      return annotation !== legacy;
+    },
+    entryUser() {
+      return this.word.provenance?.importer || this.word.contributor;
+    },
   },
 
   /**
    * 右上角分享事件
    */
   onShareAppMessage() {
+    if (!this.word) return { title: this.$site.name, path: '/pages/index' };
     let title = `${this.word.word}：`;
     this.word.definitions.forEach((item) => {
       title += `${item.content}；`;
@@ -286,11 +302,27 @@ export default {
       duration: 0,
     });
     this.id = options.id;
-    this.word = await getWordDetails(options.id);
-    this.word = { ...this.word };
-    this.pronunciation = await getPronunciations({ word: options.id });
+    try {
+      if (!/^[1-9]\d*$/.test(this.id)) {
+        this.loadMessage = '词条链接无效';
+        this.loadFailed = true;
+        return;
+      }
+      this.word = await getWordDetails(this.id, { background: true });
+    } catch (error) {
+      this.loadMessage = [403, 404].includes(error?.statusCode)
+        ? '词条不存在或暂不可访问' : '词条加载失败，请稍后再试';
+      this.loadFailed = true;
+      return;
+    }
+    try {
+      this.pronunciation = await getPronunciations({ word: this.id });
+    } catch {
+      // The recording service displays its own error. Keep the readable word.
+    }
   },
   methods: {
+    toSearchPage,
     toUploadPronunciationPage,
     playAudio,
     toUserPage,
@@ -320,12 +352,9 @@ export default {
     },
     end(e) {
       const subX = e.changedTouches[0].clientX - this.startData.clientX;
-      // const subY = e.changedTouches[0].clientY - this.startData.clientY;
-      if (subX > 50) {
+      const subY = e.changedTouches[0].clientY - this.startData.clientY;
+      if (subX > 50 && subX > Math.abs(subY) && getCurrentPages().length > 1) {
         uni.navigateBack();
-      } else if (subX < -50) {
-        const randomId = Math.floor(Math.random() * 6099) + 1;
-        toWordPage(randomId);
       }
     },
   },
