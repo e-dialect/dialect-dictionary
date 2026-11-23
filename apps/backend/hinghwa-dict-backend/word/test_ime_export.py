@@ -74,6 +74,9 @@ class ImeExportTests(TestCase):
             with self.subTest(value=value):
                 self.mapping.write_text(value)
                 with self.assertRaises(ExportError): self.plan()
+        self.mapping.write_text('external_id\tcode\n0002\tceh6\n')
+        with self.assertRaisesRegex(ExportError, r'缺少原编号.*0001.*多余原编号.*0002'):
+            self.plan()
         self.mapping.write_bytes(b'\xff\xfeinvalid')
         with self.assertRaises(ExportError): self.plan()
 

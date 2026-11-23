@@ -81,7 +81,14 @@ def prepare_export(package_id, requester, mapping, version, include_private=Fals
         codes, mapping_hash = mapping_codes(mapping)
         ids = {entry.external_id for entry in entries}
         if set(codes) != ids:
-            raise ExportError('Mapping must cover exactly every original package ID; missing or extra IDs found')
+            missing = sorted(ids - codes.keys())
+            extra = sorted(codes.keys() - ids)
+            details = []
+            for label, values in [('缺少原编号', missing), ('多余原编号', extra)]:
+                if values:
+                    sample = '、'.join(values[:20])
+                    details.append(f'{label}（共 {len(values)} 个）：{sample}')
+            raise ExportError('输入码对照表与资料包不一致。' + '。'.join(details))
         rows = []
         seen = set()
         for entry in entries:
