@@ -9,32 +9,25 @@
       :refresher-triggered="triggered"
       @refresherrefresh="onRefresh"
     >
-      <!--背景图-->
-      <image
-        :src="$site.logo"
-        mode="widthFix"
-        style="width: 100%"
-      />
-      <!--正文-->
-      <view
-        class="layout-index"
-        style="z-index: 100"
-      >
+      <view>
         <view class="welcome-card shadow -gray">
-          <!--一键登录模块-->
-          <view
-            v-if="!hasLogin"
-            class="padding solid-bottom flex justify-between align-center"
-          >
+          <view class="home-heading padding solid-bottom">
+            <image
+              v-if="logoUrl && !logoFailed"
+              class="home-logo"
+              :src="logoUrl"
+              mode="aspectFit"
+              @error="logoFailed = true"
+            />
             <view>
               <view class="text-bold text-xl">
-                欢迎来到{{ $site.name }}
+                {{ $site.name }}
               </view>
               <view class="text-gray margin-top-sm">
                 {{ $site.dialect.name }} · {{ $site.contentSource.name }}
               </view>
             </view>
-            <view>
+            <view v-if="!hasLogin" class="home-login">
               <button
                 class="cu-btn bg-black shadow"
                 style="width: fit-content"
@@ -125,6 +118,7 @@ export default {
   data() {
     return {
       hasLogin: false,
+      logoFailed: false,
       word: {
         word: '',
         definition: '',
@@ -133,6 +127,15 @@ export default {
       triggered: false,
       announcements: [],
     };
+  },
+  computed: {
+    logoUrl() {
+      const logo = this.$site.logo;
+      // #ifdef H5
+      if (logo && logo.startsWith('/')) return new URL(logo, window.location.origin).href;
+      // #endif
+      return logo;
+    },
   },
   options: {
     addGlobalClass: true,
@@ -201,6 +204,21 @@ export default {
 };
 </script>
 <style>
+.home-heading {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  overflow-wrap: anywhere;
+}
+.home-logo {
+  width: 80rpx;
+  height: 80rpx;
+  flex-shrink: 0;
+}
+.home-login {
+  margin-left: auto;
+}
+
 .welcome-card {
   background-color: #ffffff;
   border-radius: 20rpx;

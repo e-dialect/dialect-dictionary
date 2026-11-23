@@ -1,6 +1,6 @@
 <template>
   <view>
-    <cu-custom title="语记·搜索" />
+    <cu-custom :title="$site.shortName + '·搜索'" />
     <scroll-view
       scroll-y
       class="scrollPage"
@@ -165,7 +165,7 @@ export default {
   onShareAppMessage() {
     const path = `/pages/search?index=${this.searchScopeIndex}&keywords=${encodeURIComponent(this.searchContent || this.keywords)}`;
     return {
-      title: `语记·搜索：${this.keywords}`,
+      title: `${this.$site.shortName}·搜索：${this.keywords}`,
       path,
       ...defaultMessage(),
     };

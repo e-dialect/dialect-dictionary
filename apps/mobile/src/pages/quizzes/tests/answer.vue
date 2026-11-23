@@ -1,6 +1,6 @@
 <template>
   <view v-if="$featureEnabled('quiz')">
-    <cu-custom title="语记·试卷" />
+    <cu-custom :title="$site.shortName + '·试卷'" />
     <view
       id="top-box"
       class="cu-bar bg-white solid-bottom card shadow -gray margin-top margin-xs"

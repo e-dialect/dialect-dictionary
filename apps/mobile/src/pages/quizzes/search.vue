@@ -1,6 +1,6 @@
 <template>
   <view v-if="$featureEnabled('quiz')">
-    <cu-custom title="语记·测试" />
+    <cu-custom :title="$site.shortName + '·测试'" />
     <!--搜索单个测试-->
     <view class="cu-bar bg-white">
       <view class="search-form round">

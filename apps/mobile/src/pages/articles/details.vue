@@ -1,6 +1,6 @@
 <template>
   <view>
-    <cu-custom title="语记·文章" />
+    <cu-custom :title="$site.shortName + '·文章'" />
 
     <scroll-view
       scroll-y

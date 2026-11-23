@@ -1,6 +1,6 @@
 <template>
   <view v-if="$featureEnabled('quiz')">
-    <cu-custom title="语记·测试" />
+    <cu-custom :title="$site.shortName + '·测试'" />
     <!--题目-->
     <scroll-view
       scroll-y

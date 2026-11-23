@@ -1,6 +1,6 @@
 <template>
   <view>
-    <cu-custom title="语记·排行榜" />
+    <cu-custom :title="$site.shortName + '·排行榜'" />
     <view class="cu-card dynamic">
       <view class="cu-item padding">
         <view class="margin">

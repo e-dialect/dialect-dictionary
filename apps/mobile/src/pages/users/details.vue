@@ -1,6 +1,6 @@
 <template>
   <view>
-    <cu-custom title="语记·用户" />
+    <cu-custom :title="$site.shortName + '·用户'" />
     <scroll-view
       :scroll-y="true"
       style="height: 100vh"
@@ -144,7 +144,7 @@ export default {
   },
   onShareAppMessage() {
     return {
-      title: '语记·用户',
+      title: `${this.$site.shortName}·用户`,
       path: `/pages/users/details?id=${this.id}`,
       ...defaultMessage(),
     };
