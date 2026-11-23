@@ -26,6 +26,12 @@ class PreviewCliTests(unittest.TestCase):
             result = subprocess.run([sys.executable, str(target/'dictionary'), 'preview', str(package)], env=env, capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertEqual(json.loads(result.stdout)['errors'], [])
+            self.assertEqual(json.loads(result.stdout)['previewMode'], 'private')
+            for invalid in ['--publsih', '--publ', 'another.zip']:
+                result = subprocess.run([sys.executable, str(target/'dictionary'), 'preview', str(package), invalid], capture_output=True, text=True)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn('--publish', result.stderr)
+                self.assertFalse(result.stdout)
             self.assertEqual(before, {p.relative_to(target): p.read_bytes() for p in target.rglob('*') if p.is_file()})
             (target/'broken.zip').write_bytes(b'PK\x03\x04truncated')
             result = subprocess.run([sys.executable, str(target/'dictionary'), 'preview', str(target/'broken.zip')], capture_output=True, text=True)

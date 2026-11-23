@@ -27,6 +27,10 @@ class Command(BaseCommand):
             if not options["importer"]:
                 raise PackageError("--apply requires --importer EXISTING_USERNAME; no account is created")
             receipt, created = apply_package(plan, options["importer"], publish=options["publish"])
-            self.stdout.write(f"{'Imported' if created else 'Skipped identical package'}: {receipt.package_id}; published={receipt.published}; rows={receipt.entries.count()}")
+            count = receipt.entries.count()
+            self.stdout.write(f"{'Imported' if created else 'Skipped identical package'}: {receipt.package_id}; published={receipt.published}; rows={count}")
+            action = '新增资料包' if created else '已跳过相同资料包'
+            access = '已公开，读者可匿名查词' if receipt.published else '私有，匿名读者无法查到'
+            self.stdout.write(f"{action} {receipt.package_id}，共 {count} 条。{access}。")
         except (PackageError, OSError, ValueError) as exc:
             raise CommandError(str(exc)) from exc
