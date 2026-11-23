@@ -72,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const search = async () => {
       if (!editable()) return;
       const current = ++generation;
+      results.replaceChildren();
       message.textContent = '正在查找…';
       try {
         const url = new URL(editor.dataset.searchUrl, window.location.origin); url.searchParams.set('q', query.value);
@@ -79,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!response.ok) throw new Error('search failed');
         const data = await response.json();
         if (current !== generation || !editable()) return;
-        results.replaceChildren();
         data.articles.forEach(item => {
           const row = element('div', '', 'announcement-result'); row.append(detail(item));
           row.append(button('加入公告', () => {
