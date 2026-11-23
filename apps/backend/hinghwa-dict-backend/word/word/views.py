@@ -15,7 +15,7 @@ from article.models import Article
 from website.utils import evaluate, token_check, filterInOrder
 from user.dto.user_simple import user_simple
 from ..forms import WordForm
-from ..models import Word, User
+from ..models import ResourcePackageEntry, Word, User
 from .word2pronunciation import word2pronunciation
 from utils.exception.types.unauthorized import UnauthorizedException
 from utils.token import token_pass, token_user
@@ -176,10 +176,18 @@ class ManageWord(View):
                 raise ForbiddenException()
         Word.objects.filter(pk=word.pk).update(views=F("views") + 1)
         word.views += 1
-        return JsonResponse(
-            {"word": word_all(word)},
-            status=200,
-        )
+        detail = word_all(word)
+        entry = ResourcePackageEntry.objects.select_related("package__importer__user_info").filter(word=word).first()
+        if entry and (entry.package.published or not word.visibility):
+            package = entry.package
+            detail["provenance"] = {
+                "package_id": package.package_id,
+                "external_id": entry.external_id,
+                "source": package.metadata.get("source", ""),
+                "license": package.metadata.get("license", ""),
+                "importer": user_simple(package.importer),
+            }
+        return JsonResponse({"word": detail})
 
     #   WD0103  管理员更改字词内容
     def put(self, request, id):
