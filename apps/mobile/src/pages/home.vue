@@ -100,10 +100,12 @@
           @tap="toArticle"
         >
           <image
+            v-if="item.article.cover"
             :src="item.article.cover"
             mode="widthFix"
             style="width: 100%"
           />
+          <view class="padding text-bold">{{ item.article.title }}</view>
         </view>
         <view class="stand-view" />
       </view>

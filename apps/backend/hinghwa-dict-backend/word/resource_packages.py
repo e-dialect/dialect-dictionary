@@ -8,6 +8,7 @@ from contextlib import contextmanager
 import hashlib
 import io
 import json
+import lzma
 import os
 from pathlib import Path, PurePosixPath
 import re
@@ -16,6 +17,7 @@ import stat
 import tempfile
 import wave
 import zipfile
+import zlib
 
 
 MAX_FILES = 5000
@@ -61,7 +63,7 @@ def safe_name(name):
 def read_package(path):
     try:
         return _read_package(path)
-    except (zipfile.BadZipFile, RuntimeError, NotImplementedError, EOFError) as exc:
+    except (zipfile.BadZipFile, zlib.error, lzma.LZMAError, RuntimeError, NotImplementedError, EOFError) as exc:
         raise PackageError("Invalid or unsupported ZIP package: " + str(exc)) from exc
 
 
@@ -165,9 +167,11 @@ def validate_package(path, publish=False):
         if header != HEADER:
             errors.append(f"words.tsv line 1 ({encoding}): expected five-column header {HEADER}")
         ids = set()
-        for row in reader:
+        # Invalid records must count too; otherwise malformed short rows can
+        # create unbounded diagnostics while the accepted-row list stays empty.
+        for record_number, row in enumerate(reader, start=1):
             line = reader.line_num
-            if len(rows) >= MAX_FILES:
+            if record_number > MAX_FILES:
                 errors.append("words.tsv exceeds 5000 rows")
                 break
             if len(row) != 5:

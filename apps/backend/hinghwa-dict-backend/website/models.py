@@ -6,6 +6,9 @@ class Website(models.Model):
     announcements = models.TextField(
         verbose_name="本站公告", default="[]"
     )  # list[文章id]
+    announcements_repair_backup = models.JSONField(
+        default=dict, blank=True, editable=False, verbose_name="上次公告修复备份"
+    )
     hot_articles = models.TextField(
         verbose_name="热门文章", default="[]"
     )  # list[文章id]
