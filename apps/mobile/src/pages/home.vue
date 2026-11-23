@@ -54,7 +54,7 @@
               <text class="cuIcon-search" />
               <input
                 type="text"
-                placeholder="搜索词语、单字、拼音和文章"
+                :placeholder="$featureEnabled('pinyin') ? '搜索词语、单字、拼音和文章' : '搜索词语和文章'"
                 confirm-type="search"
               >
             </view>

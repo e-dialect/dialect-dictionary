@@ -19,7 +19,7 @@
           </a-button>
           <a-divider></a-divider>
         </div>
-        <div v-if="Chinese.length">
+        <div v-if="$featureEnabled('pinyin') && Chinese.length">
           <h1>查单字</h1>
           <a-row justify="space-around" type="flex">
             <PinyinList
