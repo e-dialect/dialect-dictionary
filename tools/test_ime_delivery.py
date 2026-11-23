@@ -17,7 +17,9 @@ class ImeDeliveryTests(unittest.TestCase):
     def test_private_exports_are_excluded_from_all_source_delivery_channels(self):
         self.assertFalse(included(ROOT/'exports/synthetic.zip'))
         self.assertTrue(included(ROOT/'README.md'))
-        self.assertIn('exports', (ROOT/'.dockerignore').read_text().splitlines())
+        for rules in ['.dockerignore', 'ops/docker/website.prebuilt.Dockerfile.dockerignore']:
+            with self.subTest(rules=rules):
+                self.assertIn('exports', (ROOT/rules).read_text().splitlines())
         result = subprocess.run(['git','check-ignore','--no-index','exports/synthetic.zip'], cwd=ROOT, capture_output=True)
         self.assertEqual(result.returncode, 0)
 
