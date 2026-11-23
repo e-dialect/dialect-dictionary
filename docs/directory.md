@@ -43,3 +43,5 @@ dialect-dictionary/
 - `tools/`：工具和离线测试；`docs/development/`：开发及历史验收；`docs/attribution/`：来源与第三方归属。
 
 `runtime/`、`artifacts/` 和日志可能只存在于本地开发环境，不是安装必需项。不要删除许可证、署名或数据来源来简化目录。
+
+`exports/`由[输入法词库导出](ime-export.md)按需创建，可能含私有词条与来源，不属于公开源码或网站媒体；不要上传公共仓库。

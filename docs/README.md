@@ -8,6 +8,7 @@
 | 不知道哪个目录、文件需要改 | [目录与配置说明](directory.md) |
 | 有一整包词表和录音 | [资料包预览与导入](packages/README.md) |
 | 已有 Traefik，或新服务器需要代理 | [两种 Traefik 部署方案](traefik.md) |
+| 导出本地输入法附加词库 | [Pouleng词库导出](ime-export.md) |
 | 备份、搬家、恢复或回滚 | [备份恢复指南](backup.md) |
 | 命令报错、页面打不开、录音不可读 | [常见错误](troubleshooting.md) |
 | 了解站点功能开关、小程序构建设置 | [前端配置](../tools/frontend-config/README.md)、[服务端权限策略](server-feature-policy.md) |

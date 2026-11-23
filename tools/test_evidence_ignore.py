@@ -10,7 +10,7 @@ class EvidenceIgnoreTests(unittest.TestCase):
         for name in ['private-import.log', 'customer-audio.json', 'nested/trace.txt']:
             result = subprocess.run(['git','check-ignore','--no-index','-q','docs/development/evidence/'+name],cwd=ROOT)
             self.assertEqual(result.returncode,0,name)
-        for name in ['onboarding-validation.json','round2-summary.json']:
+        for name in ['onboarding-validation.json','round2-summary.json','ime-export-validation.json']:
             result = subprocess.run(['git','check-ignore','--no-index','-q','docs/development/evidence/'+name],cwd=ROOT)
             self.assertEqual(result.returncode,1,name)
 

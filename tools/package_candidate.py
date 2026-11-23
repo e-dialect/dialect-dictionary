@@ -11,8 +11,8 @@ import tarfile
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "artifacts"
-EXCLUDED_PARTS = {".git", "node_modules", ".venv", "__pycache__", "dist", "runtime", "backups", "artifacts", "logs", "media", "material", ".model_cache", "semantic_search_data"}
-EVIDENCE = {"frontend-final.json", "compose-runtime.json", "validation-summary.json", "round2-summary.json", "round2-clean-build.json", "round2-recovery-runtime.json", "delivery-validation.json", "license-cleanup-validation.json", "onboarding-validation.json"}
+EXCLUDED_PARTS = {".git", "node_modules", ".venv", "__pycache__", "dist", "runtime", "backups", "artifacts", "logs", "media", "material", ".model_cache", "semantic_search_data", "exports"}
+EVIDENCE = {"frontend-final.json", "compose-runtime.json", "validation-summary.json", "round2-summary.json", "round2-clean-build.json", "round2-recovery-runtime.json", "delivery-validation.json", "license-cleanup-validation.json", "onboarding-validation.json", "ime-export-validation.json"}
 LICENSE_EXCLUSIONS = {"integrations/quick-start/sql.js", "integrations/quick-start/test_sql.py", "tools/verify_synthetic_restore.py", "apps/web/src/assets/IatRecorder.js", "apps/web/src/assets/transcode.worker.js", "apps/web/src/assets/rewards.svg", "apps/web/src/assets/timg.gif", "apps/web/public/certificate.png"}
 
 

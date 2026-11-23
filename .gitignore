@@ -33,3 +33,8 @@ packages/*
 !docs/development/evidence/onboarding-validation.json
 
 .env.traefik-standalone
+
+# Local input-method exports may contain private words and provenance.
+exports/
+
+!docs/development/evidence/ime-export-validation.json
