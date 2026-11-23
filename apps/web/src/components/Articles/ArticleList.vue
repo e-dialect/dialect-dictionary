@@ -1,5 +1,6 @@
 <template>
   <div>
+    <a-button v-if="failed" @click="getCurrentPageData(currentPage)">加载失败，重试本页</a-button>
     <a-list
       :data-source="listSource || []"
       :loading="{spinning: loading, delay: 500}"
@@ -27,69 +28,14 @@
         </a-list-item>
       </template>
     </a-list>
-
   </div>
 </template>
 <script>
-import axios from 'axios'
+import pagedResults from '@/components/pagedResults'
 
 export default {
   name: 'ArticleList',
-  data () {
-    return {
-      listSource: null,
-      listDataLock: null,
-      loading: false,
-      currentPage: 1
-    }
-  },
-  computed: {
-    pagination () {
-      return {
-        onChange: page => {
-          this.currentPage = page
-          this.getCurrentPageData(page)
-        },
-        pageSize: this.pageSize,
-        total: this.listDataLock ? this.listDataLock.length : 0,
-        current: this.currentPage
-      }
-    }
-  },
-  props: {
-    listData: Array,
-    pageSize: Number
-  },
-  created () {
-    this.listDataLock = Object.assign([], this.listData)
-  },
-  watch: {
-    listData () {
-      this.listDataLock = Object.assign([], this.listData)
-      this.currentPage = 1
-    },
-    listDataLock () {
-      if (!this.listDataLock) return
-      if (this.listDataLock.length === 0) return
-      this.getCurrentPageData(1)
-    }
-  },
-  methods: {
-    getCurrentPageData (page) {
-      this.loading = true
-      axios.put('/articles', {
-        articles: this.listData.slice((page - 1) * this.pageSize, page * this.pageSize)
-      }).then(res => {
-        this.listSource = res.data.articles
-      }).finally(
-        () => {
-          this.loading = false
-        }
-      )
-    }
-
-  }
-
+  mixins: [pagedResults('articles')]
 }
 </script>
 <style></style>

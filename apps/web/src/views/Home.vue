@@ -72,6 +72,7 @@ export default {
   methods: {
     routeEnabled,
     search (content) {
+      content = content.trim()
       if (!content) {
         this.$message.warning('请先输入搜索内容哦~')
         return

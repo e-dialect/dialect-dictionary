@@ -1,5 +1,7 @@
 <template>
-  <a-list
+  <div>
+    <a-button v-if="failed" @click="getCurrentPageData(currentPage)">加载失败，重试本页</a-button>
+    <a-list
     :data-source="listSource || []"
     :loading="{spinning: loading, delay: 500}"
     :pagination="pagination"
@@ -46,68 +48,16 @@
       </a-card>
     </template>
   </a-list>
+  </div>
 </template>
 <script>
-import axios from 'axios'
+import pagedResults from '@/components/pagedResults'
 import PlayWordSoundButton from './PlayWordSoundButton'
 import WordTag from '@/components/Word/WordTag.vue'
 
 export default {
   name: 'WordList',
   components: { WordTag, PlayWordSoundButton },
-  data () {
-    return {
-      listSource: null,
-      listDataLock: null,
-      loading: false,
-      currentPage: 1
-    }
-  },
-  computed: {
-    pagination () {
-      return {
-        onChange: page => {
-          this.currentPage = page
-          this.getCurrentPageData(page)
-        },
-        pageSize: this.pageSize,
-        total: this.listDataLock ? this.listDataLock.length : 0,
-        current: this.currentPage,
-        showQuickJumper: true
-      }
-    }
-  },
-  props: {
-    listData: Array,
-    pageSize: Number
-  },
-  created () {
-    this.listDataLock = Object.assign([], this.listData)
-  },
-  watch: {
-    listData () {
-      this.listDataLock = Object.assign([], this.listData)
-      this.currentPage = 1
-    },
-    listDataLock () {
-      if (!this.listDataLock) return
-      if (this.listDataLock.length === 0) return
-      this.getCurrentPageData(1)
-    }
-  },
-  methods: {
-    getCurrentPageData (page) {
-      this.loading = true
-      axios.put('/words', {
-        words: this.listData.slice((page - 1) * this.pageSize, page * this.pageSize)
-      }).then(async (res) => {
-        this.listSource = res.data.words
-      }).finally(
-        () => {
-          this.loading = false
-        }
-      )
-    }
-  }
+  mixins: [pagedResults('words')]
 }
 </script>

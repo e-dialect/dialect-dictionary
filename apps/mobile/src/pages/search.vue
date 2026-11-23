@@ -15,13 +15,13 @@
             :placeholder="$site.shortName"
             :focus="true"
             confirm-type="search"
-            @confirm="search"
+            @confirm="search($event.detail.value)"
             @input="keyFun"
           >
         </view>
         <view
           class="action"
-          @tap="search"
+          @tap="search()"
         >
           <text class="text-blue">
             搜索
@@ -46,7 +46,7 @@
       </view>
 
       <!-- 搜索历史 -->
-      <view v-show="!isShow">
+      <view v-if="!searchContent">
         <view class="padding">
           <view class="margin-bottom">
             <text class="text-bold">
@@ -89,20 +89,22 @@
 
       <!--搜索结果-->
       <view
-        v-show="isShow"
-        v-if="searchContent"
+        v-else
       >
+        <view v-if="status === 'loading'" class="padding text-center">正在查询…</view>
+        <button v-else-if="status === 'error'" @tap="searchJob">加载失败，点击重试</button>
+        <view v-else-if="!results.length" class="padding text-center">没有找到相关结果</view>
         <word-full-list
-          v-if="searchScopes[searchScopeIndex]==='词语'"
-          :words="words || []"
+          v-else-if="searchScopes[searchScopeIndex]==='词语'"
+          :words="results"
         />
         <character-pinyin-list
           v-else-if="searchScopes[searchScopeIndex]==='字音'"
-          :characters="characters || []"
+          :characters="results"
         />
         <ArticleList
           v-else-if="searchScopes[searchScopeIndex]==='文章'"
-          :article-list="articles || []"
+          :article-list="results"
         />
       </view>
     </scroll-view>
@@ -112,7 +114,7 @@
 <script>
 import { searchCharacters } from '@/services/character';
 import { getWords, searchWords } from '@/services/word';
-import { searchArticles } from '@/services/article';
+import { searchArticleId, getArticles } from '@/services/article';
 import { defaultMessage } from '@/services/shareMessages';
 import ArticleList from '@/components/ArticleList.vue';
 import WordFullList from '@/components/WordFullList.vue';
@@ -126,36 +128,36 @@ export default {
   },
   data() {
     return {
-      searchContent: 0, // 当前搜索内容
+      searchContent: '', // 当前搜索内容
       searchScopeIndex: 0, // 当前搜索范围序号
       searchScopes: ['词语', '字音', '文章'], // 搜索范围
       keywords: '', // 搜索关键字（输入）
-      characters: null, // 搜索结果：字音
-      words: null, // 搜索结果：词语
-      articles: null, // 搜索结果：文章
-      historyList: [], // 历史记录列表
-      isShow: false, // 历史记录展示
+      historyList: [],
+      results: [],
+      status: 'idle',
+      requestId: 0,
     };
   },
   onLoad(option) {
-    if (option.index) {
-      this.searchScopeIndex = Number(option.index);
-    }
-    if (option.keywords) {
-      this.keywords = option.keywords;
-      this.search();
-    }
+    const index = Number(option.index);
+    if (this.searchScopes[index]) this.searchScopeIndex = index;
     try {
-      this.historyList = JSON.parse(uni.getStorageSync('search_history'));
-    } catch (error) {
+      const stored = JSON.parse(uni.getStorageSync('search_history'));
+      if (Array.isArray(stored)) this.historyList = stored.filter(item => typeof item === 'string');
+    } catch {
       this.historyList = [];
     }
+    this.keywords = option.keywords || option.key || '';
+    if (this.keywords) this.search();
+  },
+  onUnload() {
+    this.requestId += 1;
   },
   /**
    * 右上角分享事件
    */
   onShareAppMessage() {
-    const path = `/pages/search?index=${this.searchScopeIndex}&keywords=${this.keywords}`;
+    const path = `/pages/search?index=${this.searchScopeIndex}&keywords=${encodeURIComponent(this.searchContent || this.keywords)}`;
     return {
       title: `语记·搜索：${this.keywords}`,
       path,
@@ -166,9 +168,12 @@ export default {
     /**
      * 调整历史记录显示
      */
-    keyFun() {
-      if (this.keywords === '') {
-        this.isShow = false;
+    keyFun(event) {
+      this.keywords = event.detail.value;
+      if (!event.detail.value.trim()) {
+        this.requestId += 1;
+        this.searchContent = '';
+        this.results = [];
       }
     },
 
@@ -184,79 +189,49 @@ export default {
     /**
      * 搜索
      */
-    search() {
-      if (this.keywords === '') {
-        uni.showToast({
-          title: '搜索内容为空！',
-          icon: 'error',
-        });
+    search(value = this.keywords) {
+      const term = value.trim();
+      if (!term) {
+        uni.showToast({ title: '请输入搜索内容', icon: 'none' });
         return;
       }
-      this.searchContent = this.keywords;
-      this.articles = null;
-      this.words = null;
-      this.characters = null;
-      this.searchJob(this.keywords);
+      this.searchContent = term;
+      this.historyList = [term, ...this.historyList.filter(item => item !== term)];
+      uni.setStorageSync('search_history', JSON.stringify(this.historyList));
+      this.searchJob();
     },
 
-    /**
-     * 切换搜索类型
-     * @param index 搜索类型序号
-     */
     checkout(index) {
+      if (index === this.searchScopeIndex) return;
       this.searchScopeIndex = index;
-      if (this.searchContent) this.searchJob(this.searchContent);
+      if (this.searchContent) this.searchJob();
     },
 
-    /**
-     * 执行搜索任务
-     * @param keywords 关键词
-     * @returns {Promise<void>}
-     */
-    async searchJob(keywords) {
-      switch (this.searchScopes[this.searchScopeIndex]) {
-        case '词语':
-          if (this.words === null) {
-            const res = await searchWords(keywords);
-            await getWords(res.words).then(async (res1) => {
-              this.words = res1.words;
-            });
-          }
-          break;
-        case '字音':
-          if (this.characters === null) {
-            await searchCharacters(keywords).then(async (res) => {
-              this.characters = res.characters;
-            });
-          }
-          break;
-        case '文章':
-          if (this.articles === null) {
-            this.articles = await searchArticles(keywords);
-          }
-          break;
-        default:
-          uni.showToast({
-            title: '未知搜索项',
-            icon: 'none',
-          });
-      }
-      this.isShow = true;
-      if (!this.historyList.includes(keywords)) {
-        this.historyList.unshift(keywords);
-        uni.setStorage({
-          key: 'search_history',
-          data: JSON.stringify(this.historyList),
-        });
-      } else {
-        // 已有搜索记录
-        const i = this.historyList.indexOf(keywords);
-        this.historyList.splice(i, 1);
-        this.historyList.unshift(keywords);
-        uni.setStorage({
-          key: 'search_history',
-          data: JSON.stringify(this.historyList),
-        });
+    async searchJob() {
+      const request = ++this.requestId;
+      const term = this.searchContent;
+      const scope = this.searchScopes[this.searchScopeIndex];
+      this.results = [];
+      this.status = 'loading';
+      try {
+        let rows;
+        if (scope === '词语') {
+          const { words } = await searchWords(term, { background: true });
+          if (request !== this.requestId) return;
+          rows = words.length ? (await getWords(words, { background: true })).words : [];
+        } else if (scope === '文章') {
+          const { articles } = await searchArticleId(term, { background: true });
+          if (request !== this.requestId) return;
+          rows = articles.length ? (await getArticles(articles, { background: true })).articles : [];
+        } else {
+          rows = (await searchCharacters(term, { background: true })).characters;
+        }
+        if (request === this.requestId) {
+          this.results = rows;
+          this.status = 'ready';
+        }
+      } catch {
+        if (request === this.requestId) this.status = 'error';
       }
     },
 

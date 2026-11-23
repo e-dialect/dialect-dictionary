@@ -59,8 +59,8 @@ export async function getWordDetailss(id) {
  * WD0201 获取符合条件的字词的列表-关键词
  * @returns {Promise<unknown>}
  */
-export async function searchWords(key) {
-  return request.get('/words', { search: key });
+export async function searchWords(key, options) {
+  return request.get('/words', { search: key }, options);
 }
 
 /**
@@ -77,8 +77,8 @@ export async function filterUserWords(id) {
  * @param idList{number[]} 词语id数组
  * @returns {Promise<unknown>}
  */
-export async function getWords(idList) {
-  return request.put('/words', { words: idList });
+export async function getWords(idList, options) {
+  return request.put('/words', { words: idList }, options);
 }
 
 /**

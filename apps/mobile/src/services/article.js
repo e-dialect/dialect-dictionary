@@ -51,8 +51,8 @@ export async function getArticle(id) {
  * AT0201 搜索符合条件的文章
  * @returns {Promise<number[]>} 文章id列表
  */
-export async function searchArticleId(key) {
-  if (key) return request.get('/articles', { search: key });
+export async function searchArticleId(key, options) {
+  if (key) return request.get('/articles', { search: key }, options);
   return request.get('/articles');
 }
 
@@ -61,8 +61,8 @@ export async function searchArticleId(key) {
  * @param idList{number[]} 文章id数组
  * @returns {Promise<unknown>}
  */
-export async function getArticles(idList) {
-  return request.put('/articles', { articles: idList });
+export async function getArticles(idList, options) {
+  return request.put('/articles', { articles: idList }, options);
 }
 
 /**
