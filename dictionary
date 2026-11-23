@@ -83,11 +83,18 @@ def main():
         version_record(); print('已初始化。可先 ./dictionary preview 资料包路径，再 ./dictionary start。'); return
     if args.action == 'version': print(json.dumps(version_record(), ensure_ascii=False, indent=2)); return
     if args.action == 'preview':
-        if not rest: fail('用法：./dictionary preview 资料目录或.zip [--publish]')
+        preview = argparse.ArgumentParser(prog='./dictionary preview', allow_abbrev=False,
+                                          usage='%(prog)s 资料目录或.zip [--publish]')
+        preview.add_argument('package', metavar='资料目录或.zip')
+        preview.add_argument('--publish', action='store_true', help='检查包内公开授权声明')
+        options = preview.parse_args(rest)
         spec = importlib.util.spec_from_file_location('resource_package_preview', ROOT / 'apps/backend/hinghwa-dict-backend/word/resource_packages.py')
         module = importlib.util.module_from_spec(spec); sys.modules[spec.name] = module; spec.loader.exec_module(module)
-        plan = module.validate_package(Path(rest[0]), publish='--publish' in rest[1:])
-        print(json.dumps(module.preview_summary(plan), ensure_ascii=False, indent=2))
+        plan = module.validate_package(Path(options.package), publish=options.publish)
+        summary = module.preview_summary(plan)
+        summary['previewMode'] = 'publish' if options.publish else 'private'
+        print('公开导入前校验' if options.publish else '普通预览（默认私有导入）', file=sys.stderr)
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
         if plan.get('errors'): raise SystemExit(1)
         return
     if args.action != "stop": validate_instance(use_proxy, args.traefik_standalone)

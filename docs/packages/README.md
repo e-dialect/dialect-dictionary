@@ -63,7 +63,7 @@ ZIP 内也直接放这三项，不能再套一层 `my-package/`。不解压到�
 ./dictionary preview "/你的路径/已授权公开资料包.zip" --publish
 ```
 
-第二条额外检查包内公开授权声明，仍不写入或发布。应用导入需要已启动、完成初始化的后端和已有登录用户名；不是数据库ID，不默认user1。没有账号时由你自行运行 `./dictionary manage createsuperuser`，按提示设置自己的凭据。导入命令不会替你创建可登录账号：
+第二条额外检查包内公开授权声明，仍不写入或发布。JSON 的 `previewMode` 对应普通预览 `private` 或公开导入前校验 `publish`。参数拼写错误会打印用法并退出。应用导入需要已启动、完成初始化的后端和已有登录用户名；不是数据库ID，不默认user1。没有账号时由你自行运行 `./dictionary manage createsuperuser`，按提示设置自己的凭据。导入命令不会替你创建可登录账号：
 
 ```sh
 ./dictionary import "/你的路径/资料目录或资料包.zip" --importer 你的用户名
