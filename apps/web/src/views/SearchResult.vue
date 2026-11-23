@@ -1,9 +1,5 @@
 <template>
-  <a-spin
-    :delay="500"
-    :spinning="spinning"
-    style="width: 90%"
-  >
+  <div style="width: 90%">
     <a-card>
       <template slot="title">
         <a-input-search
@@ -14,41 +10,49 @@
           @search="search(searchContent)"
         />
       </template>
-      <div v-if="$featureEnabled('pinyin') && Chinese.length">
-        <h1>听句子</h1>
-        <a-button icon="sound" @click="playWords()" style="margin-left:100px">
-          我已保护好耳朵，坚持试听一下
-        </a-button>
-        <a-divider></a-divider>
-      </div>
-      <div v-if="Chinese.length">
-        <h1>查单字</h1>
+      <p v-if="!keyWords">请输入要查询的内容。</p>
+      <template v-else>
+        <div v-if="$featureEnabled('pinyin') && Chinese.length">
+          <h1>听句子</h1>
+          <a-button icon="sound" @click="playWords()" style="margin-left:100px">
+            我已保护好耳朵，坚持试听一下
+          </a-button>
+          <a-divider></a-divider>
+        </div>
+        <div v-if="Chinese.length">
+          <h1>查单字</h1>
+          <a-row justify="space-around" type="flex">
+            <PinyinList
+              :key="keyWords"
+              :key-words="Chinese"
+              style="width: 80%"
+            />
+          </a-row>
+          <a-divider></a-divider>
+        </div>
+        <h1>查词语</h1>
         <a-row justify="space-around" type="flex">
-          <PinyinList
-            :key-words="Chinese"
+          <span v-if="loading.words" role="status">正在查询词语…</span>
+          <a-button v-else-if="failed.words" @click="loadResults('words', requestId)">词语加载失败，重试</a-button>
+          <WordList v-else
+            :list-data="words"
+            :page-size="8"
             style="width: 80%"
           />
         </a-row>
         <a-divider></a-divider>
-      </div>
-      <h1>查词语</h1>
-      <a-row justify="space-around" type="flex">
-        <WordList
-          :list-data="words"
-          :page-size="8"
-          style="width: 80%"
-        />
-      </a-row>
-      <a-divider></a-divider>
-      <h1>查文章</h1>
-      <a-row justify="space-around" type="flex">
-        <ArticleList
-          :list-data="articles"
-          :page-size="8"
-          style="width: 80%"/>
-      </a-row>
+        <h1>查文章</h1>
+        <a-row justify="space-around" type="flex">
+          <span v-if="loading.articles" role="status">正在查询文章…</span>
+          <a-button v-else-if="failed.articles" @click="loadResults('articles', requestId)">文章加载失败，重试</a-button>
+          <ArticleList v-else
+            :list-data="articles"
+            :page-size="8"
+            style="width: 80%"/>
+        </a-row>
+      </template>
     </a-card>
-  </a-spin>
+  </div>
 </template>
 
 <script>
@@ -68,18 +72,14 @@ export default {
     'keyWords'
   ],
   computed: {
-    spinning () {
-      for (const key in this.loading) {
-        if (this.loading[key] === true) return true
-      }
-      return false
-    },
     Chinese () {
-      return this.keyWords.toString().replaceAll(/[^\u4e00-\u9fa5]/ig, '')
+      return (this.keyWords || '').replaceAll(/[^\u4e00-\u9fa5]/ig, '')
     }
   },
   data () {
     return {
+      requestId: 0,
+      failed: { words: false, articles: false },
       loading: {
         articles: false,
         words: false
@@ -104,42 +104,40 @@ export default {
     }
   },
   methods: {
-    loadingData () {
-      this.searchContent = this.keyWords
-      for (const i in this.loading) {
-        this.loading[i] = true
+    async loadResults (resource, request) {
+      this.loading[resource] = true
+      this.failed[resource] = false
+      try {
+        const { data } = await axios.get('/' + resource, { params: { search: this.keyWords } })
+        if (request === this.requestId) this[resource] = data[resource]
+      } catch {
+        if (request === this.requestId) this.failed[resource] = true
+      } finally {
+        if (request === this.requestId) this.loading[resource] = false
       }
-      axios.get('/articles', { params: { search: this.keyWords } }).then(res => {
-        this.articles = res.data.articles
-      }).finally(() => {
-        this.loading.articles = false
-      })
-      axios.get('/words', { params: { search: this.keyWords } }).then(res => {
-        this.words = res.data.words
+    },
+    async loadingData () {
+      const request = ++this.requestId
+      this.searchContent = this.keyWords || ''
+      this.words = []
+      this.articles = []
+      this.loading = { articles: false, words: false }
+      this.failed = { articles: false, words: false }
+      this.pronunciation = { url: '', loading: false, disabled: true }
+      if (!this.searchContent) return
+      this.loadResults('words', request)
+      this.loadResults('articles', request)
+      if (!this.Chinese || !this.$featureEnabled('pinyin')) return
+      this.pronunciation.loading = true
+      try {
+        const { data } = await axios.get('/pronunciation/combine', { params: { words: this.Chinese } })
+        if (request === this.requestId) this.pronunciation = { url: data.url, loading: false, disabled: !data.url }
+      } catch {
+        if (request === this.requestId) this.pronunciation.loading = false
       }
-      ).finally(() => {
-        this.loading.words = false
-      })
-      this.pronunciation = {
-        url: '',
-        loading: true,
-        disabled: false
-      }
-      if (!this.$featureEnabled('pinyin')) {
-        this.pronunciation.loading = false
-        this.pronunciation.disabled = true
-        return
-      }
-      axios.get('pronunciation/combine', { params: { words: this.Chinese } }).then(res => {
-        this.pronunciation.url = res.data.url
-      }).catch(() => {
-        this.pronunciation.disabled = true
-        this.$message.destroy()
-      }).finally(() => {
-        this.pronunciation.loading = false
-      })
     },
     search (content) {
+      content = content.trim()
       if (content) {
         if (content !== this.keyWords) {
           this.$router.push({

@@ -13,8 +13,8 @@ export async function getCharacters(idList) {
  * CH0203-2 多汉字搜索
  * @returns {Promise<unknown>}
  */
-export async function searchCharacters(key) {
-  return request.get('/characters/words/v2', { search: key });
+export async function searchCharacters(key, options) {
+  return request.get('/characters/words/v2', { search: key }, options);
 }
 
 /**

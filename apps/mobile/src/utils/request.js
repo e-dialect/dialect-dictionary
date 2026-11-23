@@ -2,8 +2,10 @@ import { BASE_URL } from '@/const/urls';
 import { toLoginPage } from '@/routers/login';
 
 // TODO remove noPrompt
-const request = (method = 'GET', url = '', data = {}, noPrompt = false) => {
-  uni.showLoading({
+const request = (method = 'GET', url = '', data = {}, options = false) => {
+  const background = options?.background === true;
+  const noPrompt = options === true || background;
+  if (!background) uni.showLoading({
     title: '加载中',
     mask: true,
   });
@@ -19,7 +21,7 @@ const request = (method = 'GET', url = '', data = {}, noPrompt = false) => {
         },
         dataType: 'json',
       }).then((res) => {
-        uni.hideLoading();
+        if (!background) uni.hideLoading();
         // 如果正常返回，则根据状态码进行处理
         if (res.statusCode >= 200 && res.statusCode < 400) resolve(res.data);
         else {
@@ -66,8 +68,8 @@ const request = (method = 'GET', url = '', data = {}, noPrompt = false) => {
           reject(res);
         }
       }).catch((error) => {
-        uni.hideLoading();
-        uni.showToast({
+        if (!background) uni.hideLoading();
+        if (!background) uni.showToast({
           title: '网络错误',
           icon: 'error',
         });
