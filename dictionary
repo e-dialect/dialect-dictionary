@@ -5,9 +5,11 @@ sys.dont_write_bytecode = True
 
 import argparse
 import importlib.util
+import ipaddress
 import json
 import os
 from pathlib import Path
+from urllib.parse import urlsplit
 import re
 import subprocess
 import sys
@@ -66,6 +68,34 @@ def validate_instance(traefik=False, standalone=False):
         if config['apiBase'] not in ['/api', 'https://' + domain + '/api']: fail('Traefik使用同域/api端点。')
     return config
 
+def check_local_urls(site, port):
+    for field in ('webUrl', 'mobileUrl'):
+        url = urlsplit(site[field])
+        try:
+            local = ipaddress.ip_address(url.hostname).is_loopback
+        except ValueError:
+            local = url.hostname == 'localhost'
+        effective_port = url.port or (443 if url.scheme == 'https' else 80)
+        if local and str(effective_port) != str(port):
+            print(f"提示：站点配置的 {field} 使用端口 {effective_port}，.env 的 HTTP_PORT 为 {port}。"
+                  f"若使用本机直连，请同步修改站点配置的 {field} 或 HTTP_PORT。", file=sys.stderr)
+
+
+def show_access_urls(compose, site, proxy):
+    if proxy:
+        web_url, mobile_url = site['webUrl'], site['mobileUrl']
+    else:
+        binding = subprocess.run(compose + ['port', 'website', '8080'], capture_output=True, text=True)
+        address = binding.stdout.strip().splitlines()
+        if binding.returncode or not address:
+            print('网页入口尚无端口映射。请检查 website 服务状态。', file=sys.stderr)
+            return
+        web_url = 'http://' + address[0]
+        mobile_url = web_url + '/mobile'
+    print('电脑端：' + web_url.rstrip('/') + '/')
+    print('手机端：' + mobile_url.rstrip('/') + '/')
+
+
 def main():
     parser = argparse.ArgumentParser(description='词典：初始化、启动、资料包预览/导入、输入法词库导出和日常管理。')
     modes = parser.add_mutually_exclusive_group()
@@ -97,7 +127,11 @@ def main():
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         if plan.get('errors'): raise SystemExit(1)
         return
-    if args.action != "stop": validate_instance(use_proxy, args.traefik_standalone)
+    if args.action != "stop":
+        site = validate_instance(use_proxy, args.traefik_standalone)
+        if not use_proxy and args.action in ('start', 'check'):
+            values = env_values(ROOT / '.env')
+            check_local_urls(site, os.environ.get('HTTP_PORT', values.get('HTTP_PORT')) or '18080')
     compose = ['docker', 'compose', '--env-file', '.env']
     if use_proxy: compose += ['--env-file', '.env.traefik-standalone' if args.traefik_standalone else '.env.traefik']
     compose += ['-f', 'compose.yaml']
@@ -158,6 +192,8 @@ def main():
         destination = '/import-package.zip' if path.is_file() else '/import-package'
         command = compose + ['run', '--rm', '--no-deps', '--entrypoint', 'python', '-v', str(path) + ':' + destination + ':ro', 'backend', '/app/manage-command.py', 'import_resource_package', destination, '--apply'] + rest[1:]
     subprocess.run(command, check=True)
+    if args.action == 'start':
+        show_access_urls(compose, site, use_proxy)
 
 if __name__ == '__main__':
     try: main()

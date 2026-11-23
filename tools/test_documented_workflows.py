@@ -45,6 +45,33 @@ class DocumentedWorkflowTests(unittest.TestCase):
             shutil.copyfile(ROOT / source / name, target)
         subprocess.run([sys.executable, str(root / 'dictionary'), 'init'], cwd=root, check=True, capture_output=True)
 
+    def test_local_ports_and_successful_start_addresses(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.fixture(root)
+            docker = root / 'docker'
+            docker.write_text("#!/bin/sh\ncase \" $* \" in *' port website 8080 '*) echo 127.0.0.1:18081;; esac\n")
+            docker.chmod(0o700)
+            env = dict(os.environ, PATH=str(root) + os.pathsep + os.environ['PATH'], HTTP_PORT='18081')
+            def invoke(*args):
+                return subprocess.run([sys.executable, str(root / 'dictionary'), *args],
+                                      cwd=root, env=env, text=True, capture_output=True, check=True)
+            checked = invoke('check')
+            for field in ['webUrl', 'mobileUrl', 'HTTP_PORT', '18080', '18081']:
+                self.assertIn(field, checked.stderr)
+            started = invoke('start', '--no-build')
+            self.assertIn('电脑端：http://127.0.0.1:18081/', started.stdout)
+            self.assertIn('手机端：http://127.0.0.1:18081/mobile/', started.stdout)
+            site = root / 'config/site.json'
+            site.write_text(site.read_text().replace('18080', '18081'))
+            self.assertNotIn('HTTP_PORT', invoke('check').stderr)
+            env_file = root / '.env.traefik'
+            shutil.copyfile(ROOT / '.env.traefik.example', env_file)
+            domain = re.search(r'^DOMAIN=(.+)$', env_file.read_text(), re.M)[1]
+            site.write_text(site.read_text().replace('http://localhost:18081', 'https://' + domain))
+            proxy = invoke('--traefik', 'start', '--no-build')
+            self.assertIn('手机端：https://' + domain + '/mobile/', proxy.stdout)
+
     def test_quoted_directory_and_zip_preview(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
