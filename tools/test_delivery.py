@@ -8,6 +8,7 @@ import sqlite3
 import tarfile
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from offline_snapshot import backup, restore, file_hash
 from verify_package import verify
@@ -67,6 +68,14 @@ class RecoveryTests(unittest.TestCase):
         self.assertFalse((self.root / "closed/config/feature-policy.json").exists())
         manifest = json.loads((self.root / "closed/SNAPSHOT.json").read_text())
         self.assertIsNone(manifest["effectiveConfig"]["policy"])
+
+    def test_legacy_directory_refuses_an_inactive_example_policy(self):
+        active = self.root / 'active-policy.json'
+        active.write_text('{"enabled":true}')
+        with patch.dict('os.environ', FEATURE_POLICY_PATH=str(active)):
+            with self.assertRaisesRegex(ValueError, 'differs from the effective'):
+                self.make()
+        self.assertFalse(self.archive.exists())
 
     def test_no_backup_or_restore_overwrite(self):
         self.make()

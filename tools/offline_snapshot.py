@@ -39,8 +39,16 @@ def backup(data, config, release, output, *, site=None, policy=None, allow_missi
     effective = None
     if config is not None:
         directories.append(("config", config))
-        if not (config / "site.json").is_file() or not (config / "feature-policy.example.json").is_file():
-            raise ValueError("Custom site/policy layout: use --instance inside the configured backend container")
+        for filename, variable in (("site.json", "DICTIONARY_CONFIG"),
+                                   ("feature-policy.example.json", "FEATURE_POLICY_PATH")):
+            candidate = config / filename
+            runtime_path = os.environ.get(variable)
+            if not candidate.is_file():
+                raise ValueError("Custom site/policy layout: use --instance inside the configured backend container")
+            if runtime_path:
+                active = Path(runtime_path)
+                if not active.is_file() or file_hash(active) != file_hash(candidate):
+                    raise ValueError(f"{filename} differs from the effective {variable}; use --instance")
     else:
         if not site or not site.is_file() or site.is_symlink():
             raise ValueError("Effective DICTIONARY_CONFIG must be a regular file")
