@@ -1,6 +1,6 @@
 <template>
   <view>
-    <cu-custom title="语记·词单" />
+    <cu-custom :title="$site.shortName + '·词单'" />
     <div class="title-text">
       <h1 class="animated-title">
         当前总词单数：{{ listNum }}

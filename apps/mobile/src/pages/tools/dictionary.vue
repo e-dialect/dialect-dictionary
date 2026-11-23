@@ -1,6 +1,6 @@
 <template>
   <view v-if="$featureEnabled('pinyin')">
-    <cu-custom title="语记·词典" />
+    <cu-custom :title="$site.shortName + '·词典'" />
     <view class="cu-card dynamic">
       <view class="cu-item padding">
         <view class="cu-bar">
@@ -128,7 +128,7 @@ export default {
   },
   onShareAppMessage() {
     return {
-      title: '语记·词典',
+      title: `${this.$site.shortName}·词典`,
       path: '/pages/tools/dictionary',
       ...defaultMessage(),
     };

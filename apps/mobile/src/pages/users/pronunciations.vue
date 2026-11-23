@@ -1,6 +1,6 @@
 <template>
   <view>
-    <cu-custom title="语记·语音" />
+    <cu-custom :title="$site.shortName + '·语音'" />
     <view @tap="toVoiceRankListPage()">
       <button
         class="cu-btn bg-gradual-blue shadow text-df margin"

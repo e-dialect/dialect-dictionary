@@ -1,6 +1,6 @@
 <template>
   <view v-if="$featureEnabled('quiz')">
-    <cu-custom title="语记·分数海报" />
+    <cu-custom :title="$site.shortName + '·分数海报'" />
     <view class="score-container">
       <image
         :src="imagesUrl"

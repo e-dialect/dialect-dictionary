@@ -1,7 +1,7 @@
 <template>
   <view>
     <cu-custom
-      title="语记·互动"
+      :title="$site.shortName + '·互动'"
       :is-back="false"
     />
     <!--  #ifndef MP-WEIXIN -->

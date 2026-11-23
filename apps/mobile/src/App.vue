@@ -127,12 +127,6 @@ page {
   height: 100vh;
 }
 
-.layout-index {
-  position: absolute;
-  top: 45%;
-  width: 100vw;
-}
-
 .layout-index-login {
   position: absolute;
   top: 33%;

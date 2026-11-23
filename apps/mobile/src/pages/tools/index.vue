@@ -1,7 +1,7 @@
 <template>
   <view>
     <cu-custom
-      title="语记·工具"
+      :title="$site.shortName + '·工具'"
       :is-back="false"
     />
     <scroll-view
@@ -79,7 +79,7 @@ export default {
   },
   onShareAppMessage() {
     return {
-      title: '语记·工具',
+      title: `${this.$site.shortName}·工具`,
       path: '/pages/tools/index',
       ...defaultMessage(),
     };

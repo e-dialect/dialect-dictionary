@@ -100,7 +100,7 @@ export default {
   },
   onShareAppMessage() {
     return {
-      title: '语记·亲戚计算',
+      title: `${this.$site.shortName}·亲戚计算`,
       path: '/pages/tools/relative',
       ...defaultMessage(),
     };
