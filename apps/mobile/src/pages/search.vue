@@ -32,7 +32,7 @@
       <!--搜索类型-->
       <view class="flex bg-white">
         <view
-          v-for="(scope,index) in searchScopes"
+          v-for="index in visibleScopes"
           :key="index"
           class="flex-sub text-center title"
         >
@@ -40,7 +40,7 @@
             :class="index===searchScopeIndex ? 'w_after' : 'w_active'"
             @click="checkout(index)"
           >
-            {{ scope }}
+            {{ searchScopes[index] }}
           </view>
         </view>
       </view>
@@ -138,9 +138,15 @@ export default {
       requestId: 0,
     };
   },
+  computed: {
+    visibleScopes() {
+      // Preserve the original indices used in shared links.
+      return this.$featureEnabled('pinyin') ? [0, 1, 2] : [0, 2];
+    },
+  },
   onLoad(option) {
     const index = Number(option.index);
-    if (this.searchScopes[index]) this.searchScopeIndex = index;
+    if (this.visibleScopes.includes(index)) this.searchScopeIndex = index;
     try {
       const stored = JSON.parse(uni.getStorageSync('search_history'));
       if (Array.isArray(stored)) this.historyList = stored.filter(item => typeof item === 'string');

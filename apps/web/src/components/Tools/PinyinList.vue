@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="$featureEnabled('pinyin')">
     <a-spin
       :delay="500"
       :spinning="loading">
@@ -27,7 +27,8 @@
           </div>
         </a-collapse-panel>
       </a-collapse>
-      <a-empty v-else description="暂无数据"/>
+      <a-button v-else-if="failed" @click="getPinyin(keyWords)">字音加载失败，重试</a-button>
+      <a-empty v-else-if="!loading" description="暂无字音"/>
     </a-spin>
   </div>
 </template>
@@ -42,133 +43,34 @@ export default {
   props: ['keyWords'],
   data () {
     return {
-      loading: true,
-      characters: [
-        {
-          label: '行',
-          characters: [
-            {
-              county: '莆田',
-              town: '城里',
-              characters: [
-                {
-                  id: 135,
-                  shengmu: 'g',
-                  ipa: 'ka13',
-                  pinyin: 'ga2',
-                  yunmu: 'a',
-                  shengdiao: '2',
-                  character: '行',
-                  county: '莆田',
-                  town: '城里',
-                  word: null,
-                  source: 'null'
-                },
-                {
-                  id: 895,
-                  shengmu: 'h',
-                  ipa: 'haŋ13',
-                  pinyin: 'hang2',
-                  yunmu: 'ang',
-                  shengdiao: '2',
-                  character: '行',
-                  county: '莆田',
-                  town: '城里',
-                  word: 'null',
-                  source: 'null'
-                },
-                {
-                  id: 1504,
-                  shengmu: 'h',
-                  ipa: 'hɛŋ13',
-                  pinyin: 'heng2',
-                  yunmu: 'eng',
-                  shengdiao: '2',
-                  character: '行',
-                  county: '莆田',
-                  town: '城里',
-                  word: 'null',
-                  source: 'null'
-                },
-                {
-                  id: 3850,
-                  shengmu: 'h',
-                  ipa: 'hiŋ13',
-                  pinyin: 'hing2',
-                  yunmu: 'ing',
-                  shengdiao: '2',
-                  character: '行',
-                  county: '莆田',
-                  town: '城里',
-                  word: 'null',
-                  source: 'null'
-                },
-                {
-                  id: 4137,
-                  shengmu: 'g',
-                  ipa: 'kia13',
-                  pinyin: 'gia2',
-                  yunmu: 'ia',
-                  shengdiao: '2',
-                  character: '行',
-                  county: '莆田',
-                  town: '城里',
-                  word: 2237,
-                  source: 'null'
-                },
-                {
-                  id: 5759,
-                  shengmu: 'Ǿ',
-                  ipa: 'ŋ13',
-                  pinyin: 'ng2',
-                  yunmu: 'ng',
-                  shengdiao: '2',
-                  character: '行',
-                  county: '莆田',
-                  town: '城里',
-                  word: 4000,
-                  source: 'null'
-                }
-              ]
-            }
-          ]
-        }
-      ]
+      loading: false,
+      failed: false,
+      requestId: 0,
+      characters: []
     }
-  },
-  computed: {
-    activeKey () {
-      return [...this.characters.keys()]
-    }
-  },
-  created () {
-    this.getPinyin(this.keyWords)
   },
   watch: {
-    keyWords () {
-      this.getPinyin(this.keyWords)
+    keyWords: {
+      immediate: true,
+      handler (key) { this.getPinyin(key) }
     }
   },
   methods: {
-    getPinyin (key) {
-      if (!key) {
-        this.characters = {}
-        return
+    async getPinyin (key) {
+      const request = ++this.requestId
+      this.characters = []
+      this.failed = false
+      this.loading = Boolean(key && this.$featureEnabled('pinyin'))
+      if (!this.loading) return
+      try {
+        const { data } = await axios.get('/characters/words/v2', { params: { search: key } })
+        if (request === this.requestId) this.characters = data.characters
+      } catch {
+        if (request === this.requestId) this.failed = true
+      } finally {
+        if (request === this.requestId) this.loading = false
       }
-      this.loading = true
-      axios.get('/characters/words/v2', { params: { search: key } }).then(res => {
-        this.characters = res.data.characters
-      }).finally(() => {
-        this.loading = false
-      })
-    },
-    playSound (url) {
-      new Audio(url).play()
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>

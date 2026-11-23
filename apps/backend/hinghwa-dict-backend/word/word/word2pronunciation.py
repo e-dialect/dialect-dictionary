@@ -1,22 +1,11 @@
-from django.db.models import Q
-
 from ..models import Word, Pronunciation
 
 
 def word2pronunciation(word: Word, null=None):
-    pronunciations = word.pronunciation.filter(
-        Q(ipa__iexact=word.standard_ipa) & Q(visibility=True) & Q(source__isnull=False)
-    )
-    if pronunciations.exists():
-        source = pronunciations[0].source
-    else:
-        pronunciations = Pronunciation.objects.filter(
-            Q(ipa__iexact=word.standard_ipa)
-            & Q(visibility=True)
-            & Q(source__isnull=False)
-        )
-        if pronunciations.exists():
-            source = pronunciations[0].source
-        else:
-            source = null
-    return source
+    ipa = word.standard_ipa or ""
+    recordings = (Pronunciation.objects.filter(visibility=True, ipa=ipa)
+                  .exclude(source__in=["", "null"]).order_by("pk").values_list("source", flat=True))
+    own = recordings.filter(word=word).first()
+    if own or not ipa.strip():
+        return own or null
+    return recordings.filter(word__visibility=True).first() or null
