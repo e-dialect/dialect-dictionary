@@ -50,7 +50,12 @@ class DocumentedWorkflowTests(unittest.TestCase):
             root = Path(temporary)
             self.fixture(root)
             docker = root / 'docker'
-            docker.write_text("#!/bin/sh\ncase \" $* \" in *' port website 8080 '*) echo 127.0.0.1:18081;; esac\n")
+            real_docker = shutil.which('docker')
+            if not real_docker:
+                self.skipTest('Docker Compose executable unavailable')
+            docker.write_text(f'#!/bin/sh\ncase " $* " in\n'
+                              f'  *" config --format json "*) exec "{real_docker}" "$@";;\n'
+                              '  *" port website 8080 "*) echo 127.0.0.1:18081;;\nesac\n')
             docker.chmod(0o700)
             env = dict(os.environ, PATH=str(root) + os.pathsep + os.environ['PATH'], HTTP_PORT='18081')
             def invoke(*args):
@@ -71,6 +76,46 @@ class DocumentedWorkflowTests(unittest.TestCase):
             site.write_text(site.read_text().replace('http://localhost:18081', 'https://' + domain))
             proxy = invoke('--traefik', 'start', '--no-build')
             self.assertIn('手机端：https://' + domain + '/mobile/', proxy.stdout)
+
+    @unittest.skipUnless(shutil.which('docker'), 'Docker Compose executable unavailable')
+    def test_proxy_checks_effective_mount_and_environment_override(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.fixture(root)
+            base = root / 'config/site.json'
+            site = root / 'config/proxy-site.json'
+            site.write_text(base.read_text().replace('http://localhost:18080', 'https://dictionary.example.org'))
+            for mode in ('traefik', 'traefik-standalone'):
+                overlay = root / ('.env.' + mode)
+                overlay.write_text((ROOT / (overlay.name + '.example')).read_text()
+                                   .replace('./config/site.json', './config/proxy-site.json')
+                                   .replace('ACME_EMAIL=', 'ACME_EMAIL=ops@example.test'))
+                command = [sys.executable, 'dictionary', '--' + mode, 'check']
+                valid = subprocess.run(command, cwd=root, capture_output=True, text=True)
+                self.assertEqual(valid.returncode, 0, valid.stderr)
+                invalid = subprocess.run(command, cwd=root, capture_output=True, text=True,
+                                         env=dict(os.environ, SITE_CONFIG=str(base)))
+                self.assertNotEqual(invalid.returncode, 0)
+                self.assertIn(str(base), invalid.stderr)
+            base.write_bytes(site.read_bytes())
+            site.write_text('{"name":"incomplete"}')
+            invalid = subprocess.run(command, cwd=root, capture_output=True, text=True)
+            self.assertNotEqual(invalid.returncode, 0)
+            self.assertIn(str(site), invalid.stderr)
+
+    def test_init_isolates_new_directories_and_preserves_an_existing_project(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            files = []
+            for name in ('one', 'two'):
+                root = Path(temporary) / name
+                root.mkdir()
+                self.fixture(root)
+                files.append((root / '.env').read_text())
+            self.assertNotEqual(files[0], files[1])
+            legacy = (ROOT / '.env.example').read_bytes()
+            (root / '.env').write_bytes(legacy)
+            subprocess.run([sys.executable, 'dictionary', 'init'], cwd=root, check=True, capture_output=True)
+            self.assertEqual((root / '.env').read_bytes(), legacy)
 
     def test_quoted_directory_and_zip_preview(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -98,9 +143,10 @@ class DocumentedWorkflowTests(unittest.TestCase):
                 (root / name).write_text(content)
             # No inherited deploy parameters, credentials or live Docker context needed.
             env = {k: v for k, v in os.environ.items() if k in ['PATH', 'TMPDIR', 'SYSTEMROOT']}
-            for marker, project, proxy in [('compose-local', 'dictionary-demo', False),
-                                           ('compose-existing-traefik', 'dictionary-demo', False),
-                                           ('compose-standalone-traefik', 'dictionary-standalone', True)]:
+            project_name = re.search(r'^COMPOSE_PROJECT_NAME=(.+)$', (root / '.env').read_text(), re.M)[1]
+            for marker, project, proxy in [('compose-local', project_name, False),
+                                           ('compose-existing-traefik', project_name, False),
+                                           ('compose-standalone-traefik', project_name + '-standalone', True)]:
                 snippet = re.search(r'<!-- ' + marker + r' -->\n```sh\n(.*?)\n```', text, re.S).group(1)
                 result = subprocess.run(['bash', '-c', snippet + '\n"${DC[@]}" config --format json'], cwd=root, env=env, text=True, capture_output=True)
                 self.assertEqual(result.returncode, 0, result.stderr)

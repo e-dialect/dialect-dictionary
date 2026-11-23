@@ -6,6 +6,7 @@ sys.dont_write_bytecode = True
 import argparse
 import importlib.util
 import ipaddress
+import uuid
 import json
 import os
 from pathlib import Path
@@ -47,14 +48,13 @@ def env_values(path):
     values.update({k: v for k, v in os.environ.items() if k in values})
     return values
 
-def validate_instance(traefik=False, standalone=False):
-    if not (ROOT / '.env').exists(): fail('请先执行 ./dictionary init')
-    values = env_values(ROOT / '.env')
-    site_path = Path(os.environ.get('SITE_CONFIG', values.get('SITE_CONFIG', './config/site.json')))
-    if not site_path.is_absolute(): site_path = ROOT / site_path
+def validate_instance(site_path, traefik=False, standalone=False):
     spec = importlib.util.spec_from_file_location('dictionary_public_config', ROOT / 'apps/backend/hinghwa-dict-backend/HinghwaDict/site_config.py')
     module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
-    config = module.load_config(site_path)
+    try:
+        config = module.load_config(site_path)
+    except (OSError, ValueError) as error:
+        fail(f'站点配置 {site_path}：{error}')
     if traefik:
         path = ROOT / ('.env.traefik-standalone' if standalone else '.env.traefik')
         if not path.exists(): fail('请按 docs/traefik.md 复制 .env.traefik.example 并填写域名/已有Traefik网络。')
@@ -62,10 +62,10 @@ def validate_instance(traefik=False, standalone=False):
         if not re.fullmatch(r'(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?', domain): fail('DOMAIN必须是小写ASCII域名，不含端口或表达式。')
         for key in ['TRAEFIK_NETWORK', 'TRAEFIK_ENTRYPOINT', 'TRAEFIK_CERTRESOLVER', 'TRAEFIK_ROUTER_NAME']:
             if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]*', edge.get(key, '')): fail('无效Traefik参数：' + key)
-        if config['webUrl'].rstrip('/') != 'https://' + domain or config['mobileUrl'].rstrip('/') != 'https://' + domain + '/mobile': fail('config/site.json的webUrl/mobileUrl必须与DOMAIN的HTTPS地址一致。')
+        if config['webUrl'].rstrip('/') != 'https://' + domain or config['mobileUrl'].rstrip('/') != 'https://' + domain + '/mobile': fail(f'{site_path} 的 webUrl/mobileUrl 必须与 DOMAIN 的 HTTPS 地址一致。')
         if standalone and edge.get('TRAEFIK_ENTRYPOINT') == 'web': fail('独立Traefik的HTTPS入口不能叫web，该名保留给HTTP跳转和挑战。')
         if standalone and not re.fullmatch(r'[^\s@]+@[^\s@]+\.[^\s@]+', edge.get('ACME_EMAIL', '')): fail('独立Traefik需要运营者自己的ACME_EMAIL；配置校验不会申请证书。')
-        if config['apiBase'] not in ['/api', 'https://' + domain + '/api']: fail('Traefik使用同域/api端点。')
+        if config['apiBase'] not in ['/api', 'https://' + domain + '/api']: fail(f'{site_path} 的 apiBase 必须使用同域 /api 端点。')
     return config
 
 def check_local_urls(site, port):
@@ -108,8 +108,16 @@ def main():
     if args.action == 'init':
         for source, target in [('.env.example', '.env'), ('config/examples/coast.json', 'config/site.json')]:
             path = ROOT / target
-            if not path.exists(): path.write_bytes((ROOT / source).read_bytes())
-            else: print('保留已有配置：' + target)
+            try:
+                with path.open('x', encoding='utf-8') as output:
+                    template = (ROOT / source).read_text()
+                    if target == '.env':
+                        project = 'dictionary-' + uuid.uuid4().hex[:12]
+                        template = template.replace('COMPOSE_PROJECT_NAME=dictionary-demo', 'COMPOSE_PROJECT_NAME=' + project)
+                        template += f'DICTIONARY_STANDALONE_PROJECT={project}-standalone\n'
+                    output.write(template)
+            except FileExistsError:
+                print('保留已有配置：' + target)
         version_record(); print('已初始化。可先 ./dictionary preview 资料包路径，再 ./dictionary start。'); return
     if args.action == 'version': print(json.dumps(version_record(), ensure_ascii=False, indent=2)); return
     if args.action == 'preview':
@@ -127,21 +135,37 @@ def main():
         print(json.dumps(summary, ensure_ascii=False, indent=2))
         if plan.get('errors'): raise SystemExit(1)
         return
-    if args.action != "stop":
-        site = validate_instance(use_proxy, args.traefik_standalone)
-        if not use_proxy and args.action in ('start', 'check'):
-            values = env_values(ROOT / '.env')
-            check_local_urls(site, os.environ.get('HTTP_PORT', values.get('HTTP_PORT')) or '18080')
+    if not (ROOT / '.env').is_file(): fail('请先执行 ./dictionary init')
     compose = ['docker', 'compose', '--env-file', '.env']
     if use_proxy: compose += ['--env-file', '.env.traefik-standalone' if args.traefik_standalone else '.env.traefik']
     compose += ['-f', 'compose.yaml']
     if use_proxy: compose += ['-f', 'ops/compose/traefik.yaml']
     if args.traefik_standalone: compose += ['-f', 'ops/compose/traefik-standalone.yaml']
     if os.environ.get('DICTIONARY_SUBNET'): compose += ['-f', 'ops/compose/network.yaml']
-    if args.action == 'check': command = compose + ['config', '--quiet']
-    elif args.action == 'start':
+    config = json.loads(subprocess.check_output(compose + ['config', '--format', 'json'], text=True))
+    project = config['name']
+    volume = config['volumes']['dictionary-data']['name']
+    website = config['services']['website']
+    site_path = next(mount['source'] for mount in website['volumes'] if mount['target'] == '/config/site.json')
+    if args.action != 'stop':
+        site = validate_instance(site_path, use_proxy, args.traefik_standalone)
+    if args.action in ('start', 'check', 'stop'):
+        print(f'项目：{project}  安装目录：{ROOT}  数据卷：{volume}', flush=True)
+        if not use_proxy and args.action != 'stop':
+            port = website['ports'][0]['published']
+            print(f'本机端口：{port}  站点配置：{site_path}', flush=True)
+            check_local_urls(site, port)
+    if args.action == 'check':
+        return
+    directories = subprocess.check_output([
+        'docker', 'ps', '-a', '--filter', f'label=com.docker.compose.project={project}',
+        '--format', '{{.Label "com.docker.compose.project.working_dir"}}',
+    ], text=True).splitlines()
+    for directory in set(directories):
+        if directory and Path(directory).resolve() != ROOT:
+            fail(f'项目 {project} 已用于 {directory}（卷 {volume}）。请在原目录管理它，或为新安装设置独立的 COMPOSE_PROJECT_NAME。')
+    if args.action == 'start':
         if args.traefik_standalone:
-            config = json.loads(subprocess.check_output(compose + ['config', '--format', 'json'], text=True))
             name = config['networks']['traefik']['name']
             names = subprocess.check_output(['docker', 'network', 'ls', '--format', '{{.Name}}'], text=True).splitlines()
             if name in names:
