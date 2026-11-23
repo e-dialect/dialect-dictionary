@@ -8,6 +8,7 @@ import sqlite3
 import tarfile
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from offline_snapshot import backup, restore, file_hash
 from verify_package import verify
@@ -47,6 +48,34 @@ class RecoveryTests(unittest.TestCase):
         with contextlib.closing(sqlite3.connect(target / "data/dictionary.sqlite3")) as db:
             self.assertEqual(db.execute("SELECT text FROM words WHERE id=7").fetchone(), ("合成词",))
         self.assertEqual(self.archive.stat().st_mode & 0o777, 0o600)
+
+    def test_separate_effective_files_and_intentionally_absent_policy(self):
+        site = self.config / "community.json"
+        site.write_text('{"name":"社区词典"}')
+        policy = self.root / "custom-rule.json"
+        policy.write_text('{"enabled":false}')
+        backup(self.data, None, self.release, self.archive, site=site, policy=policy)
+        target = self.root / "separate"
+        restore(self.archive, target)
+        for name, original in [("site.json", site), ("feature-policy.json", policy)]:
+            self.assertEqual((target / "config" / name).read_bytes(), original.read_bytes())
+        policy.unlink()
+        absent = self.root / "absent.tar.gz"
+        with self.assertRaisesRegex(ValueError, "Missing effective"):
+            backup(self.data, None, self.release, absent, site=site, policy=policy)
+        backup(self.data, None, self.release, absent, site=site, policy=policy, allow_missing_policy=True)
+        restore(absent, self.root / "closed")
+        self.assertFalse((self.root / "closed/config/feature-policy.json").exists())
+        manifest = json.loads((self.root / "closed/SNAPSHOT.json").read_text())
+        self.assertIsNone(manifest["effectiveConfig"]["policy"])
+
+    def test_legacy_directory_refuses_an_inactive_example_policy(self):
+        active = self.root / 'active-policy.json'
+        active.write_text('{"enabled":true}')
+        with patch.dict('os.environ', FEATURE_POLICY_PATH=str(active)):
+            with self.assertRaisesRegex(ValueError, 'differs from the effective'):
+                self.make()
+        self.assertFalse(self.archive.exists())
 
     def test_no_backup_or_restore_overwrite(self):
         self.make()

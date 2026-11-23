@@ -40,7 +40,7 @@ if [ -n "${DICTIONARY_SUBNET:-}" ]; then DC+=(-f ops/compose/network.yaml); fi
 
 快照包括数据库、本地媒体、私有导入录音、卷内其他文件、配置和版本记录，可能包含密钥、个人信息和未公开资料。它是私有备份，不可混入公开源码包或上传公开仓库。远端对象存储内容、外部环境变量中的密钥、Traefik 和 DNS 配置需要单独保存。
 
-确认 `config/site.json` 与 `config/` 中策略文件就是实际使用的内容；若 `.env` 指向其他目录，下方 `/instance-config` 挂载须改为对应的有效配置目录。另行私下保存实际使用的 `.env`、`.env.traefik` 或 `.env.traefik-standalone` 和外部密钥来源。
+备份工具从所选 Compose 后端的实际挂载读取站点配置和贡献策略。两者可以分属不同目录并使用自定义文件名。另行私下保存实际使用的 `.env`、`.env.traefik` 或 `.env.traefik-standalone` 和外部密钥来源。
 
 记录版本和所用镜像，保存输出到自己的运维记录：
 
@@ -61,10 +61,9 @@ if [ -n "${DICTIONARY_SUBNET:-}" ]; then DC+=(-f ops/compose/network.yaml); fi
 mkdir -p backups
 "${DC[@]}" run --rm --no-deps --entrypoint python \
   -v "$PWD:/package:ro" \
-  -v "$PWD/config:/instance-config:ro" \
   -v "$PWD/backups:/backups" \
   backend /package/tools/offline_snapshot.py backup \
-  --data /data --config /instance-config \
+  --data /data --instance \
   --release /package/config/version.json \
   --output /backups/snapshot.tar.gz
 ```
@@ -72,6 +71,8 @@ mkdir -p backups
 `--no-deps` 防止启动服务，替换入口避免应用自动迁移。脚本检查 SQLite 完整性和外键，生成文件哈希清单，拒绝覆盖已有输出。已有 `snapshot.tar.gz` 时换一个新名字；保留原备份和命令返回的 SHA256。
 
 脚本为兼容快照结构，将传入的版本记录在归档内命名为 `RELEASE.json`。它仍只是本地版本记录，不是额外的发布认证或签名。
+
+新快照回执的 effectiveConfig 列出恢复用的站点和策略文件。若生效策略文件缺失，先核对挂载和路径；确实通过缺失文件关闭贡献时，可在 backup 命令中追加 --allow-missing-policy，回执中的 policy 为 null。已存在的关闭或过期策略会原样归档。
 
 备份成功后，如需继续原实例：
 
@@ -102,13 +103,13 @@ cat runtime/recovery-check/RELEASE.json
 export RESTORED_DATA="$PWD/runtime/recovery-check/data"
 export SITE_CONFIG="$PWD/runtime/recovery-check/config/site.json"
 export FEATURE_POLICY_DIRECTORY="$PWD/runtime/recovery-check/config"
-export FEATURE_POLICY_FILE=feature-policy.example.json
+export FEATURE_POLICY_FILE=feature-policy.json
 export HTTP_PORT=18082
 export BACKEND_IMAGE=你保存的后端镜像标签
 export WEBSITE_IMAGE=你保存的网站镜像标签
 ```
 
-将策略文件名改为备份时实际生效的文件名；过期策略仍应关闭，不能为恢复演练擅自延长授权。不要将 `RESTORED_DATA` 指向原实例，也不要让两个可写实例共享此目录。
+新快照按回执使用 config/site.json 和 config/feature-policy.json；policy 为 null 时保留上述策略路径并确认该文件缺失。旧版快照的 effectiveConfig 为 null，须根据旧部署记录选择实际恢复的站点和策略文件；过期策略仍应关闭，不能为恢复演练擅自延长授权。不要将 `RESTORED_DATA` 指向原实例，也不要让两个可写实例共享此目录。
 
 ```sh
 RC=(docker compose --env-file .env -p dictionary-restored -f compose.yaml -f ops/compose/restore.example.yaml)
