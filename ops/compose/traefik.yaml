@@ -1,12 +1,14 @@
 # Existing Traefik only. Requires Docker Compose >= 2.24.4 (!override).
 services:
   backend:
+    restart: unless-stopped
     environment:
       PROXY_MODE: traefik
       DOMAIN: ${DOMAIN:?Set the validated public DNS domain}
     labels:
       traefik.enable: "false"
   website:
+    restart: unless-stopped
     ports: !override []
     environment:
       PROXY_MODE: traefik

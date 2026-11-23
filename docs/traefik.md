@@ -43,6 +43,12 @@ docker compose --env-file .env --env-file .env.traefik -f compose.yaml -f ops/co
 
 检查 `website.ports` 为空、`backend` 无 published ports、`website` 同时连接项目 default 与既有外部 network、`backend` 只连接 default。然后沿用项目 onboarding 的构建/启动入口选择 Traefik 模式。`SITE_CONFIG` 挂载路径与常规模式一致。已有网络不存在时应停止并向它的管理员核对，不要自动新建同名网络或更改宿主安全策略。
 
+## 服务重启与验收
+
+两种域名部署都为 website 和 backend 设置了 `unless-stopped`。应用主进程退出或宿主机维护重启后，由 Docker 恢复之前运行的容器。执行对应模式的 `./dictionary --traefik stop` 或 `./dictionary --traefik-standalone stop` 主动停站后，容器将保持停止，直到管理员再次 start。独立模式的 proxy 同样遵循此策略。
+
+维护后用该模式的 Compose 参数执行 `ps -a`，检查 website 和 backend 均为 healthy；随后请求已配置域名的 `/healthz`，打开首页并查询一个已知公开词。若服务持续重启，查看对应服务的 `logs --tail=80`。健康检查失败但主进程尚在运行时，Docker 的重启策略不会触发，需根据日志排障。
+
 ## HTTPS 信任边界
 
 流量路径为：浏览器 HTTPS → 已有 Traefik 的 TLS router → 外部 network 上的 `website:8080` → 项目 default network 上的 `backend:8000`。本 组合文件 仅为 website 添加 labels 与外部 network；backend 显式设置 `traefik.enable=false`。
