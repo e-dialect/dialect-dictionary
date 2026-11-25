@@ -4,8 +4,10 @@ const path = require('node:path')
 const vm = require('node:vm')
 const { test } = require('node:test')
 
-const source = fs.readFileSync(path.join(__dirname, '../src/components/pagedResults.js'), 'utf8')
-  .replace("import axios from 'axios'", '')
+const pageSource = fs.readFileSync(path.join(__dirname, '../src/utils/resultPage.js'), 'utf8')
+  .replace('export function', 'function')
+const source = pageSource + '\n' + fs.readFileSync(path.join(__dirname, '../src/components/pagedResults.js'), 'utf8')
+  .replace(/^import .*$/gm, '')
   .replace('export default function', 'function')
 
 for (const resource of ['words', 'articles']) {
