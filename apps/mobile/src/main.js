@@ -1,6 +1,7 @@
 import { createSSRApp } from 'vue';
 import siteConfig, { featureEnabled } from '@/config/site';
 import { installFeatureGuards } from '@/config/features';
+import { stopAudio } from '@/utils/audio';
 import share from '@/services/shareMessages';
 
 // 全局mixins，用于实现setData等功能，请勿删除！';
@@ -18,6 +19,11 @@ export function createApp() {
   installFeatureGuards(app);
   app.mixin(Mixin);
   app.mixin(share);
+  // UniApp keeps previous pages mounted when navigating forward.
+  app.mixin({
+    onHide() { stopAudio(); },
+    onUnload() { stopAudio(); },
+  });
   return {
     app,
   };
