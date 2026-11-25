@@ -1,17 +1,20 @@
 <template>
-  <div style="width: 90%">
+  <div class="search-results">
     <a-card>
       <template slot="title">
         <a-input-search
+          ref="searchInput"
           v-model="searchContent"
-          enter-button
-          placeholder="请输入搜索内容"
+          enter-button="搜索"
+          aria-label="搜索词语或文章"
+          placeholder="输入词语、普通话释义或文章关键词"
           size="large"
           @search="search(searchContent)"
         />
       </template>
       <p v-if="!keyWords">请输入要查询的内容。</p>
       <template v-else>
+        <h1 class="search-heading">“{{ keyWords }}”的搜索结果</h1>
         <div v-if="$featureEnabled('pinyin') && Chinese.length">
           <h1>听句子</h1>
           <a-button icon="sound" @click="playWords()" style="margin-left:100px">
@@ -30,25 +33,39 @@
           </a-row>
           <a-divider></a-divider>
         </div>
-        <h1>查词语</h1>
+        <h2>词语 <span v-if="!loading.words && !failed.words" class="result-count">{{ words.length }} 条</span></h2>
+        <p v-if="!loading.words && !failed.words && words.length >= 200" class="result-hint">当前显示前 200 条相关词语，缩小关键词可以更快找到目标。</p>
         <a-row justify="space-around" type="flex">
           <span v-if="loading.words" role="status">正在查询词语…</span>
           <a-button v-else-if="failed.words" @click="loadResults('words', requestId)">词语加载失败，重试</a-button>
+          <div v-else-if="!words.length" class="result-empty" role="status">
+            <p>未找到相关词语</p>
+            <p>试试缩短关键词，或换用普通话释义。未搜到不代表这个词不存在。</p>
+            <a-button @click="$refs.searchInput.focus()">修改关键词</a-button>
+          </div>
           <WordList v-else
             :list-data="words"
             :page-size="8"
-            style="width: 80%"
+            :page="wordsPage"
+            class="result-list"
+            @page-change="changePage('words', $event)"
           />
         </a-row>
         <a-divider></a-divider>
-        <h1>查文章</h1>
+        <h2>文章 <span v-if="!loading.articles && !failed.articles" class="result-count">{{ articles.length }} 篇</span></h2>
         <a-row justify="space-around" type="flex">
           <span v-if="loading.articles" role="status">正在查询文章…</span>
           <a-button v-else-if="failed.articles" @click="loadResults('articles', requestId)">文章加载失败，重试</a-button>
+          <div v-else-if="!articles.length" class="result-empty" role="status">
+            <p>未找到相关文章</p>
+            <p>可以换用文章标题中的关键词继续搜索。</p>
+          </div>
           <ArticleList v-else
             :list-data="articles"
             :page-size="8"
-            style="width: 80%"/>
+            :page="articlesPage"
+            class="result-list"
+            @page-change="changePage('articles', $event)"/>
         </a-row>
       </template>
     </a-card>
@@ -60,6 +77,7 @@ import PinyinList from '../components/Tools/PinyinList'
 import WordList from '../components/Tools/WordList'
 import ArticleList from '../components/Articles/ArticleList'
 import axios from 'axios'
+import { resultPage } from '@/utils/resultPage'
 
 export default {
   name: 'SearchResult',
@@ -74,6 +92,12 @@ export default {
   computed: {
     Chinese () {
       return (this.keyWords || '').replaceAll(/[^\u4e00-\u9fa5]/ig, '')
+    },
+    wordsPage () {
+      return resultPage(this.$route.query.wordsPage, this.words.length, 8)
+    },
+    articlesPage () {
+      return resultPage(this.$route.query.articlesPage, this.articles.length, 8)
     }
   },
   data () {
@@ -104,6 +128,15 @@ export default {
     }
   },
   methods: {
+    changePage (resource, page) {
+      const query = { ...this.$route.query }
+      const key = resource + 'Page'
+      if (page > 1) query[key] = String(page)
+      else delete query[key]
+      if (query[key] === this.$route.query[key]) return
+      // Replace the search entry so returning from a detail opens this page.
+      this.$router.replace({ name: 'Search', query })
+    },
     async loadResults (resource, request) {
       this.loading[resource] = true
       this.failed[resource] = false
@@ -167,5 +200,11 @@ export default {
 </script>
 
 <style scoped>
-
+.search-results { width: 100%; padding-bottom: 24px; }
+.search-heading { font-size: 22px; overflow-wrap: anywhere; }
+.result-count { margin-left: 8px; color: #595959; font-size: 14px; font-weight: normal; }
+.result-hint { color: #595959; }
+.result-list { width: 100%; }
+.result-empty { width: 100%; padding: 24px; background: #fafafa; border: 1px solid #e8e8e8; border-radius: 6px; color: #595959; }
+.result-empty p:first-child { color: #262626; font-size: 16px; }
 </style>
