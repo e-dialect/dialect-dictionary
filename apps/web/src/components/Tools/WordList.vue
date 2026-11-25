@@ -21,10 +21,10 @@
                  {{ item.word.word }}
                </router-link>
             </span>
-            <span style="font-size: 80%;padding-left: 10px">
+            <span v-if="item.word.standard_pinyin" style="font-size: 80%;padding-left: 10px">
                 {{ item.word.standard_pinyin }}
               </span>
-            <span style="font-size: 80%;color: rgb(155,155,155);padding-left: 10px">
+            <span v-if="item.word.standard_ipa" style="font-size: 80%;color: rgb(155,155,155);padding-left: 10px">
                 / {{ item.word.standard_ipa }}/
               </span>
             <word-tag :tags="item.word.tags" style="margin-left: 10px"/>
