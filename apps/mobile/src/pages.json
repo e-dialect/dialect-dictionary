@@ -128,7 +128,9 @@
     },
     {
       "path": "pages/lists/index",
-      "style": {}
+      "style": {
+        "enablePullDownRefresh": true
+      }
     },
     {
       "path": "pages/lists/upload",
